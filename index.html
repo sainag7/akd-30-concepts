@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AKD 30.0 Concepts</title>
+<meta name="description" content="Three website directions for AKD 30.0, First in Flight.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..900&display=swap" rel="stylesheet">
+<style>
+:root { --navy: #13294B; --carolina: #7BAFD4; --mist: #EEF4F9; --soft: #A9C3DD; --gold: #F5B83D; }
+* { box-sizing: border-box; }
+body { margin: 0; font-family: "Archivo", system-ui, sans-serif; background: var(--navy); color: #fff; font-size: 18px; line-height: 1.55; -webkit-font-smoothing: antialiased; }
+a { color: inherit; }
+:focus-visible { outline: 3px solid var(--gold); outline-offset: 4px; }
+.wrap { width: min(1240px, 100% - 32px); margin-inline: auto; }
+header { padding: 56px 0 40px; display: grid; grid-template-columns: auto 1fr; gap: 36px; align-items: center; }
+header img { width: 190px; }
+h1 { margin: 0; font-stretch: 125%; font-weight: 900; font-size: clamp(38px, 5.4vw, 70px); line-height: .95; letter-spacing: -.02em; }
+header p { margin: 14px 0 0; color: var(--soft); max-width: 60ch; }
+.grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; padding-bottom: 40px; }
+.card { background: #0F2140; border-radius: 22px; overflow: hidden; display: flex; flex-direction: column; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .07); }
+.preview { position: relative; aspect-ratio: 16 / 10; overflow: hidden; background: #0A1830; }
+.preview iframe { position: absolute; left: 0; top: 0; width: 1280px; height: 800px; border: 0; transform-origin: 0 0; pointer-events: none; }
+.preview a { position: absolute; inset: 0; z-index: 2; }
+.body { padding: 22px 24px 26px; display: flex; flex-direction: column; gap: 14px; flex: 1; }
+.card h2 { margin: 0; font-stretch: 125%; font-weight: 800; font-size: 28px; line-height: 1.05; }
+.card p { margin: 0; color: var(--soft); font-size: 16px; }
+.card dl { margin: 0; display: grid; grid-template-columns: auto 1fr; gap: 6px 14px; font-size: 15px; }
+.card dt { color: var(--soft); }
+.card dd { margin: 0; }
+.swatches { display: flex; gap: 6px; }
+.swatches i { width: 26px; height: 26px; border-radius: 50%; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .25); }
+.open { margin-top: auto; align-self: start; text-decoration: none; font-weight: 700; font-size: 16px; padding: 12px 20px; border-radius: 999px; background: #fff; color: var(--navy); }
+.open:hover { background: var(--gold); }
+.notes { border-top: 1px solid rgba(255, 255, 255, .12); padding: 40px 0 70px; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+.notes h3 { margin: 0 0 10px; font-stretch: 125%; font-weight: 800; font-size: 22px; }
+.notes ul { margin: 0; padding-left: 20px; color: var(--soft); font-size: 16px; }
+.notes li { margin-bottom: 8px; }
+@media (max-width: 1000px) { .grid { grid-template-columns: 1fr; max-width: 640px; margin-inline: auto; } }
+@media (max-width: 700px) { header { grid-template-columns: 1fr; gap: 20px; } header img { width: 140px; } .notes { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <img src="assets/logo-white.png" alt="AKD">
+    <div>
+      <h1>AKD 30.0 website concepts</h1>
+      <p>Three directions for the First in Flight season. Each one is a full homepage with the real date, venue, partners and visitor info. Open one and scroll. The motion is where each concept comes alive.</p>
+    </div>
+  </header>
+
+  <div class="grid">
+    <article class="card">
+      <div class="preview"><iframe src="flight-deck/" title="Flight Deck preview" loading="lazy" tabindex="-1"></iframe><a href="flight-deck/" aria-label="Open Flight Deck" tabindex="-1"></a></div>
+      <div class="body">
+        <h2>Flight Deck</h2>
+        <p>Top Gun energy. The page is a fighter cockpit HUD. Scrolling climbs you from the runway to 30,000 ft, so you hit FL300 right as the page ends.</p>
+        <dl>
+          <dt>Signature</dt><dd>Altitude, speed and heading tapes driven by scroll. Headings get locked on as they arrive. The lineup is a radar scope.</dd>
+          <dt>Type</dt><dd>Saira, from condensed to extra wide</dd>
+          <dt>Palette</dt><dd><span class="swatches"><i style="background:#061424"></i><i style="background:#0E2A47"></i><i style="background:#9ED4FF"></i><i style="background:#FFB547"></i><i style="background:#E8F0F8"></i></span></dd>
+        </dl>
+        <a class="open" href="flight-deck/">Open Flight Deck</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="preview"><iframe src="kitty-hawk/" title="Kitty Hawk preview" loading="lazy" tabindex="-1"></iframe><a href="kitty-hawk/" aria-label="Open Kitty Hawk" tabindex="-1"></a></div>
+      <div class="body">
+        <h2>Kitty Hawk 1903</h2>
+        <p>The literal First in Flight. The site is the Wright brothers' patent blueprint, and the event details are the drafting notes on the Flyer.</p>
+        <dl>
+          <dt>Signature</dt><dd>The Flyer draws itself on load. A scroll-driven flight log retraces the four 1903 flights and then AKD's. Team photos are printed as cyanotypes.</dd>
+          <dt>Type</dt><dd>Old Standard TT with Architects Daughter for drafting notes</dd>
+          <dt>Palette</dt><dd><span class="swatches"><i style="background:#17426F"></i><i style="background:#0F2F52"></i><i style="background:#F2F6FB"></i><i style="background:#F4D35E"></i></span></dd>
+        </dl>
+        <a class="open" href="kitty-hawk/">Open Kitty Hawk</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="preview"><iframe src="carolina-skies/" title="Carolina Skies preview" loading="lazy" tabindex="-1"></iframe><a href="carolina-skies/" aria-label="Open Carolina Skies" tabindex="-1"></a></div>
+      <div class="body">
+        <h2>Carolina Skies</h2>
+        <p>A premium airline in Carolina blue. You start in a window seat. Scroll and the window opens into the whole sky, and the show is cleared for takeoff.</p>
+        <dl>
+          <dt>Signature</dt><dd>The cabin window expands to full screen. The lineup is a split-flap departures board. The board is a seat map, and the page ends on a runway.</dd>
+          <dt>Type</dt><dd>Archivo, expanded for livery-style headlines</dd>
+          <dt>Palette</dt><dd><span class="swatches"><i style="background:#7BAFD4"></i><i style="background:#2F6EA8"></i><i style="background:#13294B"></i><i style="background:#EEF4F9"></i><i style="background:#F5B83D"></i></span></dd>
+        </dl>
+        <a class="open" href="carolina-skies/">Open Carolina Skies</a>
+      </div>
+    </article>
+  </div>
+
+  <section class="notes">
+    <div>
+      <h3>What's real</h3>
+      <ul>
+        <li>AKD 30.0 on February 20, 2027, at the John H. Gattis–Wendell Tabb Theater</li>
+        <li>The new wings logo, partner logos, and food spots from the current site</li>
+        <li>Board committees, renamed for the theme in each concept</li>
+        <li>The countdown, which updates every day</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Still placeholder</h3>
+      <ul>
+        <li>The lineup is last season's teams, used as sample content</li>
+        <li>Ticket links, show time, hotel block, and board member names</li>
+        <li>Mix and match is fine. For example, the Carolina Skies departures board works inside Flight Deck.</li>
+      </ul>
+    </div>
+  </section>
+</div>
+<script>
+  // Scale each live preview to fit its card
+  const fit = () => document.querySelectorAll(".preview").forEach((p) => {
+    p.querySelector("iframe").style.transform = `scale(${p.clientWidth / 1280})`;
+  });
+  fit(); addEventListener("resize", fit);
+</script>
+</body>
+</html>

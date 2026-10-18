@@ -1,0 +1,617 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AKD 30.0 | Flight Deck</title>
+<meta name="description" content="Aaj Ka Dhamaka 30.0. Cleared for takeoff, February 20, 2027.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Saira:wdth,wght@50..125,300..900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --deep: #061424;
+  --night: #0A1F36;
+  --panel: #0E2A47;
+  --hud: #9ED4FF;
+  --hud-dim: rgba(158, 212, 255, .32);
+  --hud-faint: rgba(158, 212, 255, .12);
+  --amber: #FFB547;
+  --ink: #E8F0F8;
+  --muted: #8EA8C2;
+  --glow: 0 0 8px rgba(158, 212, 255, .55);
+  --wide: 125%;
+  --narrow: 75%;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; overflow-x: clip; }
+body {
+  margin: 0;
+  background: var(--deep);
+  color: var(--ink);
+  font-family: "Saira", system-ui, sans-serif;
+  font-size: 17px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+ 
+}
+img { max-width: 100%; display: block; }
+a { color: inherit; }
+:focus-visible { outline: 2px solid var(--amber); outline-offset: 3px; }
+/* Desktop gutters leave room for the speed and altitude tapes */
+.wrap { width: min(1100px, 100% - 280px); margin-inline: auto; }
+
+/* ---------- Nav ---------- */
+.nav {
+  position: fixed; inset: 0 0 auto 0; z-index: 60;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 14px clamp(16px, 3vw, 32px);
+  background: linear-gradient(var(--deep), rgba(6, 20, 36, 0));
+}
+.nav-brand img { width: 92px; }
+.nav-links { display: flex; gap: 26px; }
+.nav-links a {
+  text-decoration: none; font-stretch: var(--narrow); font-weight: 600;
+  letter-spacing: .06em; text-transform: uppercase; font-size: 14px; color: var(--muted);
+}
+.nav-links a:hover { color: var(--hud); }
+.nav-cta {
+  text-decoration: none; font-weight: 700; font-size: 14px; letter-spacing: .06em; text-transform: uppercase;
+  font-stretch: var(--narrow); padding: 9px 16px; border: 1.5px solid var(--amber); color: var(--amber);
+}
+.nav-cta:hover { background: var(--amber); color: var(--deep); }
+.nav-toggle { display: none; }
+
+/* ---------- Fixed HUD instruments ---------- */
+.hud { position: fixed; inset: 0; z-index: 40; pointer-events: none; color: var(--hud); text-shadow: var(--glow); }
+.tape {
+  position: absolute; top: 50%; width: 74px; height: 300px; transform: translateY(-50%);
+  overflow: hidden;
+  mask-image: linear-gradient(transparent, #000 22%, #000 78%, transparent);
+  -webkit-mask-image: linear-gradient(transparent, #000 22%, #000 78%, transparent);
+}
+.tape-alt { right: clamp(12px, 2.4vw, 34px); border-left: 1.5px solid var(--hud-dim); }
+.tape-spd { left: clamp(12px, 2.4vw, 34px); border-right: 1.5px solid var(--hud-dim); text-align: right; }
+.tape-col { position: absolute; left: 0; right: 0; top: 50%; will-change: transform; }
+.tape-col span {
+  position: absolute; left: 0; right: 0; height: 20px; margin-top: -10px; padding-inline: 12px;
+  font-size: 13px; font-weight: 500; font-variant-numeric: tabular-nums; font-stretch: var(--narrow);
+}
+.tape-col span::before {
+  content: ""; position: absolute; top: 50%; width: 8px; height: 1.5px; background: currentColor;
+}
+.tape-alt .tape-col span::before { left: 0; }
+.tape-spd .tape-col span::before { right: 0; }
+.readout {
+  position: absolute; top: 50%; transform: translateY(-50%); z-index: 2;
+  padding: 3px 8px; min-width: 82px; background: var(--deep); border: 1.5px solid var(--hud);
+  font-size: 17px; font-weight: 700; font-variant-numeric: tabular-nums; font-stretch: var(--narrow);
+}
+.readout small { display: block; font-size: 10px; font-weight: 500; letter-spacing: .1em; opacity: .75; }
+.readout-alt { right: clamp(12px, 2.4vw, 34px); text-align: left; }
+.readout-spd { left: clamp(12px, 2.4vw, 34px); text-align: right; }
+
+.hdg {
+  position: absolute; top: 74px; left: 50%; width: min(420px, 60vw); height: 34px; transform: translateX(-50%);
+  overflow: hidden; border-bottom: 1.5px solid var(--hud-dim);
+  mask-image: linear-gradient(90deg, transparent, #000 20%, #000 80%, transparent);
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 20%, #000 80%, transparent);
+}
+.hdg-row { position: absolute; left: 50%; top: 0; height: 100%; will-change: transform; }
+.hdg-row span {
+  position: absolute; bottom: 4px; width: 40px; margin-left: -20px; text-align: center;
+  font-size: 12px; font-weight: 600; font-stretch: var(--narrow); font-variant-numeric: tabular-nums;
+}
+.hdg-row span::after { content: ""; position: absolute; left: 50%; bottom: -4px; width: 1.5px; height: 6px; background: currentColor; }
+.hdg-caret { position: absolute; top: 108px; left: 50%; transform: translateX(-50%); width: 0; height: 0;
+  border: 6px solid transparent; border-bottom-color: var(--hud); }
+
+.phase {
+  position: absolute; left: clamp(12px, 2.4vw, 34px); bottom: 22px;
+  font-stretch: var(--narrow); font-weight: 600; font-size: 13px; letter-spacing: .12em; text-transform: uppercase;
+}
+.phase b { color: var(--amber); text-shadow: none; font-weight: 700; }
+.phase-step { display: flex; gap: 6px; margin-top: 6px; }
+.phase-step i { width: 18px; height: 3px; background: var(--hud-faint); box-shadow: none; }
+.phase-step i.on { background: var(--hud); box-shadow: var(--glow); }
+
+/* ---------- Hero ---------- */
+.hero {
+  position: relative; min-height: 100svh; display: grid; place-items: center; overflow: hidden;
+  background:
+    radial-gradient(120% 70% at 50% 100%, #1D4B78 0%, rgba(29, 75, 120, 0) 60%),
+    linear-gradient(#030B16 0%, #0A1F36 55%, #163F66 100%);
+}
+.stars { position: absolute; inset: 0; width: 100%; height: 100%; }
+.ladder {
+  position: absolute; left: 50%; top: 50%; width: 900px; height: 1400px;
+  margin: -700px 0 0 -450px; will-change: transform; color: var(--hud); opacity: .7;
+  filter: drop-shadow(0 0 4px rgba(158, 212, 255, .5));
+}
+.hero-inner { position: relative; z-index: 2; text-align: center; padding: 120px 16px 80px; }
+.hero h1 {
+  margin: 0; line-height: .82; font-weight: 900; font-stretch: var(--wide);
+  font-size: clamp(76px, 15vw, 210px); letter-spacing: -.01em; color: var(--ink);
+}
+.hero h1 .edition { display: block; color: transparent; -webkit-text-stroke: 2px var(--hud); filter: drop-shadow(var(--glow)); }
+.fpm { width: clamp(200px, 26vw, 330px); margin: clamp(18px, 3vw, 30px) auto; filter: drop-shadow(0 0 10px rgba(158, 212, 255, .45)); }
+.hero-sub {
+  margin: 0 auto; max-width: 34ch; font-size: clamp(18px, 2vw, 22px); color: var(--ink);
+}
+.hero-meta {
+  margin: 26px auto 0; display: flex; justify-content: center; flex-wrap: wrap; gap: 10px 28px;
+  font-stretch: var(--narrow); font-weight: 600; letter-spacing: .04em; color: var(--hud);
+}
+.btns { margin-top: 34px; display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+.btn {
+  display: inline-block; text-decoration: none; padding: 14px 26px; font-weight: 700; font-size: 16px;
+  font-stretch: var(--narrow); letter-spacing: .08em; text-transform: uppercase;
+  clip-path: polygon(12px 0, 100% 0, calc(100% - 12px) 100%, 0 100%);
+}
+.btn-go { background: var(--amber); color: var(--deep); }
+.btn-go:hover { background: #FFC874; }
+.btn-ghost { background: var(--hud-faint); color: var(--hud); }
+.btn-ghost:hover { background: rgba(158, 212, 255, .22); }
+
+/* ---------- Sections ---------- */
+section.band { position: relative; padding: clamp(80px, 12vw, 150px) 0; }
+.band + .band { border-top: 1px solid var(--hud-faint); }
+.band-night { background: var(--night); }
+
+.lock { position: relative; display: inline-block; padding: 14px 22px; margin: 0 0 34px -22px; }
+.lock i { position: absolute; width: 18px; height: 18px; border: 2px solid var(--hud); opacity: 0;
+  transition: transform .7s cubic-bezier(.2, .9, .2, 1), opacity .3s; filter: drop-shadow(var(--glow)); }
+.lock i:nth-child(1) { left: 0; top: 0; border-right: 0; border-bottom: 0; transform: translate(-60px, -40px); }
+.lock i:nth-child(2) { right: 0; top: 0; border-left: 0; border-bottom: 0; transform: translate(60px, -40px); }
+.lock i:nth-child(3) { left: 0; bottom: 0; border-right: 0; border-top: 0; transform: translate(-60px, 40px); }
+.lock i:nth-child(4) { right: 0; bottom: 0; border-left: 0; border-top: 0; transform: translate(60px, 40px); }
+.lock.locked i { opacity: 1; transform: none; }
+.lock .tag {
+  position: absolute; right: -6px; top: -12px; transform: translateX(100%);
+  font-size: 12px; font-weight: 700; letter-spacing: .14em; color: var(--amber);
+  opacity: 0; transition: opacity .2s .65s;
+}
+.lock.locked .tag { opacity: 1; }
+.lock h2 {
+  margin: 0; font-weight: 800; font-stretch: var(--wide); line-height: 1;
+  font-size: clamp(36px, 5.4vw, 68px); letter-spacing: -.005em;
+}
+.lede { max-width: 58ch; color: var(--muted); font-size: 19px; margin: 0 0 48px; }
+
+/* Briefing */
+.brief { display: grid; grid-template-columns: 1.15fr 1fr; gap: clamp(28px, 5vw, 72px); align-items: start; }
+.brief dl { margin: 0; display: grid; grid-template-columns: 1fr 1fr; border-top: 1.5px solid var(--hud-dim); }
+.brief dl div { padding: 18px 18px 22px 0; border-bottom: 1.5px solid var(--hud-faint); }
+.brief dl div:nth-child(odd) { border-right: 1.5px solid var(--hud-faint); }
+.brief dl div:nth-child(even) { padding-left: 18px; }
+.brief dt { font-size: 14px; color: var(--muted); }
+.brief dd { margin: 4px 0 0; font-size: 21px; font-weight: 600; font-stretch: var(--narrow); line-height: 1.25; }
+.tminus {
+  position: relative; padding: 28px 30px 30px; background: var(--deep);
+  border: 1.5px solid var(--hud-dim);
+}
+.tminus p { margin: 0; color: var(--muted); }
+.tminus .num {
+  display: block; margin: 8px 0 4px; color: var(--hud); text-shadow: var(--glow);
+  font-weight: 800; font-stretch: var(--wide); font-variant-numeric: tabular-nums; line-height: .9;
+  font-size: clamp(84px, 12vw, 150px);
+}
+.tminus .num::before { content: "T–"; font-size: .42em; vertical-align: .9em; margin-right: .1em; color: var(--amber); text-shadow: none; }
+.checklist { list-style: none; margin: 22px 0 0; padding: 18px 0 0; border-top: 1px dashed var(--hud-dim); }
+.checklist li { display: flex; justify-content: space-between; gap: 16px; padding: 5px 0; font-stretch: var(--narrow); }
+.checklist li span:last-child { font-weight: 700; color: var(--hud); }
+.checklist li.pending span:last-child { color: var(--amber); }
+
+/* Lineup / radar */
+.lineup { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(28px, 5vw, 64px); align-items: start; }
+.scope-wrap { position: sticky; top: 140px; }
+.scope { position: relative; aspect-ratio: 1; border-radius: 50%; border: 1.5px solid var(--hud-dim);
+  background:
+    radial-gradient(circle, transparent 0 24.6%, var(--hud-faint) 24.8% 25%, transparent 25.2% 49.6%, var(--hud-faint) 49.8% 50%, transparent 50.2% 74.6%, var(--hud-faint) 74.8% 75%, transparent 75.2%),
+    linear-gradient(var(--hud-faint), var(--hud-faint)) center / 1px 100% no-repeat,
+    linear-gradient(var(--hud-faint), var(--hud-faint)) center / 100% 1px no-repeat,
+    #071a2d;
+  overflow: hidden; }
+.sweep { position: absolute; inset: 0; border-radius: 50%;
+  background: conic-gradient(from 0deg, rgba(158, 212, 255, .38), rgba(158, 212, 255, 0) 70deg);
+  animation: sweep 4s linear infinite; }
+@keyframes sweep { to { transform: rotate(360deg); } }
+.blip { position: absolute; width: 10px; height: 10px; margin: -5px 0 0 -5px; border-radius: 50%;
+  background: var(--hud); box-shadow: var(--glow); transition: background .2s, transform .2s; }
+.blip.on { background: var(--amber); box-shadow: 0 0 0 6px rgba(255, 181, 71, .2), 0 0 18px var(--amber); transform: scale(1.4); }
+.blip.off { opacity: .18; }
+.pod {
+  position: absolute; inset: 22%; border-radius: 50%; overflow: hidden; opacity: 0; transition: opacity .3s;
+  border: 1.5px solid var(--amber);
+}
+.pod.show { opacity: 1; }
+.pod img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(1) contrast(1.15) brightness(.95) sepia(.2) hue-rotate(170deg) saturate(1.6); }
+.scope-label { margin-top: 14px; text-align: center; font-stretch: var(--narrow); color: var(--muted); font-size: 15px; min-height: 1.6em; }
+.scope-label b { color: var(--amber); font-weight: 700; }
+
+.div-toggle { display: inline-flex; border: 1.5px solid var(--hud-dim); margin-bottom: 18px; }
+.div-toggle button {
+  font: inherit; font-stretch: var(--narrow); font-weight: 700; letter-spacing: .06em; text-transform: uppercase; font-size: 14px;
+  padding: 9px 18px; background: none; border: 0; color: var(--muted); cursor: pointer;
+}
+.div-toggle button[aria-pressed="true"] { background: var(--hud); color: var(--deep); }
+.roster { list-style: none; margin: 0; padding: 0; counter-reset: none; }
+.roster button {
+  width: 100%; display: flex; align-items: baseline; justify-content: space-between; gap: 12px;
+  padding: 16px 4px; background: none; border: 0; border-bottom: 1px solid var(--hud-faint); color: var(--ink);
+  font: inherit; text-align: left; cursor: pointer;
+}
+.roster .t { font-size: clamp(22px, 2.6vw, 30px); font-weight: 700; font-stretch: var(--narrow); line-height: 1.15; }
+.roster .d { font-size: 13px; color: var(--muted); font-stretch: var(--narrow); white-space: nowrap; }
+.roster button:hover .t, .roster button.on .t { color: var(--amber); }
+.roster li[hidden] { display: none; }
+.sample-note { margin-top: 18px; font-size: 14px; color: var(--muted); }
+
+/* Crew */
+.crew { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 0; border-top: 1.5px solid var(--hud-dim); border-left: 1.5px solid var(--hud-faint); }
+.crew div { padding: 22px 20px 26px; border-right: 1.5px solid var(--hud-faint); border-bottom: 1.5px solid var(--hud-faint); }
+.crew h3 { margin: 0; font-size: 22px; font-weight: 700; font-stretch: var(--narrow); line-height: 1.2; }
+.crew p { margin: 4px 0 0; color: var(--muted); font-size: 15px; }
+.crew div:first-child { background: rgba(255, 181, 71, .08); }
+.crew div:first-child h3 { color: var(--amber); }
+
+/* Partners */
+.wingmen { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; }
+.wingmen figure { margin: 0; aspect-ratio: 3 / 2; background: var(--ink); display: grid; place-items: center; padding: 18px;
+  clip-path: polygon(14px 0, 100% 0, 100% calc(100% - 14px), calc(100% - 14px) 100%, 0 100%, 0 14px); }
+.wingmen img { max-height: 70px; width: auto; object-fit: contain; }
+
+/* Ground ops */
+.ops { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(28px, 5vw, 72px); }
+.ops h3 { margin: 0 0 10px; font-size: 26px; font-weight: 700; font-stretch: var(--narrow); }
+.ops p { color: var(--muted); margin: 0 0 14px; }
+.fuel { list-style: none; margin: 0; padding: 0; }
+.fuel li { padding: 12px 0; border-bottom: 1px solid var(--hud-faint); }
+.fuel a { font-weight: 700; font-size: 19px; text-decoration: none; color: var(--hud); }
+.fuel a:hover { text-decoration: underline; }
+.fuel span { display: block; color: var(--muted); font-size: 15px; }
+
+/* Footer */
+.footer { position: relative; padding: clamp(90px, 14vw, 170px) 0 60px; text-align: center; overflow: hidden;
+  background: radial-gradient(90% 60% at 50% 0%, #163F66, var(--deep) 70%); }
+.fl { font-weight: 900; font-stretch: var(--wide); line-height: .85; font-size: clamp(90px, 19vw, 260px);
+  color: transparent; -webkit-text-stroke: 2px var(--hud); filter: drop-shadow(var(--glow)); }
+.footer p { margin: 18px auto 0; max-width: 40ch; font-size: 20px; }
+.footer .small { margin-top: 70px; font-size: 14px; color: var(--muted); }
+.footer .small a { color: var(--hud); }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 900px) {
+  .wrap { width: calc(100% - 32px); }
+  .lock { margin-left: 0; }
+  .brief, .lineup, .ops { grid-template-columns: 1fr; }
+  .scope-wrap { position: relative; top: 0; max-width: 380px; width: 100%; margin-inline: auto; }
+  .wingmen { grid-template-columns: repeat(3, 1fr); }
+  .tape, .readout-spd, .hdg, .hdg-caret { display: none; }
+  .readout-alt { top: auto; bottom: 16px; transform: none; right: 16px; }
+  .phase { bottom: 16px; left: 16px; }
+  .nav-links { display: none; position: fixed; inset: 64px 0 auto 0; flex-direction: column; gap: 0; background: var(--deep); padding: 8px 16px 18px; border-bottom: 1px solid var(--hud-dim); }
+  .nav-links.open { display: flex; }
+  .nav-links a { padding: 12px 0; font-size: 16px; }
+  .nav-toggle { display: block; font: inherit; font-weight: 700; font-stretch: var(--narrow); letter-spacing: .08em; text-transform: uppercase; font-size: 14px;
+    background: none; color: var(--hud); border: 1.5px solid var(--hud-dim); padding: 8px 14px; }
+  .nav-cta { display: none; }
+}
+@media (max-width: 560px) {
+  body { font-size: 16px; }
+  .brief dl { grid-template-columns: 1fr; }
+  .brief dl div:nth-child(odd) { border-right: 0; }
+  .brief dl div:nth-child(even) { padding-left: 0; }
+  .wingmen { grid-template-columns: repeat(2, 1fr); }
+  .lock { margin-left: -14px; padding: 12px 14px; }
+  .lock .tag { display: none; }
+  .phase { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .sweep { animation: none; opacity: .5; }
+  .lock i, .lock .tag { transition: none; }
+}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <a class="nav-brand" href="#top" aria-label="AKD home"><img src="../assets/logo-white.png" alt="AKD"></a>
+  <nav class="nav-links" id="navLinks" aria-label="Main">
+    <a href="#briefing">Briefing</a>
+    <a href="#lineup">Lineup</a>
+    <a href="#crew">Board</a>
+    <a href="#partners">Partners</a>
+    <a href="#ground">Visitor info</a>
+  </nav>
+  <a class="nav-cta" href="#">Get tickets</a>
+  <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="navLinks">Menu</button>
+</header>
+
+<!-- Instruments: altitude follows scroll progress and tops out at FL300 for AKD 30.0 -->
+<div class="hud" aria-hidden="true">
+  <div class="hdg"><div class="hdg-row" id="hdgRow"></div></div>
+  <div class="hdg-caret"></div>
+  <div class="tape tape-spd"><div class="tape-col" id="spdCol"></div></div>
+  <div class="readout readout-spd"><span id="spdVal">0</span><small>KTS</small></div>
+  <div class="tape tape-alt"><div class="tape-col" id="altCol"></div></div>
+  <div class="readout readout-alt"><span id="altVal">0</span><small>ALT FT</small></div>
+  <div class="phase">Phase <b id="phaseName">Preflight</b><div class="phase-step" id="phaseStep"></div></div>
+</div>
+
+<main id="top">
+  <section class="hero" data-phase="Preflight">
+    <canvas class="stars" id="stars"></canvas>
+    <svg class="ladder" id="ladder" viewBox="-450 -700 900 1400" fill="none" stroke="currentColor" aria-hidden="true"></svg>
+    <div class="hero-inner">
+      <h1>AKD <span class="edition">30.0</span></h1>
+      <img class="fpm" src="../assets/logo-white.png" alt="AKD wings logo">
+      <p class="hero-sub">Wright place. Right time. Aaj Ka Dhamaka is cleared for takeoff into the Carolina skies.</p>
+      <div class="hero-meta"><span>February 20, 2027</span><span>John H. Gattis–Wendell Tabb Theater</span></div>
+      <div class="btns">
+        <a class="btn btn-go" href="#">Get tickets</a>
+        <a class="btn btn-ghost" href="#lineup">See the lineup</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="band band-night" id="briefing" data-phase="Taxi">
+    <div class="wrap">
+      <div class="lock"><i></i><i></i><i></i><i></i><span class="tag">LOCK</span><h2>Mission briefing</h2></div>
+      <div class="brief">
+        <div>
+          <p class="lede">AKD 30.0 is an official Legends partner competition: one night where the best collegiate Fusion and Bhangra teams in the country take the same stage.</p>
+          <dl>
+            <div><dt>Date</dt><dd>Saturday, February 20, 2027</dd></div>
+            <div><dt>Venue</dt><dd>John H. Gattis–Wendell Tabb Theater</dd></div>
+            <div><dt>Divisions</dt><dd>Fusion and Bhangra</dd></div>
+            <div><dt>Circuit</dt><dd>Legends partner competition</dd></div>
+          </dl>
+        </div>
+        <div class="tminus">
+          <p>Days until wheels up</p>
+          <span class="num" id="days">125</span>
+          <ul class="checklist">
+            <li><span>Theme reveal</span><span>Complete</span></li>
+            <li><span>Venue</span><span>Confirmed</span></li>
+            <li class="pending"><span>Lineup announcement</span><span>Standby</span></li>
+            <li class="pending"><span>Tickets</span><span>Standby</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" id="lineup" data-phase="Takeoff">
+    <div class="wrap">
+      <div class="lock"><i></i><i></i><i></i><i></i><span class="tag">LOCK</span><h2>Squadrons on radar</h2></div>
+      <div class="lineup">
+        <div class="scope-wrap">
+          <div class="scope" id="scope">
+            <div class="sweep"></div>
+            <div class="pod" id="pod"><img id="podImg" alt=""></div>
+          </div>
+          <p class="scope-label" id="scopeLabel">Pick a team to lock on.</p>
+        </div>
+        <div>
+          <div class="div-toggle" role="group" aria-label="Division">
+            <button type="button" data-div="all" aria-pressed="true">All</button>
+            <button type="button" data-div="Fusion" aria-pressed="false">Fusion</button>
+            <button type="button" data-div="Bhangra" aria-pressed="false">Bhangra</button>
+          </div>
+          <ul class="roster" id="roster"></ul>
+          <p class="sample-note">Sample lineup from last season. The AKD 30.0 lineup drops soon.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band band-night" id="crew" data-phase="Climb">
+    <div class="wrap">
+      <div class="lock"><i></i><i></i><i></i><i></i><span class="tag">LOCK</span><h2>Flight crew</h2></div>
+      <p class="lede">The AKD board, by station. Tap a crew to meet the people behind the show.</p>
+      <div class="crew" id="crewGrid"></div>
+    </div>
+  </section>
+
+  <section class="band" id="partners" data-phase="Climb">
+    <div class="wrap">
+      <div class="lock"><i></i><i></i><i></i><i></i><span class="tag">LOCK</span><h2>Wingmen</h2></div>
+      <p class="lede">The partners who fuel our dancers and keep everyone safe on show day.</p>
+      <div class="wingmen" id="wingmen"></div>
+    </div>
+  </section>
+
+  <section class="band band-night" id="ground" data-phase="Cruise">
+    <div class="wrap">
+      <div class="lock"><i></i><i></i><i></i><i></i><span class="tag">LOCK</span><h2>Ground ops</h2></div>
+      <div class="ops">
+        <div>
+          <h3>Getting here</h3>
+          <p>Fly into Raleigh–Durham International (RDU). The show is at the John H. Gattis–Wendell Tabb Theater.</p>
+          <p>Hotel block and shuttle details post here once they're confirmed.</p>
+          <h3 style="margin-top:34px">Safety &amp; wellness</h3>
+          <p>Our flight surgeons (the SWA committee) are on site all day. Find them at the wellness table by check-in.</p>
+        </div>
+        <div>
+          <h3>Refuel near campus</h3>
+          <ul class="fuel" id="fuel"></ul>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer" data-phase="Cruise">
+  <div class="fl">FL300</div>
+  <p>You've reached cruising altitude. See you on the runway, February 20.</p>
+  <div class="btns"><a class="btn btn-go" href="#">Get tickets</a><a class="btn btn-ghost" href="https://www.instagram.com/uncakd/">@uncakd</a></div>
+  <p class="small">Aaj Ka Dhamaka at UNC Chapel Hill. Concept A, Flight Deck. <a href="../index.html">All concepts</a></p>
+</footer>
+
+<script src="../assets/data.js"></script>
+<script>
+(() => {
+  const D = window.AKD;
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const $ = (s) => document.querySelector(s);
+
+  $("#days").textContent = D.daysUntil();
+
+  // Nav toggle (mobile)
+  $("#navToggle").addEventListener("click", (e) => {
+    const open = $("#navLinks").classList.toggle("open");
+    e.currentTarget.setAttribute("aria-expanded", open);
+  });
+  $("#navLinks").addEventListener("click", (e) => { if (e.target.tagName === "A") $("#navLinks").classList.remove("open"); });
+
+  // ---------- Instruments ----------
+  const ALT_MAX = 30000, ALT_PX = 64; // 64px per 1,000 ft
+  const altCol = $("#altCol");
+  for (let a = 0; a <= ALT_MAX; a += 1000) {
+    const s = document.createElement("span");
+    s.textContent = a.toLocaleString();
+    s.style.top = (-a / 1000 * ALT_PX) + "px";
+    altCol.appendChild(s);
+  }
+  const spdCol = $("#spdCol"), SPD_PX = 40; // 40px per 20 kts
+  for (let v = 0; v <= 600; v += 20) {
+    const s = document.createElement("span");
+    s.textContent = v;
+    s.style.top = (-v / 20 * SPD_PX) + "px";
+    spdCol.appendChild(s);
+  }
+  const hdgRow = $("#hdgRow"), HDG_PX = 6; // 6px per degree
+  const card = { 0: "N", 90: "E", 180: "S", 270: "W" };
+  for (let h = -60; h <= 420; h += 10) {
+    const n = ((h % 360) + 360) % 360;
+    const s = document.createElement("span");
+    s.textContent = card[n] || String(n / 10).padStart(2, "0");
+    s.style.left = (h * HDG_PX) + "px";
+    hdgRow.appendChild(s);
+  }
+
+  const phases = [...document.querySelectorAll("[data-phase]")];
+  const names = [...new Set(phases.map((p) => p.dataset.phase))];
+  $("#phaseStep").innerHTML = names.map(() => "<i></i>").join("");
+  const steps = [...$("#phaseStep").children];
+
+  // Pitch ladder
+  const ladder = $("#ladder");
+  let svg = '<line x1="-450" y1="0" x2="-120" y2="0" stroke-width="2"/><line x1="120" y1="0" x2="450" y2="0" stroke-width="2"/>';
+  for (let p = -30; p <= 30; p += 5) {
+    if (!p) continue;
+    const y = -p * 22, dash = p < 0 ? ' stroke-dasharray="10 8"' : "";
+    const tick = p > 0 ? 12 : -12;
+    svg += `<path d="M-230 ${y + tick} V${y} H-110 M110 ${y} H230 V${y + tick}" stroke-width="1.5"${dash}/>`;
+    svg += `<text x="-250" y="${y + 5}" text-anchor="end" fill="currentColor" stroke="none" font-size="16" font-family="Saira">${Math.abs(p)}</text>`;
+    svg += `<text x="250" y="${y + 5}" fill="currentColor" stroke="none" font-size="16" font-family="Saira">${Math.abs(p)}</text>`;
+  }
+  ladder.innerHTML = svg;
+
+  let lastY = scrollY, lastT = performance.now(), speed = 0, bank = 0, bankTarget = 0;
+  addEventListener("pointermove", (e) => { bankTarget = ((e.clientX / innerWidth) - .5) * -10; }, { passive: true });
+
+  function frame(t) {
+    const max = document.documentElement.scrollHeight - innerHeight;
+    const prog = max > 0 ? Math.min(1, scrollY / max) : 0;
+    const alt = Math.round(prog * ALT_MAX / 10) * 10;
+    altCol.style.transform = `translateY(${alt / 1000 * ALT_PX}px)`;
+    $("#altVal").textContent = alt.toLocaleString();
+
+    const dt = Math.max(16, t - lastT);
+    const v = Math.abs(scrollY - lastY) / dt * 1000; // px per second
+    speed += (Math.min(600, 140 + v * .35) - speed) * .08;
+    if (scrollY === 0) speed += (0 - speed) * .1;
+    lastY = scrollY; lastT = t;
+    spdCol.style.transform = `translateY(${speed / 20 * SPD_PX}px)`;
+    $("#spdVal").textContent = Math.round(speed);
+
+    const hdg = prog * 360;
+    hdgRow.style.transform = `translateX(${-hdg * HDG_PX}px)`;
+
+    if (!reduce) {
+      bank += (bankTarget - bank) * .05;
+      const pitch = Math.min(1, scrollY / innerHeight) * 12;
+      ladder.style.transform = `rotate(${bank}deg) translateY(${pitch * 22}px)`;
+    }
+
+    // Phase of flight from the section under the HUD's center line
+    let current = phases[0];
+    for (const p of phases) if (p.getBoundingClientRect().top < innerHeight * .5) current = p;
+    const idx = names.indexOf(current.dataset.phase);
+    $("#phaseName").textContent = current.dataset.phase;
+    steps.forEach((s, i) => s.classList.toggle("on", i <= idx));
+
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+
+  // Starfield
+  const cv = $("#stars"), cx = cv.getContext("2d");
+  function stars() {
+    const r = devicePixelRatio || 1;
+    cv.width = cv.offsetWidth * r; cv.height = cv.offsetHeight * r;
+    cx.clearRect(0, 0, cv.width, cv.height);
+    let seed = 7;
+    const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+    for (let i = 0; i < 220; i++) {
+      const y = rnd() * cv.height * .7;
+      cx.globalAlpha = .25 + rnd() * .6 * (1 - y / cv.height);
+      cx.fillStyle = "#DDEBFA";
+      cx.fillRect(rnd() * cv.width, y, r * (rnd() > .9 ? 2 : 1), r * (rnd() > .9 ? 2 : 1));
+    }
+  }
+  stars(); addEventListener("resize", stars);
+
+  // Lock-on headings
+  const io = new IntersectionObserver((es) => es.forEach((e) => {
+    if (e.isIntersecting) { e.target.classList.add("locked"); io.unobserve(e.target); }
+  }), { threshold: .9 });
+  document.querySelectorAll(".lock").forEach((l) => io.observe(l));
+
+  // ---------- Lineup radar ----------
+  const roster = $("#roster"), scope = $("#scope");
+  const blips = D.teams.map((t, i) => {
+    const ang = i * 2.39996 + .6, rad = 18 + (i % 4) * 8 + (i * 3 % 7);
+    const b = document.createElement("span");
+    b.className = "blip";
+    b.style.left = (50 + Math.cos(ang) * rad) + "%";
+    b.style.top = (50 + Math.sin(ang) * rad) + "%";
+    scope.appendChild(b);
+    const li = document.createElement("li");
+    li.dataset.div = t.division;
+    li.innerHTML = `<button type="button"><span class="t">${t.name}</span><span class="d">${t.division}</span></button>`;
+    roster.appendChild(li);
+    const btn = li.firstChild;
+    const lock = () => {
+      roster.querySelectorAll("button.on").forEach((x) => x.classList.remove("on"));
+      scope.querySelectorAll(".blip.on").forEach((x) => x.classList.remove("on"));
+      btn.classList.add("on"); b.classList.add("on");
+      $("#podImg").src = "../assets/teams/" + t.img; $("#podImg").alt = t.name + " team photo";
+      $("#pod").classList.add("show");
+      $("#scopeLabel").innerHTML = `Locked: <b>${t.name}</b>, ${t.division}`;
+    };
+    btn.addEventListener("mouseenter", lock);
+    btn.addEventListener("focus", lock);
+    btn.addEventListener("click", lock);
+    return { b, li, t };
+  });
+  document.querySelectorAll(".div-toggle button").forEach((btn) => btn.addEventListener("click", () => {
+    document.querySelectorAll(".div-toggle button").forEach((x) => x.setAttribute("aria-pressed", x === btn));
+    const d = btn.dataset.div;
+    blips.forEach(({ b, li, t }) => {
+      const show = d === "all" || t.division === d;
+      li.hidden = !show; b.classList.toggle("off", !show);
+    });
+  }));
+
+  // ---------- Crew, partners, food ----------
+  $("#crewGrid").innerHTML = D.crew.map((c) => `<div><h3>${c.title}</h3><p>${c.committee}</p></div>`).join("");
+  $("#wingmen").innerHTML = D.partners.map((p) => `<figure><img src="../assets/logos/${p.img}" alt="${p.name}" loading="lazy"></figure>`).join("");
+  $("#fuel").innerHTML = D.food.map((f) => `<li><a href="${f.maps}" target="_blank" rel="noopener">${f.name}</a><span>${f.note}</span></li>`).join("");
+})();
+</script>
+</body>
+</html>
