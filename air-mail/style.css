@@ -7,7 +7,7 @@
   --graphite: #6B655E;
   --air-red: #B5422F;
   --air-blue: #5B8DB8;
-  --display: "Alfa Slab One", Rockwell, serif;
+  --display: "Rye", Rockwell, serif;
   --type: "Special Elite", "Courier New", monospace;
 }
 * { box-sizing: border-box; }
@@ -29,12 +29,9 @@ a { color: inherit; }
 :focus-visible { outline: 2px dashed var(--air-red); outline-offset: 4px; }
 .wrap { width: min(1180px, 100% - 32px); margin-inline: auto; position: relative; }
 
-/* Wood-type headline like the post: outlined slab letters, pinstriped fill, offset drop shadow */
-.shaded { position: relative; margin: 0; font-family: var(--display); font-weight: 400; line-height: 1; letter-spacing: .02em; text-transform: uppercase; color: var(--ink); }
-.shaded .fill { display: inline; color: transparent; -webkit-text-stroke: .04em var(--ink); padding-right: .08em;
-  background: repeating-linear-gradient(90deg, var(--ink) 0 .04em, #F2E9D6 .04em .1em); -webkit-background-clip: text; background-clip: text;
-  -webkit-box-decoration-break: clone; box-decoration-break: clone;
-  filter: drop-shadow(.055em .055em 0 var(--ink)); }
+/* Wood-type headline: Rye in dark ink with a light sepia offset shadow */
+.shaded { position: relative; margin: 0; font-family: var(--display); font-weight: 400; line-height: 1.05; letter-spacing: .01em; text-transform: uppercase; color: var(--ink);
+  text-shadow: .045em .045em 0 rgba(181, 137, 91, .75); }
 
 h2.shaded { font-size: clamp(42px, 6.4vw, 84px); margin-bottom: 24px; }
 .lede { max-width: 56ch; font-size: 19px; margin: 0 0 40px; }
