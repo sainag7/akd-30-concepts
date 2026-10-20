@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Visitor info | AKD 30.0</title>
+<meta name="description" content="Getting to AKD 30.0, where to stay and where to eat.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,300..800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="site.css">
+<style>
+.info { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 3px solid var(--navy); }
+.info article { padding: 24px 24px 30px 0; border-bottom: 3px solid var(--navy); }
+.info article + article { padding-left: 24px; border-left: 1.5px solid rgba(19, 41, 75, .25); }
+.info h2 { margin: 0 0 12px; font-size: clamp(36px, 4vw, 56px); }
+.info p { margin: 0; color: var(--ink-soft); }
+.eat h2 { color: var(--carolina); }
+.food { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 0 40px; border-top: 3px solid var(--carolina); }
+.food li { padding: 18px 0; border-bottom: 1.5px solid rgba(123, 175, 212, .3); }
+.food a { font-stretch: 75%; font-weight: 800; text-transform: uppercase; font-size: clamp(26px, 2.6vw, 36px); line-height: 1; text-decoration: none; }
+.food a:hover { color: var(--carolina); }
+.food span { display: block; margin-top: 6px; color: #A9C3DD; font-size: 16px; }
+@media (max-width: 900px) {
+  .info { grid-template-columns: 1fr; }
+  .info article + article { padding-left: 0; border-left: 0; }
+}
+@media (max-width: 600px) { .food { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<header class="nav" data-page="visit"></header>
+
+<main>
+  <section class="page-head">
+    <div class="wrap">
+      <div class="bar"><span>Aaj Ka Dhamaka 30.0</span><span>Official Legends partner competition</span><span>02.20.2027</span></div>
+      <h1 class="cond">Visitor info</h1>
+      <p class="lede">For teams, families and anyone flying in for the show.</p>
+    </div>
+  </section>
+
+  <section class="band-paper">
+    <div class="wrap info">
+      <article>
+        <h2 class="cond">Getting here</h2>
+        <p>Fly into Raleigh–Durham International (RDU). The show is at the John H. Gattis–Wendell Tabb Theater.</p>
+      </article>
+      <article>
+        <h2 class="cond">Where to stay</h2>
+        <p>Hotel block details will be posted here once they're confirmed.</p>
+      </article>
+      <article>
+        <h2 class="cond">Safety and wellness</h2>
+        <p>The SWA committee is on site all day. Find them at the wellness table by check-in.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="band-navy eat">
+    <div class="wrap">
+      <h2 class="cond">Food near campus</h2>
+      <ul class="food" id="food"></ul>
+    </div>
+  </section>
+</main>
+
+<footer class="footer"></footer>
+
+<script src="../assets/data.js"></script>
+<script src="site.js"></script>
+<script>
+  document.querySelector("#food").innerHTML = window.AKD.food.map((f) => `<li><a href="${f.maps}" target="_blank" rel="noopener">${f.name}</a><span>${f.note}</span></li>`).join("");
+</script>
+</body>
+</html>

@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Teams | AKD 30.0</title>
+<meta name="description" content="Every team competing at AKD 30.0.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,300..800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="site.css">
+<style>
+.board-head { display: flex; justify-content: space-between; align-items: end; gap: 20px; flex-wrap: wrap; margin-bottom: 24px; }
+.board-head p { margin: 0; color: #A9C3DD; max-width: 52ch; }
+.tabs { display: inline-flex; background: rgba(255, 255, 255, .08); border-radius: 999px; padding: 4px; }
+.tabs button { font: inherit; font-weight: 700; font-size: 15px; border: 0; background: none; color: #A9C3DD; padding: 9px 18px; border-radius: 999px; cursor: pointer; }
+.tabs button[aria-pressed="true"] { background: var(--white); color: var(--navy); }
+
+/* Split-flap board */
+.board { position: relative; background: var(--board); border-radius: 18px; padding: 22px clamp(14px, 2.5vw, 30px) 26px; overflow-x: auto;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .06), 0 30px 60px rgba(0, 0, 0, .3); }
+.board-title { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+.board-title span { font-stretch: 75%; font-weight: 800; text-transform: uppercase; font-size: 26px; color: #F5B83D; letter-spacing: .01em; }
+.board-title time { font-weight: 600; color: #A9C3DD; font-size: 15px; font-variant-numeric: tabular-nums; }
+.row { display: flex; gap: 14px; padding: 5px 0; min-width: max-content; }
+.row.head { color: #7F9BB8; font-size: 13px; font-weight: 600; padding-bottom: 8px; }
+.cells { position: relative; display: flex; gap: 2px; }
+.cell { --s: clamp(12px, 1.5vw, 22px); width: calc(var(--s) * .82); height: calc(var(--s) * 1.45); display: grid; place-items: center;
+  font-size: var(--s); font-weight: 700; text-transform: uppercase; color: #F4F7FB;
+  background: linear-gradient(#1A3054 0 49%, #0A1830 49% 51%, #16294A 51%); border-radius: 3px; }
+.status .cell { color: #F5B83D; }
+.status.on-time .cell { color: #8FE3B0; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+.board-note { margin-top: 18px; color: #A9C3DD; font-size: 15px; }
+</style>
+</head>
+<body>
+
+<header class="nav" data-page="teams"></header>
+
+<main>
+  <section class="page-head">
+    <div class="wrap">
+      <div class="bar"><span>Aaj Ka Dhamaka 30.0</span><span>Official Legends partner competition</span><span>02.20.2027</span></div>
+      <h1 class="cond">Teams</h1>
+      <p class="lede">Every team competing at AKD 30.0, in the Fusion and Bhangra divisions.</p>
+    </div>
+  </section>
+
+  <section class="band-navy">
+    <div class="wrap">
+      <div class="board-head">
+        <p>Pick a division to update the board.</p>
+        <div class="tabs" role="group" aria-label="Division">
+          <button type="button" data-div="all" aria-pressed="true">All</button>
+          <button type="button" data-div="Fusion" aria-pressed="false">Fusion</button>
+          <button type="button" data-div="Bhangra" aria-pressed="false">Bhangra</button>
+        </div>
+      </div>
+      <div class="board" id="board" role="table" aria-label="Teams">
+        <div class="board-title"><span>AKD 30.0</span><time id="clock"></time></div>
+        <div id="rows"></div>
+      </div>
+      <p class="board-note">Sample board using last season's teams. The AKD 30.0 lineup is announced soon.</p>
+    </div>
+  </section>
+</main>
+
+<footer class="footer"></footer>
+
+<script src="../assets/data.js"></script>
+<script src="site.js"></script>
+<script>
+(() => {
+  const D = window.AKD;
+  const $ = (s) => document.querySelector(s);
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  const COLS = [["Flight", 6], ["Team", 26], ["Division", 7], ["Status", 9]];
+  const CHARS = " ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'.-";
+  const statuses = ["BOARDING", "ON TIME", "ON TIME", "BOARDING", "ON TIME"];
+  const CELL = "(clamp(12px, 1.5vw, 22px) * .82 + 2px)";
+  const rowsEl = $("#rows");
+  const head = document.createElement("div");
+  head.className = "row head"; head.setAttribute("role", "row");
+  head.innerHTML = COLS.map(([n, len]) => `<span role="columnheader" style="width:calc(${len} * ${CELL} - 2px)">${n}</span>`).join("");
+  rowsEl.appendChild(head);
+
+  const rowEls = D.teams.map(() => {
+    const row = document.createElement("div");
+    row.className = "row"; row.setAttribute("role", "row");
+    const groups = COLS.map(([, len], ci) => {
+      const g = document.createElement("div");
+      g.className = "cells" + (ci === 3 ? " status" : ""); g.setAttribute("role", "cell");
+      g.innerHTML = '<span class="cell" aria-hidden="true"></span>'.repeat(len) + '<span class="sr"></span>';
+      row.appendChild(g);
+      return g;
+    });
+    rowsEl.appendChild(row);
+    return groups;
+  });
+
+  function setText(group, text, delay) {
+    const cells = [...group.querySelectorAll(".cell")];
+    const target = text.toUpperCase().padEnd(cells.length).slice(0, cells.length);
+    group.lastChild.textContent = text;
+    group.classList.toggle("on-time", text === "ON TIME");
+    cells.forEach((c, i) => {
+      const want = target[i];
+      if (reduce) { c.textContent = want; return; }
+      let flips = want === " " && c.textContent.trim() === "" ? 0 : 4 + Math.floor(Math.random() * 8);
+      setTimeout(function flip() {
+        if (flips-- <= 0) { c.textContent = want; return; }
+        c.textContent = CHARS[Math.floor(Math.random() * CHARS.length)];
+        setTimeout(flip, 55);
+      }, delay + i * 18);
+    });
+  }
+
+  let division = "all";
+  function fillBoard() {
+    const list = D.teams.filter((t) => division === "all" || t.division === division);
+    rowEls.forEach((groups, r) => {
+      const t = list[r];
+      const vals = t ? [`AK ${301 + D.teams.indexOf(t)}`, t.name, t.division, statuses[r % statuses.length]] : ["", "", "", ""];
+      groups.forEach((g, ci) => setText(g, vals[ci], r * 70));
+    });
+  }
+  const io = new IntersectionObserver((es) => { if (es[0].isIntersecting) { fillBoard(); io.disconnect(); } }, { threshold: .2 });
+  io.observe($("#board"));
+  document.querySelectorAll(".tabs button").forEach((b) => b.addEventListener("click", () => {
+    document.querySelectorAll(".tabs button").forEach((x) => x.setAttribute("aria-pressed", x === b));
+    division = b.dataset.div; fillBoard();
+  }));
+  const tick = () => { $("#clock").textContent = new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }); };
+  tick(); setInterval(tick, 30000);
+})();
+</script>
+</body>
+</html>

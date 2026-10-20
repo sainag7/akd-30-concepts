@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Board | AKD 30.0</title>
+<meta name="description" content="The committees behind AKD 30.0.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,300..800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="site.css">
+<style>
+.crew { display: grid; grid-template-columns: repeat(4, 1fr); gap: 34px 20px; }
+.crew figure { margin: 0; }
+.crew .duo { aspect-ratio: 4 / 5; border-radius: 6px; }
+.crew .duo img { object-position: center 30%; }
+.crew figure:hover .duo img, .crew figure:focus-within .duo img { filter: none; mix-blend-mode: normal; }
+.crew figure:hover .duo::before, .crew figure:hover .duo::after, .crew figure:focus-within .duo::before, .crew figure:focus-within .duo::after { opacity: 0; }
+.crew figcaption { margin-top: 12px; font-stretch: 75%; font-weight: 800; text-transform: uppercase; font-size: clamp(26px, 2.6vw, 36px); line-height: .95; }
+.crew small { display: block; margin-top: 4px; font-stretch: 100%; font-weight: 500; text-transform: none; font-size: 15px; color: var(--ink-soft); }
+@media (max-width: 900px) { .crew { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 600px) { .crew { grid-template-columns: 1fr 1fr; gap: 26px 14px; } }
+</style>
+</head>
+<body>
+
+<header class="nav" data-page="board"></header>
+
+<main>
+  <section class="page-head">
+    <div class="wrap">
+      <div class="bar"><span>Aaj Ka Dhamaka 30.0</span><span>Official Legends partner competition</span><span>02.20.2027</span></div>
+      <h1 class="cond">Board</h1>
+      <p class="lede">The twelve committees behind AKD 30.0. Hover or tap a photo to see it in color.</p>
+    </div>
+  </section>
+
+  <section class="band-paper">
+    <div class="wrap">
+      <div class="crew" id="crew"></div>
+      <p class="note" style="margin-top:30px">Photos are from last season's board. Names and this year's photos go here.</p>
+    </div>
+  </section>
+</main>
+
+<footer class="footer"></footer>
+
+<script src="../assets/data.js"></script>
+<script src="site.js"></script>
+<script>
+  document.querySelector("#crew").innerHTML = window.AKD.crew.map((c) => `
+    <figure tabindex="0">
+      <div class="duo"><img src="../assets/board/${c.img}" alt="${c.committee} committee" loading="lazy"></div>
+      <figcaption>${c.committee}<small>Member names</small></figcaption>
+    </figure>`).join("");
+</script>
+</body>
+</html>

@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Event details | AKD 30.0</title>
+<meta name="description" content="Date, venue and divisions for AKD 30.0.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,300..800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="site.css">
+<style>
+.event-grid { margin: 0; display: grid; grid-template-columns: repeat(4, 1fr); border-top: 3px solid var(--navy); }
+.event-grid div { padding: 20px 20px 26px 0; border-bottom: 3px solid var(--navy); }
+.event-grid div + div { padding-left: 20px; border-left: 1.5px solid rgba(19, 41, 75, .25); }
+.event-grid dt { font-weight: 600; font-size: 15px; color: var(--ink-soft); }
+.event-grid dd { margin: 6px 0 0; font-stretch: 75%; font-weight: 800; text-transform: uppercase; font-size: clamp(30px, 3.4vw, 48px); line-height: .92; }
+
+.show { display: grid; grid-template-columns: 1.4fr 1fr; gap: clamp(30px, 6vw, 90px); align-items: center; margin-top: clamp(50px, 7vw, 90px); }
+.show h3 { margin: 0 0 10px; font-size: 26px; }
+.show p { margin: 0 0 22px; max-width: 56ch; font-size: 19px; }
+.count { justify-self: center; width: clamp(220px, 24vw, 300px); aspect-ratio: 1; border-radius: 50%; background: var(--red); color: var(--white); transform: rotate(-8deg);
+  display: grid; place-content: center; text-align: center; box-shadow: 0 20px 50px rgba(19, 41, 75, .25); }
+.count b { display: block; font-stretch: 75%; font-weight: 800; font-size: clamp(90px, 10vw, 130px); line-height: .85; }
+.count span { font-stretch: 75%; font-weight: 800; text-transform: uppercase; font-size: 22px; }
+
+.venue { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(30px, 6vw, 90px); align-items: end; }
+.venue .name { margin: 0; font-size: clamp(56px, 8vw, 120px); }
+.venue p { margin: 0 0 16px; font-size: 19px; max-width: 46ch; }
+
+@media (max-width: 900px) {
+  .event-grid { grid-template-columns: 1fr 1fr; }
+  .event-grid div:nth-child(3) { padding-left: 0; border-left: 0; }
+  .show, .venue { grid-template-columns: 1fr; }
+}
+@media (max-width: 600px) {
+  .event-grid { grid-template-columns: 1fr; }
+  .event-grid div + div { padding-left: 0; border-left: 0; }
+}
+</style>
+</head>
+<body>
+
+<header class="nav" data-page="event"></header>
+
+<main>
+  <section class="page-head">
+    <div class="wrap">
+      <div class="bar"><span>Aaj Ka Dhamaka 30.0</span><span>Official Legends partner competition</span><span>02.20.2027</span></div>
+      <h1 class="cond">Event details</h1>
+      <p class="lede">Everything you need to know about the show. Times and ticket links go live as soon as they're confirmed.</p>
+    </div>
+  </section>
+
+  <section class="band-paper">
+    <div class="wrap">
+      <dl class="event-grid">
+        <div><dt>Date</dt><dd>Sat, Feb 20, 2027</dd></div>
+        <div><dt>Venue</dt><dd>Gattis–Tabb Theater</dd></div>
+        <div><dt>Divisions</dt><dd>Fusion and Bhangra</dd></div>
+        <div><dt>Showtime</dt><dd>To be announced</dd></div>
+      </dl>
+      <div class="show">
+        <div>
+          <h3>The show</h3>
+          <p>AKD 30.0 is an official Legends partner competition. The best collegiate Fusion and Bhangra teams in the country share one stage for one night in North Carolina, the state that was first in flight.</p>
+          <h3>Schedule</h3>
+          <p>Doors, showtime and awards times will be posted here once they're confirmed.</p>
+          <a class="btn btn-red" href="#">Get tickets</a>
+        </div>
+        <div class="count" aria-label="Days until the show"><b data-days>125</b><span>days to go</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band-blue">
+    <div class="wrap venue">
+      <p class="name cond">John H. Gattis–Wendell Tabb Theater</p>
+      <div>
+        <p>Directions, parking and accessibility details will be posted here once they're confirmed.</p>
+        <a class="btn btn-navy" href="visit.html">Visitor info</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer"></footer>
+
+<script src="../assets/data.js"></script>
+<script src="site.js"></script>
+</body>
+</html>
