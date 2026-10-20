@@ -21,20 +21,20 @@ window.AKD = {
     { name: "Mehfil Mitraan Di Bhangra", division: "Bhangra", img: "mehfil-mitraan-di-bhangra.jpg" },
     { name: "Lok Naach", division: "Bhangra", img: "lok-naach.jpg" }
   ],
-  // Board committees
+  // Board committees. Photos are last season's board, used as sample content.
   crew: [
-    { committee: "Directors" },
-    { committee: "Liaisons" },
-    { committee: "Logistics" },
-    { committee: "Hospitality" },
-    { committee: "Judging" },
-    { committee: "Safety & Wellness" },
-    { committee: "Registration" },
-    { committee: "Marketing & Design" },
-    { committee: "Tech" },
-    { committee: "Finance" },
-    { committee: "Partnerships" },
-    { committee: "Social" }
+    { committee: "Directors", img: "directors.jpg" },
+    { committee: "Liaisons", img: "liaisons.jpg" },
+    { committee: "Logistics", img: "logistics.jpg" },
+    { committee: "Hospitality", img: "hospitality.jpg" },
+    { committee: "Judging", img: "judging.jpg" },
+    { committee: "Safety & Wellness", img: "swa.jpg" },
+    { committee: "Registration", img: "registration.jpg" },
+    { committee: "Marketing & Design", img: "marketing-design.jpg" },
+    { committee: "Tech", img: "tech.jpg" },
+    { committee: "Finance", img: "finance.jpg" },
+    { committee: "Partnerships", img: "partnerships.jpg" },
+    { committee: "Social", img: "social.jpg" }
   ],
   partners: [
     { name: "BUBBL'R", img: "bubblr.png" },

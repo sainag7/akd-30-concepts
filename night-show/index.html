@@ -1,0 +1,332 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AKD 30.0 | Night Show</title>
+<meta name="description" content="Aaj Ka Dhamaka 30.0. One night only, February 20, 2027.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Instrument+Serif&display=swap" rel="stylesheet">
+<style>
+:root {
+  --night: #0B1428;
+  --stage: #13203D;
+  --white: #F5F8FC;
+  --dim: #9DB0CB;
+  --carolina: #7BAFD4;
+  --amber: #FFB648;
+  --serif: "Instrument Serif", Georgia, serif;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; overflow-x: clip; }
+body { margin: 0; background: var(--night); color: var(--white); font-family: "Geist", system-ui, sans-serif; font-size: 18px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+img { max-width: 100%; display: block; }
+a { color: inherit; }
+:focus-visible { outline: 2px solid var(--amber); outline-offset: 4px; }
+.wrap { width: min(1240px, 100% - 32px); margin-inline: auto; }
+h2 { font-family: var(--serif); font-weight: 400; font-size: clamp(56px, 8vw, 116px); line-height: .9; letter-spacing: -.01em; margin: 0 0 30px; }
+.lede { color: var(--dim); max-width: 52ch; font-size: 19px; margin: 0 0 44px; }
+
+/* Runway lights: amber dots used as section dividers */
+.runway { height: 10px; background: radial-gradient(circle, var(--amber) 0 2.5px, transparent 3.5px) 0 50% / 34px 10px repeat-x; opacity: .7; }
+
+/* ---------- Nav ---------- */
+.nav { position: fixed; z-index: 30; inset: 0 0 auto; transition: background .3s; }
+.nav.solid { background: rgba(11, 20, 40, .88); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
+.nav .wrap { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 16px 0; }
+.nav img { width: 96px; }
+.nav ul { display: flex; gap: 30px; list-style: none; margin: 0; padding: 0; }
+.nav ul a { text-decoration: none; font-size: 15px; color: var(--dim); }
+.nav ul a:hover { color: var(--white); }
+.btn { display: inline-block; text-decoration: none; font-weight: 600; font-size: 16px; padding: 14px 26px; border-radius: 999px; }
+.btn-amber { background: var(--amber); color: var(--night); }
+.btn-amber:hover { background: #FFC873; }
+.btn-ghost { box-shadow: inset 0 0 0 1.5px rgba(245, 248, 252, .5); }
+.btn-ghost:hover { box-shadow: inset 0 0 0 1.5px var(--white); }
+.nav .btn { padding: 10px 18px; font-size: 14px; }
+
+/* ---------- Hero ---------- */
+.hero { position: relative; height: 100vh; height: 100svh; min-height: 620px; overflow: hidden; display: grid; place-items: center; text-align: center; }
+.slides { position: absolute; inset: 0; }
+.slides img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 1.6s ease; transform: scale(1.08); }
+.slides img.on { opacity: 1; animation: drift 8s linear forwards; }
+@keyframes drift { from { transform: scale(1.08); } to { transform: scale(1.0); } }
+.hero::before { content: ""; position: absolute; inset: 0; z-index: 1;
+  background: linear-gradient(rgba(11, 20, 40, .55), rgba(11, 20, 40, .72) 60%, var(--night)); }
+.beam { position: absolute; z-index: 2; bottom: -10%; width: 70vmax; height: 140vmax; transform-origin: 50% 100%; pointer-events: none;
+  background: conic-gradient(from 180deg at 50% 100%, transparent 0deg, rgba(200, 225, 255, .26) 10deg, rgba(200, 225, 255, .04) 18deg, transparent 22deg); filter: blur(4px); mix-blend-mode: screen; }
+.beam.b1 { left: -10%; animation: sweepL 9s ease-in-out infinite alternate; }
+.beam.b2 { right: -10%; animation: sweepR 11s ease-in-out infinite alternate; }
+@keyframes sweepL { from { transform: rotate(-28deg); } to { transform: rotate(18deg); } }
+@keyframes sweepR { from { transform: rotate(26deg); } to { transform: rotate(-16deg); } }
+.hero-inner { position: relative; z-index: 3; padding: 90px 16px 40px; }
+.hero-inner img { width: clamp(150px, 16vw, 220px); margin: 0 auto 10px; }
+.hero h1 { margin: 0; font-family: var(--serif); font-weight: 400; line-height: .82; font-size: clamp(96px, 17vw, 250px); letter-spacing: -.02em; }
+.hero .tag { margin: 18px 0 0; font-size: clamp(18px, 1.8vw, 22px); color: var(--white); }
+.hero .when { margin: 6px 0 30px; color: var(--dim); }
+.hero .btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+
+/* ---------- Event ---------- */
+.event { padding: clamp(90px, 12vw, 160px) 0; }
+.event-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: clamp(30px, 6vw, 90px); align-items: start; }
+.facts { margin: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 0; border-top: 1px solid rgba(245, 248, 252, .2); }
+.facts div { padding: 20px 20px 22px 0; border-bottom: 1px solid rgba(245, 248, 252, .2); }
+.facts dt { color: var(--dim); font-size: 14px; }
+.facts dd { margin: 4px 0 0; font-family: var(--serif); font-size: 30px; line-height: 1.1; }
+.count { padding: 32px; border-radius: 20px; background: var(--stage); }
+.count .n { font-family: var(--serif); font-size: clamp(110px, 13vw, 170px); line-height: .85; color: var(--amber); display: block; }
+.count p { margin: 10px 0 0; color: var(--dim); }
+
+/* ---------- Teams: pinned, scrolls sideways ---------- */
+.teams { position: relative; height: calc(var(--n, 13) * 55vh + 100vh); }
+.teams-pin { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; display: flex; flex-direction: column; justify-content: center; }
+.teams-head { display: flex; justify-content: space-between; align-items: end; gap: 20px; flex-wrap: wrap; margin-bottom: 26px; }
+.teams-head h2 { margin: 0; }
+.teams-head p { margin: 0; color: var(--dim); }
+.track { display: flex; gap: 26px; padding-left: max(16px, calc((100vw - 1240px) / 2)); will-change: transform; }
+.panel { flex: 0 0 auto; width: min(46vw, 560px); margin: 0; }
+.panel .ph { aspect-ratio: 4 / 3; border-radius: 16px; overflow: hidden; background: var(--stage); }
+.panel img { width: 100%; height: 100%; object-fit: cover; filter: saturate(.9); }
+.panel figcaption { margin-top: 14px; }
+.panel b { font-family: var(--serif); font-weight: 400; font-size: clamp(28px, 3vw, 44px); line-height: 1; }
+.panel b { display: block; }
+.panel span { display: block; margin-top: 6px; color: var(--dim); font-size: 15px; }
+.taxi { margin-top: 34px; position: relative; height: 10px; }
+.taxi .runway { position: absolute; inset: 0; opacity: .25; }
+.taxi .lit { position: absolute; inset: 0 auto 0 0; width: 0; overflow: hidden; }
+.taxi .lit .runway { opacity: 1; width: 100vw; filter: drop-shadow(0 0 4px var(--amber)); }
+.teams-note { margin-top: 14px; color: var(--dim); font-size: 14px; }
+
+/* ---------- Board ---------- */
+.board { padding: clamp(90px, 12vw, 160px) 0; }
+.crew { display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px 20px; }
+.crew figure { margin: 0; }
+.crew .ph { aspect-ratio: 4 / 5; border-radius: 14px; overflow: hidden; background: var(--stage); }
+.crew img { width: 100%; height: 100%; object-fit: cover; object-position: center 30%; filter: grayscale(1) brightness(.85); transition: filter .4s; }
+.crew figure:hover img, .crew figure:focus-within img { filter: none; }
+.crew figcaption { margin-top: 10px; font-family: var(--serif); font-size: 26px; line-height: 1.1; }
+
+/* ---------- Partners ---------- */
+.partners { padding: 0 0 clamp(90px, 12vw, 160px); }
+.logos { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; }
+.logos figure { margin: 0; aspect-ratio: 3 / 2; border-radius: 14px; background: var(--white); display: grid; place-items: center; padding: 22px; }
+.logos img { max-height: 66px; width: auto; object-fit: contain; }
+
+/* ---------- Visitor info ---------- */
+.visit { background: var(--stage); padding: clamp(90px, 12vw, 160px) 0; }
+.visit-grid { display: grid; grid-template-columns: 1fr 1.3fr; gap: clamp(30px, 6vw, 90px); }
+.visit h3 { margin: 0 0 6px; font-family: var(--serif); font-weight: 400; font-size: 30px; }
+.visit p { margin: 0 0 28px; color: var(--dim); max-width: 46ch; }
+.food { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 0 30px; }
+.food li { padding: 14px 0; border-bottom: 1px solid rgba(245, 248, 252, .14); }
+.food a { font-weight: 600; text-decoration: none; }
+.food a:hover { color: var(--amber); }
+.food span { display: block; color: var(--dim); font-size: 15px; }
+
+/* ---------- Footer ---------- */
+.footer { padding: clamp(100px, 14vw, 180px) 0 50px; text-align: center; }
+.footer .big { font-family: var(--serif); font-size: clamp(64px, 11vw, 160px); line-height: .9; margin: 0; }
+.footer p { color: var(--dim); font-size: 19px; margin: 20px 0 30px; }
+.footer .btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+.footer .small { margin-top: 80px; font-size: 14px; }
+
+@media (max-width: 900px) {
+  .nav ul { display: none; }
+  .event-grid, .visit-grid { grid-template-columns: 1fr; }
+  .crew { grid-template-columns: repeat(3, 1fr); }
+  .logos { grid-template-columns: repeat(3, 1fr); }
+  .panel { width: 74vw; }
+}
+@media (max-width: 600px) {
+  body { font-size: 17px; }
+  .facts { grid-template-columns: 1fr; }
+  .crew { grid-template-columns: 1fr 1fr; }
+  .logos { grid-template-columns: 1fr 1fr; }
+  .food { grid-template-columns: 1fr; }
+  .panel { width: 82vw; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .beam { animation: none; }
+  .slides img.on { animation: none; transform: none; }
+  .teams { height: auto; }
+  .teams-pin { position: static; height: auto; padding: 90px 0; }
+  .track { overflow-x: auto; padding-bottom: 12px; }
+  .taxi { display: none; }
+}
+</style>
+</head>
+<body>
+
+<header class="nav" id="nav">
+  <div class="wrap">
+    <a href="#top" aria-label="AKD home"><img src="../assets/logo-white.png" alt="AKD"></a>
+    <nav aria-label="Main">
+      <ul>
+        <li><a href="#event">Event</a></li>
+        <li><a href="#teams">Teams</a></li>
+        <li><a href="#board">Board</a></li>
+        <li><a href="#partners">Partners</a></li>
+        <li><a href="#visit">Visitor info</a></li>
+      </ul>
+    </nav>
+    <a class="btn btn-amber" href="#">Get tickets</a>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="slides" id="slides" aria-hidden="true"></div>
+    <div class="beam b1" aria-hidden="true"></div>
+    <div class="beam b2" aria-hidden="true"></div>
+    <div class="hero-inner">
+      <img src="../assets/logo-white.png" alt="AKD wings logo">
+      <h1>AKD 30.0</h1>
+      <p class="tag">First in flight. One night only.</p>
+      <p class="when">February 20, 2027 at the John H. Gattis–Wendell Tabb Theater</p>
+      <div class="btns">
+        <a class="btn btn-amber" href="#">Get tickets</a>
+        <a class="btn btn-ghost" href="#teams">See the teams</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="runway" aria-hidden="true"></div>
+
+  <section class="event" id="event">
+    <div class="wrap">
+      <h2>Event details</h2>
+      <div class="event-grid">
+        <div>
+          <p class="lede">AKD 30.0 is an official Legends partner competition. The best collegiate Fusion and Bhangra teams in the country share one stage for one night.</p>
+          <dl class="facts">
+            <div><dt>Date</dt><dd>Saturday, Feb 20, 2027</dd></div>
+            <div><dt>Venue</dt><dd>Gattis–Tabb Theater</dd></div>
+            <div><dt>Divisions</dt><dd>Fusion and Bhangra</dd></div>
+            <div><dt>Showtime</dt><dd>To be announced</dd></div>
+          </dl>
+        </div>
+        <div class="count">
+          <span class="n" id="days">125</span>
+          <p>days until the curtain goes up</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="teams" id="teams">
+    <div class="teams-pin">
+      <div class="wrap teams-head">
+        <h2>Teams</h2>
+        <p>Last season's lineup, shown as sample content</p>
+      </div>
+      <div class="track" id="track"></div>
+      <div class="wrap">
+        <div class="taxi" aria-hidden="true"><div class="runway"></div><div class="lit" id="lit"><div class="runway"></div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="runway" aria-hidden="true"></div>
+
+  <section class="board" id="board">
+    <div class="wrap">
+      <h2>Board</h2>
+      <p class="lede">The committees behind AKD 30.0. Photos are from last season's board.</p>
+      <div class="crew" id="crew"></div>
+    </div>
+  </section>
+
+  <section class="partners" id="partners">
+    <div class="wrap">
+      <h2>Partners</h2>
+      <div class="logos" id="logos"></div>
+    </div>
+  </section>
+
+  <section class="visit" id="visit">
+    <div class="wrap">
+      <h2>Visitor info</h2>
+      <div class="visit-grid">
+        <div>
+          <h3>Getting here</h3>
+          <p>Fly into Raleigh–Durham International (RDU). The show is at the John H. Gattis–Wendell Tabb Theater.</p>
+          <h3>Where to stay</h3>
+          <p>Hotel block details will be posted here once they're confirmed.</p>
+          <h3>Safety &amp; wellness</h3>
+          <p>The SWA committee is on site all day. Find them at the wellness table by check-in.</p>
+        </div>
+        <div>
+          <h3>Food near campus</h3>
+          <ul class="food" id="food"></ul>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <p class="big">See you on the runway</p>
+    <p>February 20, 2027. Follow @uncakd for the lineup drop.</p>
+    <div class="btns"><a class="btn btn-amber" href="#">Get tickets</a><a class="btn btn-ghost" href="https://www.instagram.com/uncakd/">Instagram</a></div>
+    <p class="small">Aaj Ka Dhamaka at UNC Chapel Hill. Round 2, Night Show. <a href="../index.html">All concepts</a></p>
+  </div>
+</footer>
+
+<script src="../assets/data.js"></script>
+<script>
+(() => {
+  const D = window.AKD;
+  const $ = (s) => document.querySelector(s);
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  $("#days").textContent = D.daysUntil();
+
+  // Nav turns solid once you leave the hero
+  const nav = $("#nav");
+  const navIO = new IntersectionObserver(([e]) => nav.classList.toggle("solid", !e.isIntersecting), { rootMargin: "-80px 0px 0px 0px" });
+  navIO.observe($(".hero-inner"));
+
+  // ---------- Hero slideshow ----------
+  const picks = ["stanford-bhangra.jpg", "ucb-azaad.jpg", "texas-mohini.jpg", "classic-city-bhangra.jpg", "case-kismat.jpg"];
+  const slides = $("#slides");
+  slides.innerHTML = picks.map((p, i) => `<img src="../assets/teams/${p}" alt=""${i ? ' loading="lazy"' : ""}>`).join("");
+  const imgs = [...slides.children];
+  let cur = 0;
+  imgs[0].classList.add("on");
+  if (!reduce) setInterval(() => {
+    imgs[cur].classList.remove("on");
+    cur = (cur + 1) % imgs.length;
+    imgs[cur].classList.add("on");
+  }, 5000);
+
+  // ---------- Teams: vertical scroll moves the track sideways ----------
+  const track = $("#track"), teams = $("#teams"), lit = $("#lit");
+  teams.style.setProperty("--n", D.teams.length);
+  track.innerHTML = D.teams.map((t) => `
+    <figure class="panel">
+      <div class="ph"><img src="../assets/teams/${t.img}" alt="${t.name} team photo"></div>
+      <figcaption><b>${t.name}</b><span>${t.division}</span></figcaption>
+    </figure>`).join("");
+  function slide() {
+    const span = teams.offsetHeight - innerHeight;
+    const p = Math.min(1, Math.max(0, -teams.getBoundingClientRect().top / span));
+    const max = track.scrollWidth - innerWidth + Math.max(16, (innerWidth - 1240) / 2);
+    track.style.transform = `translateX(${-p * Math.max(0, max)}px)`;
+    lit.style.width = (p * 100) + "%";
+  }
+  if (!reduce) {
+    let ticking = false;
+    addEventListener("scroll", () => { if (!ticking) { ticking = true; requestAnimationFrame(() => { ticking = false; slide(); }); } }, { passive: true });
+    addEventListener("resize", slide);
+    slide();
+  }
+
+  $("#crew").innerHTML = D.crew.map((c) => `<figure tabindex="0"><div class="ph"><img src="../assets/board/${c.img}" alt="${c.committee} committee" loading="lazy"></div><figcaption>${c.committee}</figcaption></figure>`).join("");
+  $("#logos").innerHTML = D.partners.map((p) => `<figure><img src="../assets/logos/${p.img}" alt="${p.name}" loading="lazy"></figure>`).join("");
+  $("#food").innerHTML = D.food.map((f) => `<li><a href="${f.maps}" target="_blank" rel="noopener">${f.name}</a><span>${f.note}</span></li>`).join("");
+})();
+</script>
+</body>
+</html>

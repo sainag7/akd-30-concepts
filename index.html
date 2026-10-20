@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>AKD 30.0 Concepts</title>
-<meta name="description" content="Three website directions for AKD 30.0, First in Flight.">
+<meta name="description" content="Website directions for AKD 30.0, First in Flight.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..900&display=swap" rel="stylesheet">
@@ -34,6 +34,8 @@ header p { margin: 14px 0 0; color: var(--soft); max-width: 60ch; }
 .swatches i { width: 26px; height: 26px; border-radius: 50%; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .25); }
 .open { margin-top: auto; align-self: start; text-decoration: none; font-weight: 700; font-size: 16px; padding: 12px 20px; border-radius: 999px; background: #fff; color: var(--navy); }
 .open:hover { background: var(--gold); }
+.round { display: flex; align-items: baseline; gap: 16px; margin: 30px 0 18px; font-stretch: 125%; font-weight: 800; font-size: 26px; }
+.round span { font-stretch: 100%; font-weight: 500; font-size: 16px; color: var(--soft); }
 .notes { border-top: 1px solid rgba(255, 255, 255, .12); padding: 40px 0 70px; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
 .notes h3 { margin: 0 0 10px; font-stretch: 125%; font-weight: 800; font-size: 22px; }
 .notes ul { margin: 0; padding-left: 20px; color: var(--soft); font-size: 16px; }
@@ -48,10 +50,54 @@ header p { margin: 14px 0 0; color: var(--soft); max-width: 60ch; }
     <img src="assets/logo-white.png" alt="AKD">
     <div>
       <h1>AKD 30.0 website concepts</h1>
-      <p>Three directions for the First in Flight season. Each one is a full homepage with the real date, venue, partners and visitor info. Open one and scroll. The motion is where each concept comes alive.</p>
+      <p>Round 2 takes its cues from real dance competition sites: performance photos up front, big poster type, and the lineup as the star. Open one and scroll. Round 1 is still below for comparison.</p>
     </div>
   </header>
 
+  <h2 class="round">Round 2 <span>Dance-first, inspired by real comp and festival sites</span></h2>
+  <div class="grid">
+    <article class="card">
+      <div class="preview"><iframe src="air-show/" title="Air Show preview" loading="lazy" tabindex="-1"></iframe><a href="air-show/" aria-label="Open Air Show" tabindex="-1"></a></div>
+      <div class="body">
+        <h2>Air Show</h2>
+        <p>Daylight air show energy. Team photos fly in formation across a Carolina-blue sky, trailing smoke, behind giant poster type.</p>
+        <dl>
+          <dt>Signature</dt><dd>Smoke trails draw in behind the photo formation, which keeps climbing as you scroll. Teams scroll sideways in a photo strip.</dd>
+          <dt>Type</dt><dd>Big Shoulders Display with Hanken Grotesk</dd>
+          <dt>Palette</dt><dd><span class="swatches"><i style="background:#3F82BC"></i><i style="background:#7BAFD4"></i><i style="background:#0F2747"></i><i style="background:#FFFFFF"></i><i style="background:#FF5A36"></i></span></dd>
+        </dl>
+        <a class="open" href="air-show/">Open Air Show</a>
+      </div>
+    </article>
+    <article class="card">
+      <div class="preview"><iframe src="night-show/" title="Night Show preview" loading="lazy" tabindex="-1"></iframe><a href="night-show/" aria-label="Open Night Show" tabindex="-1"></a></div>
+      <div class="body">
+        <h2>Night Show</h2>
+        <p>Cinematic, like the Legends site. Dark stage, team photos crossfading behind the title, and searchlight beams sweeping the sky.</p>
+        <dl>
+          <dt>Signature</dt><dd>The teams section pins in place and slides sideways as you scroll, with runway lights tracking your progress.</dd>
+          <dt>Type</dt><dd>Instrument Serif with Geist</dd>
+          <dt>Palette</dt><dd><span class="swatches"><i style="background:#0B1428"></i><i style="background:#13203D"></i><i style="background:#F5F8FC"></i><i style="background:#7BAFD4"></i><i style="background:#FFB648"></i></span></dd>
+        </dl>
+        <a class="open" href="night-show/">Open Night Show</a>
+      </div>
+    </article>
+    <article class="card">
+      <div class="preview"><iframe src="lineup-poster/" title="Lineup Poster preview" loading="lazy" tabindex="-1"></iframe><a href="lineup-poster/" aria-label="Open Lineup Poster" tabindex="-1"></a></div>
+      <div class="body">
+        <h2>Lineup Poster</h2>
+        <p>A printed show poster in Carolina blue, styled like comp announcement graphics. Duotone photos, a date stamp, and a festival-style lineup.</p>
+        <dl>
+          <dt>Signature</dt><dd>Teams are listed in huge type like a festival lineup. Hover or tap a name and their photo pops up.</dd>
+          <dt>Type</dt><dd>Bricolage Grotesque, condensed</dd>
+          <dt>Palette</dt><dd><span class="swatches"><i style="background:#7BAFD4"></i><i style="background:#13294B"></i><i style="background:#F3F7FA"></i><i style="background:#E5402F"></i></span></dd>
+        </dl>
+        <a class="open" href="lineup-poster/">Open Lineup Poster</a>
+      </div>
+    </article>
+  </div>
+
+  <h2 class="round">Round 1 <span>First set of directions</span></h2>
   <div class="grid">
     <article class="card">
       <div class="preview"><iframe src="flight-deck/" title="Flight Deck preview" loading="lazy" tabindex="-1"></iframe><a href="flight-deck/" aria-label="Open Flight Deck" tabindex="-1"></a></div>
@@ -102,7 +148,7 @@ header p { margin: 14px 0 0; color: var(--soft); max-width: 60ch; }
       <ul>
         <li>AKD 30.0 on February 20, 2027, at the John H. Gattis–Wendell Tabb Theater</li>
         <li>The new wings logo, partner logos, and food spots from the current site</li>
-        <li>Board committees</li>
+        <li>Board committees, with last season's board photos as samples</li>
         <li>The countdown, which updates every day</li>
       </ul>
     </div>
