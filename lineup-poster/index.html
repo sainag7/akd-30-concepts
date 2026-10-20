@@ -60,6 +60,46 @@
 .peek.show { opacity: 1; transform: translate(-50%, -110%) rotate(var(--tilt)) scale(1); }
 .peek .duo { position: absolute; inset: 0; border-radius: 4px; }
 
+/* ---------- 1903 ticker ---------- */
+.ticker { background: var(--red); color: var(--white); overflow: hidden; padding: 14px 0; border-top: 3px solid var(--navy); border-bottom: 3px solid var(--navy); }
+.ticker-track { display: flex; width: max-content; animation: tick 40s linear infinite; }
+.ticker span { font-stretch: 75%; font-weight: 800; text-transform: uppercase; font-size: clamp(22px, 2.6vw, 32px); white-space: nowrap; padding-right: 32px; }
+.ticker i { font-style: normal; color: var(--navy); padding-left: 32px; }
+@keyframes tick { to { transform: translateX(-50%); } }
+
+/* ---------- 1903 to 2027 ---------- */
+.then-now h2 { margin-bottom: 10px; }
+.then-now .intro { max-width: 56ch; font-size: 20px; margin: 0 0 40px; }
+.route { position: relative; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: end; }
+.era { position: relative; z-index: 1; }
+.era .yr { display: block; font-stretch: 75%; font-weight: 800; font-size: clamp(110px, 16vw, 230px); line-height: .8; }
+.era h3 { margin: 12px 0 6px; font-size: 22px; }
+.era p { margin: 0; max-width: 36ch; color: var(--ink-soft); }
+.era.now { text-align: right; justify-self: end; }
+.era.now p { margin-left: auto; }
+.era.now .yr { color: var(--white); -webkit-text-stroke: 3px var(--navy); }
+.path-svg { position: absolute; z-index: 0; left: 0; top: -20px; width: 100%; height: calc(100% + 40px); overflow: visible; pointer-events: none; }
+.path-svg .trail { fill: none; stroke: var(--navy); stroke-width: 2.5; stroke-dasharray: 2 10; stroke-linecap: round; opacity: .55; }
+.path-svg #routePlane path, .path-svg #routePlane line { fill: none; stroke: var(--navy); stroke-width: 2.4; stroke-linecap: round; }
+.facts-1903 { display: grid; grid-template-columns: repeat(3, 1fr); margin-top: 50px; border-top: 3px solid var(--navy); }
+.facts-1903 div { padding: 18px 18px 22px 0; border-bottom: 3px solid var(--navy); }
+.facts-1903 div + div { padding-left: 18px; border-left: 1.5px solid rgba(19, 41, 75, .25); }
+.facts-1903 b { display: block; font-stretch: 75%; font-weight: 800; text-transform: uppercase; font-size: clamp(34px, 4vw, 56px); line-height: .9; }
+.facts-1903 span { color: var(--ink-soft); font-size: 15px; }
+
+/* ---------- NC "First in Flight" plate ---------- */
+.event-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 30px; }
+.plate { flex: 0 0 auto; width: clamp(220px, 24vw, 300px); aspect-ratio: 2 / 1; border-radius: 14px; padding: 8px 14px; transform: rotate(4deg); margin-top: 10px;
+  background: linear-gradient(#FFFFFF, #E4EEF6); border: 3px solid var(--navy); box-shadow: inset 0 0 0 4px #fff, inset 0 0 0 5.5px rgba(19, 41, 75, .35), 0 16px 36px rgba(19, 41, 75, .25);
+  display: grid; grid-template-rows: auto 1fr auto; text-align: center; position: relative; overflow: hidden; }
+.plate .state { font-weight: 700; font-size: clamp(13px, 1.3vw, 16px); color: var(--red); letter-spacing: .02em; }
+.plate .num { align-self: center; font-stretch: 75%; font-weight: 800; font-size: clamp(48px, 5.4vw, 70px); line-height: 1; color: var(--navy); letter-spacing: .03em; }
+.plate .motto { font-weight: 700; font-style: italic; font-size: clamp(12px, 1.2vw, 15px); color: var(--navy); }
+.plate svg { position: absolute; inset: 18% 8% auto; width: 84%; opacity: .12; color: var(--navy); }
+.plate svg path { fill: none; stroke: currentColor; stroke-width: 6; }
+.plate .bolt { position: absolute; top: 9px; width: 9px; height: 9px; border-radius: 50%; background: #B9C9D8; box-shadow: inset 0 0 0 1.5px rgba(19, 41, 75, .4); }
+.plate .bolt.l { left: 22%; } .plate .bolt.r { right: 22%; }
+
 /* ---------- Event summary ---------- */
 .event-grid { margin: 0; display: grid; grid-template-columns: repeat(4, 1fr); border-top: 3px solid var(--navy); }
 .event-grid div { padding: 20px 20px 26px 0; border-bottom: 3px solid var(--navy); }
@@ -74,6 +114,11 @@
 .logos img { max-height: 66px; width: auto; object-fit: contain; }
 
 @media (max-width: 900px) {
+  .route { grid-template-columns: 1fr; gap: 70px; }
+  .era.now { justify-self: end; }
+  .facts-1903 { grid-template-columns: 1fr; }
+  .facts-1903 div + div { padding-left: 0; border-left: 0; }
+  .event-head { flex-direction: column; }
   .poster-foot { grid-template-columns: 1fr 1fr; }
   .poster-foot .btns { justify-self: start; grid-column: 1 / -1; }
   .event-grid { grid-template-columns: 1fr 1fr; }
@@ -92,6 +137,7 @@
 }
 @media (prefers-reduced-motion: reduce) {
   .poster .l1, .poster .l2 { animation: none; }
+  .ticker-track { animation: none; }
   .flyer-bg .draw { animation: none; stroke-dashoffset: 0; }
   .peek { transition: none; }
 }
@@ -150,6 +196,8 @@
     </div>
   </section>
 
+  <div class="ticker" aria-hidden="true"><div class="ticker-track" id="ticker"></div></div>
+
   <section class="band-navy lineup" id="lineup">
     <div class="wrap">
       <h2 class="cond">Teams</h2>
@@ -165,9 +213,50 @@
     <div class="peek" id="peek" aria-hidden="true"><div class="duo color"><img id="peekImg" alt=""></div></div>
   </section>
 
+  <section class="band-blue then-now" id="first-in-flight">
+    <div class="wrap">
+      <h2 class="cond">First in flight</h2>
+      <p class="intro">The Wright brothers flew first in North Carolina. AKD 30.0 takes off from the same state.</p>
+      <div class="route" id="route">
+        <svg class="path-svg" id="pathSvg" aria-hidden="true">
+          <path class="trail" id="routePath"/>
+          <g id="routePlane">
+            <path d="M-20 -8 Q0 -12 20 -8 M-20 8 Q0 4 20 8"/>
+            <line x1="-12" y1="-9" x2="-12" y2="7"/><line x1="11" y1="-10" x2="11" y2="6"/>
+            <path d="M22 -2 h11 M22 4 h11 M-22 -5 h-10 v11 h10"/>
+          </g>
+        </svg>
+        <div class="era then">
+          <span class="yr">1903</span>
+          <h3>Kitty Hawk, North Carolina</h3>
+          <p>On December 17, the Wright brothers made the first powered flight. It lasted 12 seconds.</p>
+        </div>
+        <div class="era now">
+          <span class="yr">2027</span>
+          <h3>John H. Gattis–Wendell Tabb Theater</h3>
+          <p>On February 20, the best collegiate Fusion and Bhangra teams take the stage for AKD 30.0.</p>
+        </div>
+      </div>
+      <div class="facts-1903">
+        <div><b>12 seconds</b><span>How long the first flight stayed in the air</span></div>
+        <div><b>120 feet</b><span>How far that first flight went</span></div>
+        <div><b>4 flights</b><span>Flown that day, the longest 852 feet</span></div>
+      </div>
+    </div>
+  </section>
+
   <section class="band-paper" id="event">
     <div class="wrap">
-      <h2 class="cond">Event details</h2>
+      <div class="event-head">
+        <h2 class="cond">Event details</h2>
+        <div class="plate" role="img" aria-label="North Carolina license plate reading AKD 30, First in Flight">
+          <span class="bolt l"></span><span class="bolt r"></span>
+          <svg viewBox="140 100 870 330" aria-hidden="true"><path d="M420 142 Q560 112 702 136 M420 352 Q560 322 702 346 M438 147 V354 M680 133 V342 M700 140 L905 212 M700 350 L905 280 M870 214 Q930 200 988 210 M870 280 Q930 266 988 276 M424 146 L222 210 M424 356 L222 296 M170 196 H226 V310 H162 V196 Z"/></svg>
+          <span class="state">North Carolina</span>
+          <span class="num">AKD·30</span>
+          <span class="motto">First in Flight</span>
+        </div>
+      </div>
       <dl class="event-grid">
         <div><dt>Date</dt><dd>Sat, Feb 20, 2027</dd></div>
         <div><dt>Venue</dt><dd>Gattis–Tabb Theater</dd></div>
@@ -256,6 +345,38 @@
     b.addEventListener("click", () => { const r = b.getBoundingClientRect(); show(b, r.left + r.width / 2, r.top); });
   });
   addEventListener("scroll", () => peek.classList.remove("show"), { passive: true });
+
+  // ---------- 1903 ticker ----------
+  const tickerText = "Kitty Hawk, N.C.<i>★</i>December 17, 1903<i>★</i>12 seconds<i>★</i>120 feet<i>★</i>First in flight<i>★</i>AKD 30.0<i>★</i>February 20, 2027<i>★</i>";
+  $("#ticker").innerHTML = `<span>${tickerText}</span><span>${tickerText}</span>`;
+
+  // ---------- 1903 to 2027: the Flyer follows a dashed route as you scroll ----------
+  const route = $("#route"), svg = $("#pathSvg"), rp = $("#routePath"), plane = $("#routePlane");
+  let total = 0;
+  function drawRoute() {
+    const w = route.clientWidth, h = route.clientHeight + 40;
+    svg.setAttribute("viewBox", `0 0 ${w} ${h}`);
+    const narrow = w < 700;
+    // Short hop near 1903, then a long climb over to 2027
+    const d = narrow
+      ? `M ${w * .1} ${h * .3} C ${w * .2} ${h * .18}, ${w * .3} ${h * .4}, ${w * .5} ${h * .45} S ${w * .85} ${h * .5}, ${w * .9} ${h * .62}`
+      : `M ${w * .08} ${h * .22} Q ${w * .16} ${h * .02}, ${w * .26} ${h * .2} C ${w * .4} ${h * .45}, ${w * .55} ${-h * .1}, ${w * .9} ${h * .18}`;
+    rp.setAttribute("d", d);
+    total = rp.getTotalLength();
+    place();
+  }
+  function place() {
+    const r = route.getBoundingClientRect();
+    // 0 when the route enters the bottom of the screen, 1 once it reaches the upper third
+    const p = reduce ? 1 : Math.min(1, Math.max(0, (innerHeight - r.top) / (innerHeight * .75 + r.height * .3)));
+    const len = p * total;
+    const a = rp.getPointAtLength(len), b = rp.getPointAtLength(Math.min(total, len + 1));
+    plane.setAttribute("transform", `translate(${a.x} ${a.y}) rotate(${Math.atan2(b.y - a.y, b.x - a.x) * 180 / Math.PI})`);
+  }
+  drawRoute();
+  addEventListener("resize", drawRoute);
+  let routeTick = false;
+  addEventListener("scroll", () => { if (!routeTick) { routeTick = true; requestAnimationFrame(() => { routeTick = false; place(); }); } }, { passive: true });
 
   $("#logos").innerHTML = D.partners.map((p) => `<figure><img src="../assets/logos/${p.img}" alt="${p.name}" loading="lazy"></figure>`).join("");
 })();

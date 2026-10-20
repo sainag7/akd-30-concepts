@@ -4,6 +4,10 @@ Homepage directions for the AKD 30.0 "First in Flight" season.
 
 **View them here: https://sainag7.github.io/akd-30-concepts/**
 
+Round 3, styled after the "Applications are live" post:
+
+- **Air Mail**: aged paper, wood-type headlines, a sketched biplane, a telegram with application deadlines and sepia team postcards
+
 Round 2, inspired by real dance competition and festival sites:
 
 - **Air Show**: team photos flying in formation with smoke trails, in a Carolina-blue sky

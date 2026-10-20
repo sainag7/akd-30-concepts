@@ -1,0 +1,427 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AKD 30.0 | Air Mail</title>
+<meta name="description" content="Aaj Ka Dhamaka 30.0. First in Flight. February 20, 2027.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Special+Elite&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+/* ---------- Hero ---------- */
+.hero { position: relative; min-height: calc(100vh - 80px); min-height: calc(100svh - 80px); display: grid; place-items: center; text-align: center; overflow: hidden; padding: 40px 0 120px; }
+.hero-copy { position: relative; z-index: 2; padding: 0 16px; }
+.hero h1 { font-size: clamp(76px, 15vw, 190px); }
+.hero .sub { margin: 14px 0 0; font-size: clamp(34px, 5.4vw, 70px); }
+.hero .when { margin: 26px 0 30px; font-size: clamp(19px, 2vw, 25px); line-height: 1.45; }
+.hero .btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+.compass { position: absolute; z-index: 1; right: max(-40px, calc((100vw - 1180px) / 2 - 60px)); top: -20px; width: clamp(150px, 20vw, 270px); color: var(--ink); opacity: .8; will-change: transform; }
+.biplane { position: absolute; z-index: 1; left: max(-60px, calc((100vw - 1180px) / 2 - 120px)); bottom: 30px; width: clamp(260px, 38vw, 520px); color: var(--graphite); will-change: transform;
+  animation: flyin 1.6s cubic-bezier(.2, .8, .2, 1) both .3s; }
+@keyframes flyin { from { opacity: 0; translate: -18vw 10vh; rotate: 6deg; } }
+.hero-stamp { position: absolute; z-index: 1; right: max(10px, calc((100vw - 1180px) / 2)); bottom: 40px; width: clamp(110px, 11vw, 140px); transform: rotate(6deg); }
+.postmark { position: absolute; z-index: 2; right: max(70px, calc((100vw - 1180px) / 2 + 70px)); bottom: 70px; width: clamp(200px, 22vw, 280px); color: var(--ink); opacity: .55; transform: rotate(-12deg); mix-blend-mode: multiply; pointer-events: none; }
+.stamp { aspect-ratio: 5 / 6; }
+.stamp .inner { display: grid; grid-template-rows: auto 1fr auto; text-align: center; padding: 8px 6px; border: 2px solid var(--air-red); color: var(--air-red); }
+.stamp .top { font-family: var(--display); font-size: clamp(11px, 1.1vw, 14px); letter-spacing: .04em; }
+.stamp svg { width: 86%; margin: auto; color: var(--air-red); }
+.stamp .val { font-family: var(--display); font-size: clamp(20px, 2vw, 26px); line-height: 1; }
+
+/* Flight route: a dashed line down the page that the little plane follows as you scroll */
+.route { position: absolute; z-index: 0; left: 0; top: 0; width: 100%; pointer-events: none; overflow: visible; }
+.route .dash { fill: none; stroke: var(--sepia); stroke-width: 2; stroke-dasharray: 3 11; stroke-linecap: round; opacity: .55; }
+.route .done { fill: none; stroke: var(--sepia); stroke-width: 2.2; stroke-linecap: round; opacity: .8; }
+.route .plane { color: var(--ink); }
+main { position: relative; overflow: hidden; }
+
+/* ---------- Applications telegram ---------- */
+.apply-grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: clamp(30px, 6vw, 80px); align-items: start; }
+.telegram { position: relative; background: #F3E8C9; padding: 26px clamp(18px, 3vw, 34px) 30px; transform: rotate(-1.5deg); box-shadow: 0 18px 40px rgba(74, 35, 18, .2); border-top: 10px solid var(--ink); }
+.telegram::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(90deg, transparent 49.6%, rgba(74, 35, 18, .08) 50%, transparent 50.4%); }
+.tg-top { display: flex; justify-content: space-between; align-items: baseline; border-bottom: 2px solid var(--ink); padding-bottom: 8px; margin-bottom: 14px; }
+.tg-top .brand { font-family: var(--display); font-size: clamp(30px, 3.4vw, 44px); letter-spacing: .06em; }
+.tg-meta { font-size: 15px; line-height: 1.5; margin-bottom: 20px; }
+.strips p { display: table; margin: 0 0 10px; padding: 6px 12px; background: #FBF6E8; box-shadow: 0 1px 2px rgba(74, 35, 18, .25); font-size: clamp(15px, 1.6vw, 19px); letter-spacing: .04em; min-height: 2.1em; }
+.strips p:nth-child(odd) { transform: rotate(-.6deg); }
+.strips p:nth-child(even) { transform: rotate(.5deg) translateX(6px); }
+.strips p:empty { visibility: hidden; }
+.strips p.typing::after { content: "▌"; animation: blink .7s steps(1) infinite; }
+@keyframes blink { 50% { opacity: 0; } }
+.apply-cards { display: grid; gap: 16px; margin-bottom: 30px; }
+.apply-card { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 18px 20px; border: 2px solid var(--ink); background: rgba(255, 250, 238, .5); }
+.apply-card b { display: block; font-family: var(--display); font-weight: 400; font-size: 26px; line-height: 1.1; }
+.apply-card span { font-size: 16px; }
+.deadlines { list-style: none; margin: 0; padding: 0; border-top: 1.5px dashed var(--ink); }
+.deadlines li { padding: 14px 0; border-bottom: 1.5px dashed var(--ink); display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+.deadlines b { font-weight: 400; text-decoration: underline; text-underline-offset: 4px; }
+.deadlines .left { color: var(--air-red); }
+
+/* ---------- Teams: postcards ---------- */
+.teams-head { display: flex; justify-content: space-between; align-items: end; gap: 20px; flex-wrap: wrap; margin-bottom: 30px; }
+.teams-head h2 { margin: 0; }
+.tags { display: flex; gap: 10px; flex-wrap: wrap; }
+.tags button { position: relative; font: inherit; font-size: 16px; color: var(--ink); background: #F3E3BF; border: 1.5px solid var(--sepia); padding: 8px 16px 8px 30px; cursor: pointer;
+  clip-path: polygon(14px 0, 100% 0, 100% 100%, 14px 100%, 0 50%); }
+.tags button::before { content: ""; position: absolute; left: 13px; top: 50%; width: 7px; height: 7px; margin-top: -3.5px; border-radius: 50%; background: var(--paper); box-shadow: inset 0 0 0 1.5px var(--sepia); }
+.tags button[aria-pressed="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.postcards { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 46px 30px; padding-top: 10px; }
+.postcard { position: relative; margin: 0; background: #F8F1E1; padding: 12px 12px 14px; box-shadow: 0 14px 30px rgba(74, 35, 18, .22); transform: rotate(var(--tilt)); transition: transform .3s; }
+.postcard:hover, .postcard:focus-within { transform: rotate(0deg) scale(1.03); z-index: 2; }
+.postcard .ph { position: relative; aspect-ratio: 4 / 3; overflow: hidden; }
+.postcard img { width: 100%; height: 100%; object-fit: cover; filter: sepia(.8) contrast(1.05) brightness(.96); transition: filter .4s; }
+.postcard:hover img, .postcard:focus-within img { filter: none; }
+.postcard figcaption { margin-top: 10px; display: flex; justify-content: space-between; align-items: baseline; gap: 10px; }
+.postcard figcaption b { font-weight: 400; font-size: 19px; line-height: 1.2; }
+.postcard figcaption span { font-size: 14px; color: var(--sepia); white-space: nowrap; }
+.postcard .mini { position: absolute; right: -10px; top: -14px; width: 50px; transform: rotate(8deg); z-index: 2; }
+.postcard .mini .inner { border: 1.5px solid var(--air-blue); height: 46px; display: grid; place-items: center; }
+.postcard .mini svg { width: 32px; color: var(--air-blue); }
+.postcard .waves { position: absolute; right: 26px; top: 6px; width: 90px; z-index: 3; color: var(--ink); opacity: .45; mix-blend-mode: multiply; }
+.postcard[hidden] { display: none; }
+.teams .note { margin-top: 36px; font-size: 15px; color: var(--sepia); }
+
+/* ---------- Event ticket ---------- */
+.ticket { display: grid; grid-template-columns: 1fr 260px; background: #F3E3BF; box-shadow: 0 18px 40px rgba(74, 35, 18, .2); position: relative; }
+.ticket::before, .ticket::after { content: ""; position: absolute; right: 248px; width: 24px; height: 24px; border-radius: 50%; background: var(--paper); }
+.ticket::before { top: -12px; } .ticket::after { bottom: -12px; }
+.t-main { padding: clamp(22px, 3.5vw, 40px); border: 2px solid var(--ink); border-right: 0; outline: 1px solid var(--ink); outline-offset: -8px; }
+.t-main .admit { display: flex; justify-content: space-between; font-size: 15px; letter-spacing: .12em; text-transform: uppercase; }
+.t-main h3.shaded { font-size: clamp(44px, 6vw, 80px); margin: 12px 0 22px; }
+.t-fields { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1.5px solid var(--ink); }
+.t-fields div { padding: 12px 12px 4px 0; }
+.t-fields div + div { padding-left: 12px; border-left: 1.5px dashed var(--ink); }
+.t-fields dt { font-size: 13px; text-transform: uppercase; letter-spacing: .1em; color: var(--sepia); }
+.t-fields dd { margin: 4px 0 0; font-size: 18px; line-height: 1.3; }
+.t-stub { border: 2px solid var(--ink); border-left: 2px dashed var(--ink); padding: 24px 20px; display: flex; flex-direction: column; justify-content: space-between; align-items: center; text-align: center; gap: 12px; }
+.t-stub .no { font-size: 14px; letter-spacing: .14em; }
+.t-stub .days { font-family: var(--display); font-size: 84px; line-height: .9; color: var(--air-red); }
+.t-stub p { margin: 0; font-size: 15px; }
+
+/* ---------- Partners as stamps ---------- */
+.stamps { display: flex; flex-wrap: wrap; gap: 26px; }
+.stamps .stamp-frame { width: 180px; height: 150px; }
+.stamps .stamp-frame:nth-child(odd) { transform: rotate(-2deg); }
+.stamps .stamp-frame:nth-child(even) { transform: rotate(1.6deg); }
+.stamps .inner { display: grid; place-items: center; padding: 16px; border: 1.5px solid rgba(74, 35, 18, .5); }
+.stamps img { max-height: 70px; width: auto; object-fit: contain; filter: sepia(.35); mix-blend-mode: multiply; }
+
+@media (max-width: 900px) {
+  .apply-grid { grid-template-columns: 1fr; }
+  .ticket { grid-template-columns: 1fr; }
+  .ticket::before, .ticket::after { display: none; }
+  .t-main { border-right: 2px solid var(--ink); }
+  .t-stub { border-left: 2px solid var(--ink); border-top: 2px dashed var(--ink); flex-direction: row; flex-wrap: wrap; justify-content: space-around; }
+  .t-fields { grid-template-columns: 1fr 1fr; }
+  .t-fields div:nth-child(3) { padding-left: 0; border-left: 0; }
+  .postmark { right: 20px; bottom: 120px; }
+}
+@media (max-width: 600px) {
+  .hero { padding-bottom: 210px; }
+  .biplane { width: 72vw; left: -8vw; bottom: 16px; }
+  .hero-stamp { width: 96px; bottom: 30px; }
+  .postmark { width: 170px; right: 40px; bottom: 60px; }
+  .compass { width: 120px; right: -30px; top: -10px; opacity: .5; }
+  .apply-card { flex-direction: column; align-items: flex-start; }
+  .t-fields { grid-template-columns: 1fr; }
+  .t-fields div + div { padding-left: 0; border-left: 0; border-top: 1.5px dashed var(--ink); }
+  .stamps .stamp-frame { width: calc(50% - 13px); height: 130px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .biplane { animation: none; }
+  .strips p.typing::after { animation: none; }
+  .postcard { transition: none; }
+}
+</style>
+</head>
+<body>
+
+<header class="nav" data-page="home"></header>
+
+<section class="hero" id="top">
+  <svg class="compass" id="compass" viewBox="-100 -100 200 200" aria-hidden="true"></svg>
+  <div class="hero-copy">
+    <h1 class="shaded"><span class="fill" data-text="AKD 30.0">AKD 30.0</span></h1>
+    <p class="shaded sub"><span class="fill" data-text="First in Flight">First in Flight</span></p>
+    <p class="when">February 20, 2027<br>John H. Gattis–Wendell Tabb Theater</p>
+    <div class="btns"><a class="btn btn-ink" href="#">Get tickets</a><a class="btn btn-line" href="#apply">Apply to compete</a></div>
+  </div>
+
+  <!-- Pencil sketch of a 1920s biplane, after the applications post -->
+  <svg class="biplane" viewBox="40 30 440 220" aria-hidden="true">
+    <defs>
+      <pattern id="hatch" width="5" height="5" patternUnits="userSpaceOnUse" patternTransform="rotate(38)"><line x1="0" y1="0" x2="0" y2="5" stroke="currentColor" stroke-width="1"/></pattern>
+      <pattern id="hatch2" width="4" height="4" patternUnits="userSpaceOnUse" patternTransform="rotate(-30)"><line x1="0" y1="0" x2="0" y2="4" stroke="currentColor" stroke-width=".8"/></pattern>
+    </defs>
+    <g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <!-- upper wing -->
+      <path d="M232 64 Q320 50 412 58 L410 67 Q320 60 234 73 Z" fill="url(#hatch)"/>
+      <!-- fuselage -->
+      <path d="M432 112 C400 100 330 100 280 106 L112 114 L94 119 L112 126 L280 154 C330 162 400 160 432 150 Z" fill="url(#hatch2)" fill-opacity=".9"/>
+      <path d="M300 107 Q300 96 318 96 Q332 96 334 106" />
+      <circle cx="317" cy="92" r="9" fill="#EEE4CF"/>
+      <path d="M309 90 h16" stroke-width="3"/>
+      <!-- cowling and propeller -->
+      <path d="M432 112 L448 115 L448 147 L432 150"/>
+      <ellipse cx="456" cy="131" rx="5" ry="56" stroke-width="1.4"/>
+      <circle cx="452" cy="131" r="5" fill="currentColor"/>
+      <!-- lower wing -->
+      <path d="M246 160 Q326 150 410 156 L408 165 Q326 158 248 169 Z" fill="url(#hatch)"/>
+      <!-- struts and bracing -->
+      <path d="M268 70 L276 162 M392 61 L396 158 M338 62 L330 104 M366 60 L360 104"/>
+      <path d="M268 70 L396 158 M392 61 L276 162" stroke-width="1" stroke-dasharray="4 4"/>
+      <!-- tail -->
+      <path d="M112 114 L86 70 Q80 62 72 68 L76 118" fill="url(#hatch)"/>
+      <path d="M150 121 L64 124 L66 132 L150 128"/>
+      <path d="M118 126 L104 150"/>
+      <!-- landing gear -->
+      <path d="M352 156 L374 206 L398 154 M360 206 h28"/>
+      <circle cx="374" cy="210" r="24"/><circle cx="374" cy="210" r="17" stroke-width="1"/><circle cx="374" cy="210" r="4" fill="currentColor"/>
+      <text x="190" y="140" font-family="Special Elite, monospace" font-size="17" fill="currentColor" stroke="none" transform="rotate(4 190 140)">AKD-30</text>
+    </g>
+  </svg>
+
+  <div class="stamp-frame stamp hero-stamp" aria-hidden="true">
+    <div class="inner">
+      <span class="top">AIR MAIL</span>
+      <svg viewBox="-40 -16 80 32"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M-20 -8 Q0 -12 20 -8 M-20 8 Q0 4 20 8"/><path d="M-12 -9 V7 M11 -10 V6"/><path d="M22 -2 h11 M22 4 h11 M-22 -5 h-10 v11 h10"/></g></svg>
+      <span class="val">30¢</span>
+    </div>
+  </div>
+  <svg class="postmark" id="postmark" viewBox="0 0 300 120" aria-hidden="true"></svg>
+</section>
+
+<main id="main">
+  <svg class="route" id="route" aria-hidden="true">
+    <path class="dash" id="routePath"/>
+    <path class="done" id="routeDone"/>
+    <g class="plane" id="routePlane"><g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" transform="scale(1.3)"><path d="M-20 -8 Q0 -12 20 -8 M-20 8 Q0 4 20 8"/><path d="M-12 -9 V7 M11 -10 V6"/><path d="M22 -2 h11 M22 4 h11 M-22 -5 h-10 v11 h10"/></g></g>
+  </svg>
+
+  <section class="section" id="apply">
+    <div class="wrap apply-grid">
+      <div class="telegram" aria-label="Telegram: Applications are live. Fusion teams apply through OneLegends. Bhangra teams apply through Ekta. Regular deadline 10.30.26 at 11:59 PM EST. Latest deadline 11.5.26 at 11:59 PM EST.">
+        <div class="tg-top"><span class="brand">TELEGRAM</span><span>No. 30</span></div>
+        <div class="tg-meta">From: AKD 30.0, Chapel Hill, N.C.<br>To: Every Fusion and Bhangra team</div>
+        <div class="strips" id="strips" aria-hidden="true">
+          <p data-text="APPLICATIONS ARE LIVE STOP"></p>
+          <p data-text="FUSION APPLY THROUGH ONELEGENDS STOP"></p>
+          <p data-text="BHANGRA APPLY THROUGH EKTA STOP"></p>
+          <p data-text="REGULAR DEADLINE 10.30.26 AT 11:59 PM EST STOP"></p>
+          <p data-text="LATEST DEADLINE 11.5.26 AT 11:59 PM EST STOP"></p>
+        </div>
+      </div>
+      <div>
+        <h2 class="shaded"><span class="fill" data-text="Applications are live">Applications are live</span></h2>
+        <div class="apply-cards">
+          <div class="apply-card"><div><b>Fusion</b><span>Apply through OneLegends</span></div><a class="btn btn-ink" href="#">Apply</a></div>
+          <div class="apply-card"><div><b>Bhangra</b><span>Apply through Ekta</span></div><a class="btn btn-ink" href="#">Apply</a></div>
+        </div>
+        <ul class="deadlines">
+          <li><span><b>Regular deadline</b>: 10.30.26 at 11:59 PM EST</span><span class="left" id="dl-regular"></span></li>
+          <li><span><b>Latest deadline</b>: 11.5.26 at 11:59 PM EST</span><span class="left" id="dl-latest"></span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section teams" id="teams">
+    <div class="wrap">
+      <div class="teams-head">
+        <h2 class="shaded"><span class="fill" data-text="Teams">Teams</span></h2>
+        <div class="tags" role="group" aria-label="Division">
+          <button type="button" data-div="all" aria-pressed="true">All</button>
+          <button type="button" data-div="Fusion" aria-pressed="false">Fusion</button>
+          <button type="button" data-div="Bhangra" aria-pressed="false">Bhangra</button>
+        </div>
+      </div>
+      <div class="postcards" id="postcards"></div>
+      <p class="note">Postcards from last season's lineup. Hover or tap one to see it in color.</p>
+    </div>
+  </section>
+
+  <section class="section" id="event">
+    <div class="wrap">
+      <h2 class="shaded"><span class="fill" data-text="Event details">Event details</span></h2>
+      <div class="ticket">
+        <div class="t-main">
+          <div class="admit"><span>Admit one</span><span>Official Legends partner competition</span></div>
+          <h3 class="shaded"><span class="fill" data-text="AKD 30.0">AKD 30.0</span></h3>
+          <dl class="t-fields">
+            <div><dt>Date</dt><dd>Saturday, February 20, 2027</dd></div>
+            <div><dt>Venue</dt><dd>John H. Gattis–Wendell Tabb Theater</dd></div>
+            <div><dt>Divisions</dt><dd>Fusion and Bhangra</dd></div>
+            <div><dt>Showtime</dt><dd>To be announced</dd></div>
+          </dl>
+        </div>
+        <div class="t-stub">
+          <span class="no">No. 000030</span>
+          <span class="days" id="days">125</span>
+          <p>days until departure</p>
+          <a class="btn btn-ink" href="#">Get tickets</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="partners">
+    <div class="wrap">
+      <h2 class="shaded"><span class="fill" data-text="Partners">Partners</span></h2>
+      <div class="stamps" id="stamps"></div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer"></footer>
+
+<script src="../assets/data.js"></script>
+<script src="site.js"></script>
+<script>
+(() => {
+  const D = window.AKD;
+  const $ = (s) => document.querySelector(s);
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const NS = "http://www.w3.org/2000/svg";
+  $("#days").textContent = D.daysUntil();
+
+  // ---------- Compass rose ----------
+  (() => {
+    let g = '<g fill="none" stroke="currentColor"><circle r="92" stroke-width="2"/><circle r="86" stroke-width=".8"/><circle r="62" stroke-width=".8" stroke-dasharray="2 3"/></g>';
+    for (let a = 0; a < 360; a += 5) {
+      const long = a % 45 === 0, r1 = long ? 74 : (a % 15 === 0 ? 79 : 82);
+      const rad = a * Math.PI / 180;
+      g += `<line x1="${Math.sin(rad) * r1}" y1="${-Math.cos(rad) * r1}" x2="${Math.sin(rad) * 86}" y2="${-Math.cos(rad) * 86}" stroke="currentColor" stroke-width="${long ? 1.6 : .8}"/>`;
+    }
+    const point = (a, len, w) => {
+      const rad = a * Math.PI / 180, c = Math.cos(rad), s = Math.sin(rad);
+      const P = (x, y) => `${x * c - y * s},${x * s + y * c}`;
+      return `<polygon points="${P(0, -len)} ${P(-w, -w)} 0,0" fill="currentColor"/><polygon points="${P(0, -len)} ${P(w, -w)} 0,0" fill="#EEE4CF" stroke="currentColor" stroke-width="1.2"/>`;
+    };
+    [45, 135, 225, 315].forEach((a) => { g += point(a, 52, 8); });
+    [0, 90, 180, 270].forEach((a) => { g += point(a, 84, 13); });
+    g += '<circle r="6" fill="#EEE4CF" stroke="currentColor" stroke-width="2"/>';
+    const lab = [["N", 0, -96], ["E", 100, 5], ["S", 0, 106], ["W", -100, 5]];
+    lab.forEach(([t, x, y]) => { g += `<text x="${x}" y="${y}" text-anchor="middle" font-family="Alfa Slab One" font-size="16" fill="currentColor">${t}</text>`; });
+    $("#compass").innerHTML = `<g transform="rotate(-18)">${g}</g>`;
+  })();
+
+  // ---------- Postmark with wavy cancellation lines ----------
+  (() => {
+    let g = '<g fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="58" cy="60" r="50"/><circle cx="58" cy="60" r="36" stroke-width="1.2"/></g>';
+    g += '<defs><path id="pmArc" d="M 16 60 A 42 42 0 0 1 100 60"/><path id="pmArc2" d="M 22 68 A 38 38 0 0 0 94 68"/></defs>';
+    g += '<text font-family="Special Elite" font-size="12" fill="currentColor" letter-spacing="1.5"><textPath href="#pmArc" startOffset="50%" text-anchor="middle">CHAPEL HILL, N.C.</textPath></text>';
+    g += '<text font-family="Special Elite" font-size="11" fill="currentColor" letter-spacing="1.5"><textPath href="#pmArc2" startOffset="50%" text-anchor="middle">AKD 30.0</textPath></text>';
+    g += '<text x="58" y="57" text-anchor="middle" font-family="Special Elite" font-size="15" fill="currentColor">FEB 20</text><text x="58" y="74" text-anchor="middle" font-family="Special Elite" font-size="15" fill="currentColor">2027</text>';
+    for (let i = 0; i < 5; i++) {
+      const y = 28 + i * 16;
+      let d = `M 116 ${y}`;
+      for (let x = 116; x < 296; x += 20) d += ` q 5 -7 10 0 t 10 0`;
+      g += `<path d="${d}" fill="none" stroke="currentColor" stroke-width="2"/>`;
+    }
+    $("#postmark").innerHTML = g;
+  })();
+
+  // ---------- Telegram types itself out once it's on screen ----------
+  const strips = [...document.querySelectorAll("#strips p")];
+  function typeAll() {
+    if (reduce) { strips.forEach((p) => { p.textContent = p.dataset.text; }); return; }
+    let i = 0;
+    const next = () => {
+      if (i >= strips.length) return;
+      const p = strips[i++], text = p.dataset.text;
+      let n = 0;
+      p.classList.add("typing");
+      const step = () => {
+        p.textContent = text.slice(0, ++n);
+        if (n < text.length) setTimeout(step, 28 + Math.random() * 40);
+        else { p.classList.remove("typing"); setTimeout(next, 220); }
+      };
+      step();
+    };
+    next();
+  }
+  const tio = new IntersectionObserver((es) => { if (es[0].isIntersecting) { typeAll(); tio.disconnect(); } }, { threshold: .35 });
+  tio.observe($("#strips"));
+
+  // ---------- Deadline countdowns ----------
+  function left(iso) {
+    const ms = new Date(iso) - Date.now();
+    if (ms <= 0) return "Closed";
+    const d = Math.floor(ms / 86400000), h = Math.floor(ms / 3600000) % 24;
+    return d > 0 ? `${d} day${d === 1 ? "" : "s"}, ${h} hr left` : `${h} hr left`;
+  }
+  const dl = () => { $("#dl-regular").textContent = left(D.apply.regular.at); $("#dl-latest").textContent = left(D.apply.latest.at); };
+  dl(); setInterval(dl, 60000);
+
+  // ---------- Postcards: each leans its own way, alternating left and right ----------
+  const tilts = [-4, 3, -2, 5, -5, 2, -3, 4, -6, 3, -2, 5, -4];
+  const waves = '<svg class="waves" viewBox="0 0 90 40" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.6"><path d="M0 8 q5 -6 10 0 t10 0 t10 0 t10 0 t10 0 t10 0 t10 0 t10 0 t10 0"/><path d="M0 20 q5 -6 10 0 t10 0 t10 0 t10 0 t10 0 t10 0 t10 0 t10 0 t10 0"/><path d="M0 32 q5 -6 10 0 t10 0 t10 0 t10 0 t10 0 t10 0 t10 0 t10 0 t10 0"/></g></svg>';
+  const mini = '<div class="stamp-frame mini" aria-hidden="true"><div class="inner"><svg viewBox="-40 -16 80 32"><g fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M-20 -8 Q0 -12 20 -8 M-20 8 Q0 4 20 8"/><path d="M-12 -9 V7 M11 -10 V6"/><path d="M22 -2 h11 M22 4 h11 M-22 -5 h-10 v11 h10"/></g></svg></div></div>';
+  $("#postcards").innerHTML = D.teams.map((t, i) => `
+    <figure class="postcard" data-div="${t.division}" tabindex="0" style="--tilt:${tilts[i % tilts.length]}deg">
+      ${mini}${waves}
+      <div class="ph"><img src="../assets/teams/${t.img}" alt="${t.name} team photo" loading="lazy"></div>
+      <figcaption><b>${t.name}</b><span>${t.division}</span></figcaption>
+    </figure>`).join("");
+  document.querySelectorAll(".tags button").forEach((b) => b.addEventListener("click", () => {
+    document.querySelectorAll(".tags button").forEach((x) => x.setAttribute("aria-pressed", x === b));
+    document.querySelectorAll(".postcard").forEach((p) => { p.hidden = !(b.dataset.div === "all" || p.dataset.div === b.dataset.div); });
+    requestAnimationFrame(drawRoute);
+  }));
+
+  $("#stamps").innerHTML = D.partners.map((p) => `<div class="stamp-frame"><div class="inner"><img src="../assets/logos/${p.img}" alt="${p.name}" loading="lazy"></div></div>`).join("");
+
+  // ---------- Flight route down the page ----------
+  const main = $("#main"), route = $("#route"), rp = $("#routePath"), done = $("#routeDone"), plane = $("#routePlane");
+  let total = 0;
+  function drawRoute() {
+    const w = main.clientWidth, h = main.scrollHeight;
+    route.setAttribute("viewBox", `0 0 ${w} ${h}`);
+    route.style.height = h + "px";
+    const L = w < 700 ? w * .06 : Math.max(24, (w - 1180) / 2 - 10), R = w - L;
+    // Run down one edge through each section, then cross over in the gap before the next one
+    const ys = [...main.querySelectorAll(".section")].map((s) => s.offsetTop).slice(1);
+    let side = R, d = `M ${R} 0`;
+    ys.forEach((y) => {
+      const other = side === R ? L : R;
+      d += ` L ${side} ${y - 70} C ${side} ${y}, ${other} ${y - 40}, ${other} ${y + 60}`;
+      side = other;
+    });
+    d += ` L ${side} ${h - 30}`;
+    rp.setAttribute("d", d); done.setAttribute("d", d);
+    total = rp.getTotalLength();
+    done.style.strokeDasharray = total;
+    placePlane();
+  }
+  function placePlane() {
+    const r = main.getBoundingClientRect();
+    const p = reduce ? 1 : Math.min(1, Math.max(0, (innerHeight * .55 - r.top) / r.height));
+    const len = p * total;
+    done.style.strokeDashoffset = total - len;
+    const a = rp.getPointAtLength(len), b = rp.getPointAtLength(Math.min(total, len + 2));
+    let ang = Math.atan2(b.y - a.y, b.x - a.x) * 180 / Math.PI;
+    // Keep the plane upright: flip it when it heads left
+    const flip = Math.abs(ang) > 90;
+    plane.setAttribute("transform", `translate(${a.x} ${a.y}) rotate(${flip ? ang + 180 : ang}) scale(${flip ? -1 : 1} 1)`);
+  }
+  addEventListener("load", drawRoute);
+  document.fonts.ready.then(drawRoute);
+  addEventListener("resize", drawRoute);
+  let tick = false;
+  addEventListener("scroll", () => {
+    if (tick) return; tick = true;
+    requestAnimationFrame(() => {
+      tick = false;
+      placePlane();
+      if (!reduce) {
+        const y = Math.min(scrollY, innerHeight);
+        $("#compass").style.transform = `rotate(${y * .12}deg)`;
+        $(".biplane").style.transform = `translate(${y * .5}px, ${-y * .35}px) rotate(${-y * .01}deg)`;
+      }
+    });
+  }, { passive: true });
+})();
+</script>
+</body>
+</html>

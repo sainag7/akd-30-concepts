@@ -6,6 +6,13 @@ window.AKD = {
   dateLabel: "February 20, 2027",
   venue: "John H. Gattis–Wendell Tabb Theater",
   instagram: "https://www.instagram.com/uncakd/",
+  // From the "Applications are live" post. Deadlines are 11:59 PM Eastern.
+  apply: {
+    fusion: "OneLegends",
+    bhangra: "Ekta",
+    regular: { label: "10.30.26", at: "2026-10-30T23:59:00-04:00" },
+    latest: { label: "11.5.26", at: "2026-11-05T23:59:00-05:00" }
+  },
   teams: [
     { name: "Texas Mohini", division: "Fusion", img: "texas-mohini.jpg" },
     { name: "GT Jadoo", division: "Fusion", img: "gt-jadoo.jpg" },

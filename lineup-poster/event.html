@@ -19,10 +19,15 @@
 .show { display: grid; grid-template-columns: 1.4fr 1fr; gap: clamp(30px, 6vw, 90px); align-items: center; margin-top: clamp(50px, 7vw, 90px); }
 .show h3 { margin: 0 0 10px; font-size: 26px; }
 .show p { margin: 0 0 22px; max-width: 56ch; font-size: 19px; }
-.count { justify-self: center; width: clamp(220px, 24vw, 300px); aspect-ratio: 1; border-radius: 50%; background: var(--red); color: var(--white); transform: rotate(-8deg);
+.count { justify-self: center; width: clamp(260px, 28vw, 340px); aspect-ratio: 1; border-radius: 50%; background: var(--red); color: var(--white); transform: rotate(-8deg);
   display: grid; place-content: center; text-align: center; box-shadow: 0 20px 50px rgba(19, 41, 75, .25); }
 .count b { display: block; font-stretch: 75%; font-weight: 800; font-size: clamp(90px, 10vw, 130px); line-height: .85; }
-.count span { font-stretch: 75%; font-weight: 800; text-transform: uppercase; font-size: 22px; }
+.count > span { font-stretch: 75%; font-weight: 800; text-transform: uppercase; font-size: 22px; }
+.clock { display: flex; justify-content: center; gap: 6px; margin-top: 12px; padding-top: 12px; border-top: 2px dashed rgba(255, 255, 255, .55); }
+.clock div { min-width: 2.6ch; }
+.clock strong { display: block; font-stretch: 75%; font-weight: 800; font-size: clamp(30px, 3.2vw, 40px); line-height: 1; font-variant-numeric: tabular-nums; }
+.clock small { display: block; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; opacity: .85; }
+.clock i { font-style: normal; font-stretch: 75%; font-weight: 800; font-size: clamp(30px, 3.2vw, 40px); line-height: 1; opacity: .7; }
 
 .venue { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(30px, 6vw, 90px); align-items: end; }
 .venue .name { margin: 0; font-size: clamp(56px, 8vw, 120px); }
@@ -68,7 +73,14 @@
           <p>Doors, showtime and awards times will be posted here once they're confirmed.</p>
           <a class="btn btn-red" href="#">Get tickets</a>
         </div>
-        <div class="count" aria-label="Days until the show"><b data-days>125</b><span>days to go</span></div>
+        <div class="count" role="timer" aria-label="Time until the show">
+          <b id="cd-d">125</b><span>days to go</span>
+          <div class="clock">
+            <div><strong id="cd-h">00</strong><small>hrs</small></div><i>:</i>
+            <div><strong id="cd-m">00</strong><small>min</small></div><i>:</i>
+            <div><strong id="cd-s">00</strong><small>sec</small></div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -88,5 +100,21 @@
 
 <script src="../assets/data.js"></script>
 <script src="site.js"></script>
+<script>
+  // Live countdown to show day (midnight Eastern on Feb 20, 2027; showtime is still TBA)
+  (() => {
+    const target = new Date("2027-02-20T00:00:00-05:00").getTime();
+    const pad = (n) => String(n).padStart(2, "0");
+    const el = (id) => document.getElementById(id);
+    function tick() {
+      let t = Math.max(0, Math.floor((target - Date.now()) / 1000));
+      const d = Math.floor(t / 86400); t -= d * 86400;
+      const h = Math.floor(t / 3600); t -= h * 3600;
+      const m = Math.floor(t / 60), s = t - m * 60;
+      el("cd-d").textContent = d; el("cd-h").textContent = pad(h); el("cd-m").textContent = pad(m); el("cd-s").textContent = pad(s);
+    }
+    tick(); setInterval(tick, 1000);
+  })();
+</script>
 </body>
 </html>

@@ -1,0 +1,91 @@
+/* Air Mail: aged paper, sepia ink and 1900s aviation ephemera, after the "Applications are live" post */
+:root {
+  --paper: #EEE4CF;
+  --paper-2: #E4D6BA;
+  --ink: #4A2312;
+  --sepia: #7A5536;
+  --graphite: #6B655E;
+  --air-red: #B5422F;
+  --air-blue: #5B8DB8;
+  --display: "Alfa Slab One", Rockwell, serif;
+  --type: "Special Elite", "Courier New", monospace;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; overflow-x: clip; }
+body {
+  margin: 0; color: var(--ink); font-family: var(--type); font-size: 18px; line-height: 1.6; -webkit-font-smoothing: antialiased;
+  background-color: var(--paper);
+  /* Paper grain, coffee stains and a darker, aged edge */
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .29 0 0 0 0 .2 0 0 0 0 .1 0 0 0 .09 0'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23n)'/%3E%3C/svg%3E"),
+    radial-gradient(38% 30% at 82% 22%, rgba(150, 105, 50, .16), transparent 70%),
+    radial-gradient(30% 24% at 12% 58%, rgba(150, 105, 50, .12), transparent 70%),
+    radial-gradient(26% 20% at 70% 86%, rgba(150, 105, 50, .12), transparent 70%),
+    radial-gradient(140% 100% at 50% 40%, transparent 55%, rgba(110, 72, 30, .22));
+  background-attachment: scroll, fixed, fixed, fixed, fixed;
+}
+img { max-width: 100%; display: block; }
+a { color: inherit; }
+:focus-visible { outline: 2px dashed var(--air-red); outline-offset: 4px; }
+.wrap { width: min(1180px, 100% - 32px); margin-inline: auto; position: relative; }
+
+/* Wood-type headline like the post: outlined slab letters, pinstriped fill, offset drop shadow */
+.shaded { position: relative; margin: 0; font-family: var(--display); font-weight: 400; line-height: 1; letter-spacing: .02em; text-transform: uppercase; color: var(--ink); }
+.shaded .fill { display: inline; color: transparent; -webkit-text-stroke: .04em var(--ink); padding-right: .08em;
+  background: repeating-linear-gradient(90deg, var(--ink) 0 .04em, #F2E9D6 .04em .1em); -webkit-background-clip: text; background-clip: text;
+  -webkit-box-decoration-break: clone; box-decoration-break: clone;
+  filter: drop-shadow(.055em .055em 0 var(--ink)); }
+
+h2.shaded { font-size: clamp(42px, 6.4vw, 84px); margin-bottom: 24px; }
+.lede { max-width: 56ch; font-size: 19px; margin: 0 0 40px; }
+.rule { height: 0; border: 0; border-top: 1.5px solid var(--sepia); position: relative; margin: 0; opacity: .6; }
+
+/* ---------- Nav ---------- */
+.nav { position: relative; z-index: 20; }
+.nav .wrap { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 18px 0; border-bottom: 1.5px dashed rgba(74, 35, 18, .45); }
+.nav .home img { width: 98px; }
+.nav ul { display: flex; gap: 26px; list-style: none; margin: 0; padding: 0; }
+.nav ul a { text-decoration: none; font-size: 17px; }
+.nav ul a:hover, .nav ul a[aria-current="page"] { text-decoration: underline; text-underline-offset: 5px; }
+.nav-right { display: flex; gap: 10px; align-items: center; }
+.menu { display: none; font: inherit; font-size: 16px; padding: 7px 12px; border: 1.5px solid var(--ink); background: none; color: var(--ink); cursor: pointer; }
+
+.btn { display: inline-block; text-decoration: none; font-family: var(--type); font-size: 17px; padding: 12px 22px; border: 2px solid var(--ink); }
+.btn-ink { background: var(--ink); color: var(--paper); }
+.btn-ink:hover { background: var(--air-red); border-color: var(--air-red); }
+.btn-line { color: var(--ink); }
+.btn-line:hover { background: rgba(74, 35, 18, .08); }
+
+/* ---------- Sections ---------- */
+.section { position: relative; z-index: 1; padding: clamp(80px, 11vw, 140px) 0; }
+
+/* Airmail envelope border: red and blue chevrons */
+.airmail-edge { height: 16px; background: repeating-linear-gradient(-45deg, var(--air-red) 0 18px, var(--paper) 18px 26px, var(--air-blue) 26px 44px, var(--paper) 44px 52px); opacity: .85; }
+
+/* Perforated postage stamp: a grid of punched holes shows only around the edge, the inner panel covers the rest */
+.stamp-frame { position: relative; padding: 9px; background: radial-gradient(circle at 7px 7px, transparent 3.6px, #F6EFDF 4.2px) -7px -7px / 14px 14px;
+  filter: drop-shadow(0 6px 10px rgba(74, 35, 18, .22)); }
+.stamp-frame > .inner { position: relative; height: 100%; background: #F6EFDF; }
+
+/* ---------- Footer ---------- */
+.footer { position: relative; z-index: 1; text-align: center; }
+.footer .inner { padding: clamp(70px, 10vw, 120px) 0 50px; }
+.footer h2.shaded { font-size: clamp(40px, 7vw, 96px); }
+.footer p { margin: 14px 0 26px; font-size: 19px; }
+.footer .btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+.footer .small { margin-top: 60px; font-size: 14px; opacity: .8; }
+
+@media (max-width: 900px) {
+  .menu { display: block; }
+  .nav ul { display: none; position: absolute; left: 16px; right: 16px; top: 100%; flex-direction: column; gap: 0; padding: 6px 18px; background: var(--paper); border: 1.5px solid var(--ink); box-shadow: 0 16px 40px rgba(74, 35, 18, .25); }
+  .nav ul.open { display: flex; }
+  .nav ul a { display: block; padding: 12px 0; font-size: 19px; }
+  .nav ul li + li { border-top: 1px dashed rgba(74, 35, 18, .4); }
+}
+@media (max-width: 600px) {
+  body { font-size: 17px; }
+  .nav .btn { padding: 8px 12px; font-size: 15px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
