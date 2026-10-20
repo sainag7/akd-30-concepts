@@ -212,7 +212,7 @@ a { color: inherit; }
   <nav aria-label="Main">
     <ul>
       <li><a href="#pass">Event</a></li>
-      <li><a href="#departures">Lineup</a></li>
+      <li><a href="#departures">Teams</a></li>
       <li><a href="#crew">Board</a></li>
       <li><a href="#partners">Partners</a></li>
       <li><a href="#arrivals">Visitor info</a></li>
@@ -230,7 +230,7 @@ a { color: inherit; }
         <p class="sub">Wright place. Right time. Take flight with us into the Carolina skies on February 20, 2027.</p>
         <div class="btns">
           <a class="btn btn-navy" href="#">Get tickets</a>
-          <a class="btn btn-soft" href="#departures">See departures</a>
+          <a class="btn btn-soft" href="#departures">See the teams</a>
         </div>
         <p class="scroll-hint"><span></span>Scroll to take off</p>
       </div>
@@ -270,7 +270,7 @@ a { color: inherit; }
 
   <section class="sky-band" id="pass">
     <div class="wrap">
-      <h2 class="section-title">Your boarding pass</h2>
+      <h2 class="section-title">Event details</h2>
       <p class="section-lede">AKD 30.0 is an official Legends partner competition: the best collegiate Fusion and Bhangra teams, one stage, one night.</p>
       <div class="pass">
         <div class="pass-main">
@@ -300,7 +300,7 @@ a { color: inherit; }
     <div class="wrap">
       <div class="board-head">
         <div>
-          <h2 class="section-title">Departures</h2>
+          <h2 class="section-title">Teams</h2>
           <p class="section-lede" style="margin:0">Every team flying into AKD 30.0. Pick a division to update the board.</p>
         </div>
         <div class="tabs" role="group" aria-label="Division">
@@ -310,7 +310,7 @@ a { color: inherit; }
         </div>
       </div>
       <div class="board" id="board" role="table" aria-label="Lineup">
-        <div class="board-title"><span>AKD departures</span><time id="clock"></time></div>
+        <div class="board-title"><span>AKD 30.0</span><time id="clock"></time></div>
         <div id="rows"></div>
       </div>
       <p class="board-note">Sample board using last season's teams. The AKD 30.0 lineup is announced soon.</p>
@@ -319,8 +319,8 @@ a { color: inherit; }
 
   <section class="crew-band" id="crew">
     <div class="wrap">
-      <h2 class="section-title">Meet your crew</h2>
-      <p class="section-lede">Twelve committees run AKD. Pick a seat to see who's flying it.</p>
+      <h2 class="section-title">Board</h2>
+      <p class="section-lede">Twelve committees run AKD. Pick a seat to see each one.</p>
       <div class="crew-layout">
         <div class="fuselage"><div class="seats" id="seats"><div class="aisle"></div></div></div>
         <div class="crew-card" aria-live="polite" id="crewCard"></div>
@@ -330,7 +330,7 @@ a { color: inherit; }
 
   <section class="alliance" id="partners">
     <div class="wrap">
-      <h2 class="section-title">Our alliance</h2>
+      <h2 class="section-title">Partners</h2>
       <p class="section-lede">The partners who keep our dancers fed, safe and ready to fly.</p>
       <div class="logos" id="logos"></div>
     </div>
@@ -338,7 +338,7 @@ a { color: inherit; }
 
   <section class="arrivals" id="arrivals">
     <div class="wrap">
-      <h2 class="section-title">Arrivals guide</h2>
+      <h2 class="section-title">Visitor info</h2>
       <p class="section-lede">Everything teams and families need once they land.</p>
       <div class="guide">
         <article><h3>Getting here</h3><p>Fly into Raleigh–Durham International (RDU). The show is at the John H. Gattis–Wendell Tabb Theater.</p></article>
@@ -487,10 +487,10 @@ a { color: inherit; }
     b.style.gridRow = i % 2 ? 3 : 1;
     b.textContent = row + letter;
     b.setAttribute("aria-pressed", "false");
-    b.setAttribute("aria-label", `Seat ${row}${letter}: ${c.title}, ${c.committee}`);
+    b.setAttribute("aria-label", `Seat ${row}${letter}: ${c.committee}`);
     const show = () => {
       seats.querySelectorAll(".seat").forEach((s) => s.setAttribute("aria-pressed", s === b));
-      card.innerHTML = `<div class="seatno">Seat ${row}${letter}, ${c.committee}</div><h3>${c.title}</h3><p>Board member names and headshots go here.</p>`;
+      card.innerHTML = `<div class="seatno">Seat ${row}${letter}</div><h3>${c.committee}</h3><p>Board member names and headshots go here.</p>`;
     };
     b.addEventListener("click", show); b.addEventListener("mouseenter", show); b.addEventListener("focus", show);
     seats.appendChild(b);

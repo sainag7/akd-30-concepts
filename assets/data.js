@@ -21,20 +21,20 @@ window.AKD = {
     { name: "Mehfil Mitraan Di Bhangra", division: "Bhangra", img: "mehfil-mitraan-di-bhangra.jpg" },
     { name: "Lok Naach", division: "Bhangra", img: "lok-naach.jpg" }
   ],
-  // Board committees, renamed for the aviation theme.
+  // Board committees
   crew: [
-    { title: "Mission commanders", committee: "Directors" },
-    { title: "Crew chiefs", committee: "Liaisons" },
-    { title: "Flight operations", committee: "Logistics" },
-    { title: "Cabin crew", committee: "Hospitality" },
-    { title: "Check pilots", committee: "Judging" },
-    { title: "Flight surgeons", committee: "Safety & Wellness" },
-    { title: "Dispatch", committee: "Registration" },
-    { title: "Livery & nose art", committee: "Marketing & Design" },
-    { title: "Avionics", committee: "Tech" },
-    { title: "Fuel & finance", committee: "Finance" },
-    { title: "Alliances", committee: "Partnerships" },
-    { title: "Officers' club", committee: "Social" }
+    { committee: "Directors" },
+    { committee: "Liaisons" },
+    { committee: "Logistics" },
+    { committee: "Hospitality" },
+    { committee: "Judging" },
+    { committee: "Safety & Wellness" },
+    { committee: "Registration" },
+    { committee: "Marketing & Design" },
+    { committee: "Tech" },
+    { committee: "Finance" },
+    { committee: "Partnerships" },
+    { committee: "Social" }
   ],
   partners: [
     { name: "BUBBL'R", img: "bubblr.png" },

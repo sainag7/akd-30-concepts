@@ -224,9 +224,9 @@ a { color: inherit; }
     <a href="#top" aria-label="AKD home"><img src="../assets/logo-white.png" alt="AKD"></a>
     <nav aria-label="Main">
       <ul>
-        <li><a href="#specification">Specification</a></li>
-        <li><a href="#log">Flight log</a></li>
-        <li><a href="#lineup">Lineup</a></li>
+        <li><a href="#specification">Event</a></li>
+        <li><a href="#log">History</a></li>
+        <li><a href="#lineup">Teams</a></li>
         <li><a href="#inventors">Board</a></li>
         <li><a href="#field-notes">Visitor info</a></li>
       </ul>
@@ -328,14 +328,14 @@ a { color: inherit; }
 
     <div class="hero-foot">
       <a class="btn btn-solid" href="#">Get tickets</a>
-      <a class="btn btn-line" href="#specification">Read the specification</a>
+      <a class="btn btn-line" href="#specification">Event details</a>
     </div>
   </section>
 </div>
 
 <section class="sheet" id="specification">
   <div class="wrap">
-    <div class="sheet-head"><h2>Specification</h2><span class="sheetno">Sheet 1 of 5</span></div>
+    <div class="sheet-head"><h2>Event details</h2><span class="sheetno">Sheet 1 of 6</span></div>
     <div class="spec">
       <div>
         <p class="lead">Be it known that the students of UNC Chapel Hill have invented a new and useful night of South Asian dance, of which the following is a specification.</p>
@@ -359,7 +359,7 @@ a { color: inherit; }
 <section class="log" id="log">
   <div class="log-pin">
     <div class="wrap">
-      <div class="sheet-head" style="margin-bottom:0"><h2>Flight log</h2><span class="sheetno">Sheet 2 of 5</span></div>
+      <div class="sheet-head" style="margin-bottom:0"><h2>History</h2><span class="sheetno">Sheet 2 of 6</span></div>
       <p class="intro">On December 17, 1903, the Wright brothers flew four times over the sand at Kill Devil Hills, North Carolina. We're adding a fifth.</p>
       <div class="path-wrap">
         <svg viewBox="0 0 1200 250" aria-hidden="true">
@@ -391,7 +391,7 @@ a { color: inherit; }
 
 <section class="sheet" id="lineup">
   <div class="wrap">
-    <div class="sheet-head"><h2>The lineup</h2><span class="sheetno">Sheet 3 of 5</span></div>
+    <div class="sheet-head"><h2>Teams</h2><span class="sheetno">Sheet 3 of 6</span></div>
     <p class="intro">Every team, printed as a cyanotype. Hover or focus a plate to develop it in color.</p>
     <div class="plate-tabs" role="group" aria-label="Division">
       <button type="button" data-div="all" aria-pressed="true">All teams</button>
@@ -405,15 +405,15 @@ a { color: inherit; }
 
 <section class="sheet" id="inventors">
   <div class="wrap">
-    <div class="sheet-head"><h2>Inventors</h2><span class="sheetno">Sheet 4 of 5</span></div>
-    <p class="intro">The AKD board, by committee. Every one of them signed off on this machine.</p>
+    <div class="sheet-head"><h2>Board</h2><span class="sheetno">Sheet 4 of 6</span></div>
+    <p class="intro">The committees behind AKD 30.0.</p>
     <div class="inventors" id="crew"></div>
   </div>
 </section>
 
 <section class="sheet" id="witnesses">
   <div class="wrap">
-    <div class="sheet-head"><h2>Witnesses</h2><span class="sheetno">Partners</span></div>
+    <div class="sheet-head"><h2>Partners</h2><span class="sheetno">Sheet 5 of 6</span></div>
     <p class="intro">The partners who fed our dancers, stocked our wellness tables and made the launch possible.</p>
     <div class="witness" id="partners"></div>
   </div>
@@ -421,7 +421,7 @@ a { color: inherit; }
 
 <section class="sheet notes" id="field-notes">
   <div class="wrap">
-    <div class="sheet-head"><h2>Field notes</h2><span class="sheetno">Sheet 5 of 5</span></div>
+    <div class="sheet-head"><h2>Visitor info</h2><span class="sheetno">Sheet 6 of 6</span></div>
     <div class="notes-grid">
       <div>
         <h3>Getting here</h3>
@@ -515,7 +515,7 @@ a { color: inherit; }
     document.querySelectorAll(".plate").forEach((p) => { p.hidden = !(b.dataset.div === "all" || p.dataset.div === b.dataset.div); });
   }));
 
-  $("#crew").innerHTML = D.crew.map((c) => `<div><b>${c.title}</b><span>${c.committee}</span></div>`).join("");
+  $("#crew").innerHTML = D.crew.map((c) => `<div><b>${c.committee}</b></div>`).join("");
   $("#partners").innerHTML = D.partners.map((p) => `<figure><img src="../assets/logos/${p.img}" alt="${p.name}" loading="lazy"></figure>`).join("");
   $("#food").innerHTML = D.food.map((f) => `<li><a href="${f.maps}" target="_blank" rel="noopener">${f.name}</a><span>${f.note}</span></li>`).join("");
 })();

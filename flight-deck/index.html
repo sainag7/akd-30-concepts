@@ -202,49 +202,27 @@ section.band { position: relative; padding: clamp(80px, 12vw, 150px) 0; }
 .checklist li span:last-child { font-weight: 700; color: var(--hud); }
 .checklist li.pending span:last-child { color: var(--amber); }
 
-/* Lineup / radar */
-.lineup { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(28px, 5vw, 64px); align-items: start; }
-.scope-wrap { position: sticky; top: 140px; }
-.scope { position: relative; aspect-ratio: 1; border-radius: 50%; border: 1.5px solid var(--hud-dim);
-  background:
-    radial-gradient(circle, transparent 0 24.6%, var(--hud-faint) 24.8% 25%, transparent 25.2% 49.6%, var(--hud-faint) 49.8% 50%, transparent 50.2% 74.6%, var(--hud-faint) 74.8% 75%, transparent 75.2%),
-    linear-gradient(var(--hud-faint), var(--hud-faint)) center / 1px 100% no-repeat,
-    linear-gradient(var(--hud-faint), var(--hud-faint)) center / 100% 1px no-repeat,
-    #071a2d;
-  overflow: hidden; }
-.sweep { position: absolute; inset: 0; border-radius: 50%;
-  background: conic-gradient(from 0deg, rgba(158, 212, 255, .38), rgba(158, 212, 255, 0) 70deg);
-  animation: sweep 4s linear infinite; }
-@keyframes sweep { to { transform: rotate(360deg); } }
-.blip { position: absolute; width: 10px; height: 10px; margin: -5px 0 0 -5px; border-radius: 50%;
-  background: var(--hud); box-shadow: var(--glow); transition: background .2s, transform .2s; }
-.blip.on { background: var(--amber); box-shadow: 0 0 0 6px rgba(255, 181, 71, .2), 0 0 18px var(--amber); transform: scale(1.4); }
-.blip.off { opacity: .18; }
-.pod {
-  position: absolute; inset: 22%; border-radius: 50%; overflow: hidden; opacity: 0; transition: opacity .3s;
-  border: 1.5px solid var(--amber);
-}
-.pod.show { opacity: 1; }
-.pod img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(1) contrast(1.15) brightness(.95) sepia(.2) hue-rotate(170deg) saturate(1.6); }
-.scope-label { margin-top: 14px; text-align: center; font-stretch: var(--narrow); color: var(--muted); font-size: 15px; min-height: 1.6em; }
-.scope-label b { color: var(--amber); font-weight: 700; }
-
-.div-toggle { display: inline-flex; border: 1.5px solid var(--hud-dim); margin-bottom: 18px; }
+/* Teams: split-flap board */
+.board-head { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; margin-bottom: 18px; }
+.div-toggle { display: inline-flex; border: 1.5px solid var(--hud-dim); }
 .div-toggle button {
   font: inherit; font-stretch: var(--narrow); font-weight: 700; letter-spacing: .06em; text-transform: uppercase; font-size: 14px;
   padding: 9px 18px; background: none; border: 0; color: var(--muted); cursor: pointer;
 }
 .div-toggle button[aria-pressed="true"] { background: var(--hud); color: var(--deep); }
-.roster { list-style: none; margin: 0; padding: 0; counter-reset: none; }
-.roster button {
-  width: 100%; display: flex; align-items: baseline; justify-content: space-between; gap: 12px;
-  padding: 16px 4px; background: none; border: 0; border-bottom: 1px solid var(--hud-faint); color: var(--ink);
-  font: inherit; text-align: left; cursor: pointer;
-}
-.roster .t { font-size: clamp(22px, 2.6vw, 30px); font-weight: 700; font-stretch: var(--narrow); line-height: 1.15; }
-.roster .d { font-size: 13px; color: var(--muted); font-stretch: var(--narrow); white-space: nowrap; }
-.roster button:hover .t, .roster button.on .t { color: var(--amber); }
-.roster li[hidden] { display: none; }
+.board { position: relative; overflow-x: auto; padding: 20px clamp(12px, 2vw, 26px) 24px; background: #071a2d;
+  border: 1.5px solid var(--hud-dim); clip-path: polygon(16px 0, 100% 0, 100% calc(100% - 16px), calc(100% - 16px) 100%, 0 100%, 0 16px); }
+.board-title { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; color: var(--hud); text-shadow: var(--glow);
+  font-weight: 700; font-stretch: var(--narrow); letter-spacing: .08em; font-size: 15px; font-variant-numeric: tabular-nums; }
+.row { display: flex; gap: 14px; padding: 4px 0; min-width: max-content; }
+.row.head { color: var(--muted); font-size: 12px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; font-stretch: var(--narrow); padding-bottom: 8px; }
+.cells { position: relative; display: flex; gap: 2px; }
+.cell { --s: clamp(12px, 1.35vw, 21px); width: calc(var(--s) * .82); height: calc(var(--s) * 1.45); display: grid; place-items: center;
+  font-size: var(--s); font-weight: 700; font-stretch: 100%; text-transform: uppercase; color: var(--ink);
+  background: linear-gradient(#11294A 0 49%, #061424 49% 51%, #0D2240 51%); border-radius: 2px; }
+.status .cell { color: var(--amber); }
+.status.on-time .cell { color: var(--hud); text-shadow: var(--glow); }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
 .sample-note { margin-top: 18px; font-size: 14px; color: var(--muted); }
 
 /* Crew */
@@ -284,8 +262,7 @@ section.band { position: relative; padding: clamp(80px, 12vw, 150px) 0; }
 @media (max-width: 900px) {
   .wrap { width: calc(100% - 32px); }
   .lock { margin-left: 0; }
-  .brief, .lineup, .ops { grid-template-columns: 1fr; }
-  .scope-wrap { position: relative; top: 0; max-width: 380px; width: 100%; margin-inline: auto; }
+  .brief, .ops { grid-template-columns: 1fr; }
   .wingmen { grid-template-columns: repeat(3, 1fr); }
   .tape, .readout-spd, .hdg, .hdg-caret { display: none; }
   .readout-alt { top: auto; bottom: 16px; transform: none; right: 16px; }
@@ -309,7 +286,6 @@ section.band { position: relative; padding: clamp(80px, 12vw, 150px) 0; }
 }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .sweep { animation: none; opacity: .5; }
   .lock i, .lock .tag { transition: none; }
 }
 </style>
@@ -319,8 +295,8 @@ section.band { position: relative; padding: clamp(80px, 12vw, 150px) 0; }
 <header class="nav">
   <a class="nav-brand" href="#top" aria-label="AKD home"><img src="../assets/logo-white.png" alt="AKD"></a>
   <nav class="nav-links" id="navLinks" aria-label="Main">
-    <a href="#briefing">Briefing</a>
-    <a href="#lineup">Lineup</a>
+    <a href="#briefing">Event</a>
+    <a href="#lineup">Teams</a>
     <a href="#crew">Board</a>
     <a href="#partners">Partners</a>
     <a href="#ground">Visitor info</a>
@@ -351,14 +327,14 @@ section.band { position: relative; padding: clamp(80px, 12vw, 150px) 0; }
       <div class="hero-meta"><span>February 20, 2027</span><span>John H. Gattis–Wendell Tabb Theater</span></div>
       <div class="btns">
         <a class="btn btn-go" href="#">Get tickets</a>
-        <a class="btn btn-ghost" href="#lineup">See the lineup</a>
+        <a class="btn btn-ghost" href="#lineup">See the teams</a>
       </div>
     </div>
   </section>
 
   <section class="band band-night" id="briefing" data-phase="Taxi">
     <div class="wrap">
-      <div class="lock"><i></i><i></i><i></i><i></i><span class="tag">LOCK</span><h2>Mission briefing</h2></div>
+      <div class="lock"><i></i><i></i><i></i><i></i><span class="tag">LOCK</span><h2>Event details</h2></div>
       <div class="brief">
         <div>
           <p class="lede">AKD 30.0 is an official Legends partner competition: one night where the best collegiate Fusion and Bhangra teams in the country take the same stage.</p>
@@ -385,39 +361,33 @@ section.band { position: relative; padding: clamp(80px, 12vw, 150px) 0; }
 
   <section class="band" id="lineup" data-phase="Takeoff">
     <div class="wrap">
-      <div class="lock"><i></i><i></i><i></i><i></i><span class="tag">LOCK</span><h2>Squadrons on radar</h2></div>
-      <div class="lineup">
-        <div class="scope-wrap">
-          <div class="scope" id="scope">
-            <div class="sweep"></div>
-            <div class="pod" id="pod"><img id="podImg" alt=""></div>
-          </div>
-          <p class="scope-label" id="scopeLabel">Pick a team to lock on.</p>
-        </div>
-        <div>
-          <div class="div-toggle" role="group" aria-label="Division">
-            <button type="button" data-div="all" aria-pressed="true">All</button>
-            <button type="button" data-div="Fusion" aria-pressed="false">Fusion</button>
-            <button type="button" data-div="Bhangra" aria-pressed="false">Bhangra</button>
-          </div>
-          <ul class="roster" id="roster"></ul>
-          <p class="sample-note">Sample lineup from last season. The AKD 30.0 lineup drops soon.</p>
+      <div class="board-head">
+        <div class="lock" style="margin-bottom:0"><i></i><i></i><i></i><i></i><span class="tag">LOCK</span><h2>Teams</h2></div>
+        <div class="div-toggle" role="group" aria-label="Division">
+          <button type="button" data-div="all" aria-pressed="true">All</button>
+          <button type="button" data-div="Fusion" aria-pressed="false">Fusion</button>
+          <button type="button" data-div="Bhangra" aria-pressed="false">Bhangra</button>
         </div>
       </div>
+      <div class="board" id="board" role="table" aria-label="Teams">
+        <div class="board-title"><span>AKD 30.0</span><time id="clock"></time></div>
+        <div id="rows"></div>
+      </div>
+      <p class="sample-note">Sample board using last season's teams. The AKD 30.0 lineup is announced soon.</p>
     </div>
   </section>
 
   <section class="band band-night" id="crew" data-phase="Climb">
     <div class="wrap">
-      <div class="lock"><i></i><i></i><i></i><i></i><span class="tag">LOCK</span><h2>Flight crew</h2></div>
-      <p class="lede">The AKD board, by station. Tap a crew to meet the people behind the show.</p>
+      <div class="lock"><i></i><i></i><i></i><i></i><span class="tag">LOCK</span><h2>Board</h2></div>
+      <p class="lede">The committees behind AKD 30.0.</p>
       <div class="crew" id="crewGrid"></div>
     </div>
   </section>
 
   <section class="band" id="partners" data-phase="Climb">
     <div class="wrap">
-      <div class="lock"><i></i><i></i><i></i><i></i><span class="tag">LOCK</span><h2>Wingmen</h2></div>
+      <div class="lock"><i></i><i></i><i></i><i></i><span class="tag">LOCK</span><h2>Partners</h2></div>
       <p class="lede">The partners who fuel our dancers and keep everyone safe on show day.</p>
       <div class="wingmen" id="wingmen"></div>
     </div>
@@ -425,17 +395,17 @@ section.band { position: relative; padding: clamp(80px, 12vw, 150px) 0; }
 
   <section class="band band-night" id="ground" data-phase="Cruise">
     <div class="wrap">
-      <div class="lock"><i></i><i></i><i></i><i></i><span class="tag">LOCK</span><h2>Ground ops</h2></div>
+      <div class="lock"><i></i><i></i><i></i><i></i><span class="tag">LOCK</span><h2>Visitor info</h2></div>
       <div class="ops">
         <div>
           <h3>Getting here</h3>
           <p>Fly into Raleigh–Durham International (RDU). The show is at the John H. Gattis–Wendell Tabb Theater.</p>
           <p>Hotel block and shuttle details post here once they're confirmed.</p>
           <h3 style="margin-top:34px">Safety &amp; wellness</h3>
-          <p>Our flight surgeons (the SWA committee) are on site all day. Find them at the wellness table by check-in.</p>
+          <p>The SWA committee is on site all day. Find them at the wellness table by check-in.</p>
         </div>
         <div>
-          <h3>Refuel near campus</h3>
+          <h3>Food near campus</h3>
           <ul class="fuel" id="fuel"></ul>
         </div>
       </div>
@@ -571,44 +541,67 @@ section.band { position: relative; padding: clamp(80px, 12vw, 150px) 0; }
   }), { threshold: .9 });
   document.querySelectorAll(".lock").forEach((l) => io.observe(l));
 
-  // ---------- Lineup radar ----------
-  const roster = $("#roster"), scope = $("#scope");
-  const blips = D.teams.map((t, i) => {
-    const ang = i * 2.39996 + .6, rad = 18 + (i % 4) * 8 + (i * 3 % 7);
-    const b = document.createElement("span");
-    b.className = "blip";
-    b.style.left = (50 + Math.cos(ang) * rad) + "%";
-    b.style.top = (50 + Math.sin(ang) * rad) + "%";
-    scope.appendChild(b);
-    const li = document.createElement("li");
-    li.dataset.div = t.division;
-    li.innerHTML = `<button type="button"><span class="t">${t.name}</span><span class="d">${t.division}</span></button>`;
-    roster.appendChild(li);
-    const btn = li.firstChild;
-    const lock = () => {
-      roster.querySelectorAll("button.on").forEach((x) => x.classList.remove("on"));
-      scope.querySelectorAll(".blip.on").forEach((x) => x.classList.remove("on"));
-      btn.classList.add("on"); b.classList.add("on");
-      $("#podImg").src = "../assets/teams/" + t.img; $("#podImg").alt = t.name + " team photo";
-      $("#pod").classList.add("show");
-      $("#scopeLabel").innerHTML = `Locked: <b>${t.name}</b>, ${t.division}`;
-    };
-    btn.addEventListener("mouseenter", lock);
-    btn.addEventListener("focus", lock);
-    btn.addEventListener("click", lock);
-    return { b, li, t };
-  });
-  document.querySelectorAll(".div-toggle button").forEach((btn) => btn.addEventListener("click", () => {
-    document.querySelectorAll(".div-toggle button").forEach((x) => x.setAttribute("aria-pressed", x === btn));
-    const d = btn.dataset.div;
-    blips.forEach(({ b, li, t }) => {
-      const show = d === "all" || t.division === d;
-      li.hidden = !show; b.classList.toggle("off", !show);
+  // ---------- Teams: split-flap board ----------
+  const COLS = [["Flight", 6], ["Team", 26], ["Division", 7], ["Status", 8]];
+  const CHARS = " ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'.-";
+  const statuses = ["BOARDING", "ON TIME", "ON TIME", "BOARDING", "ON TIME"];
+  const CELL = "(clamp(12px, 1.35vw, 21px) * .82 + 2px)";
+  const rowsEl = $("#rows");
+  const head = document.createElement("div");
+  head.className = "row head"; head.setAttribute("role", "row");
+  head.innerHTML = COLS.map(([n, len]) => `<span role="columnheader" style="width:calc(${len} * ${CELL} - 2px)">${n}</span>`).join("");
+  rowsEl.appendChild(head);
+  const rowEls = D.teams.map(() => {
+    const row = document.createElement("div");
+    row.className = "row"; row.setAttribute("role", "row");
+    const groups = COLS.map(([, len], ci) => {
+      const g = document.createElement("div");
+      g.className = "cells" + (ci === 3 ? " status" : ""); g.setAttribute("role", "cell");
+      g.innerHTML = '<span class="cell" aria-hidden="true"></span>'.repeat(len) + '<span class="sr"></span>';
+      row.appendChild(g);
+      return g;
     });
+    rowsEl.appendChild(row);
+    return groups;
+  });
+
+  function setText(group, text, delay) {
+    const cells = [...group.querySelectorAll(".cell")];
+    const target = text.toUpperCase().padEnd(cells.length).slice(0, cells.length);
+    group.lastChild.textContent = text;
+    group.classList.toggle("on-time", text === "ON TIME");
+    cells.forEach((c, i) => {
+      const want = target[i];
+      if (reduce) { c.textContent = want; return; }
+      let flips = want === " " && c.textContent.trim() === "" ? 0 : 4 + Math.floor(Math.random() * 8);
+      setTimeout(function flip() {
+        if (flips-- <= 0) { c.textContent = want; return; }
+        c.textContent = CHARS[Math.floor(Math.random() * CHARS.length)];
+        setTimeout(flip, 55);
+      }, delay + i * 18);
+    });
+  }
+
+  let division = "all";
+  function fillBoard() {
+    const list = D.teams.filter((t) => division === "all" || t.division === division);
+    rowEls.forEach((groups, r) => {
+      const t = list[r];
+      const vals = t ? [`AK ${301 + D.teams.indexOf(t)}`, t.name, t.division, statuses[r % statuses.length]] : ["", "", "", ""];
+      groups.forEach((g, ci) => setText(g, vals[ci], r * 70));
+    });
+  }
+  const boardIO = new IntersectionObserver((es) => { if (es[0].isIntersecting) { fillBoard(); boardIO.disconnect(); } }, { threshold: .3 });
+  boardIO.observe($("#board"));
+  document.querySelectorAll(".div-toggle button").forEach((b) => b.addEventListener("click", () => {
+    document.querySelectorAll(".div-toggle button").forEach((x) => x.setAttribute("aria-pressed", x === b));
+    division = b.dataset.div; fillBoard();
   }));
+  const tick = () => { $("#clock").textContent = new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }); };
+  tick(); setInterval(tick, 30000);
 
   // ---------- Crew, partners, food ----------
-  $("#crewGrid").innerHTML = D.crew.map((c) => `<div><h3>${c.title}</h3><p>${c.committee}</p></div>`).join("");
+  $("#crewGrid").innerHTML = D.crew.map((c) => `<div><h3>${c.committee}</h3></div>`).join("");
   $("#wingmen").innerHTML = D.partners.map((p) => `<figure><img src="../assets/logos/${p.img}" alt="${p.name}" loading="lazy"></figure>`).join("");
   $("#fuel").innerHTML = D.food.map((f) => `<li><a href="${f.maps}" target="_blank" rel="noopener">${f.name}</a><span>${f.note}</span></li>`).join("");
 })();
