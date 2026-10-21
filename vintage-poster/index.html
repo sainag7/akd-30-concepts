@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>AKD 30.0 | Vintage Poster</title>
+<title>Aaj Ka Dhamaka 30.0 | First in Flight</title>
 <meta name="description" content="Aaj Ka Dhamaka 30.0. First in Flight. February 20, 2027.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -19,10 +19,13 @@
 .poster .l2 { margin-left: auto; animation: inR 1s cubic-bezier(.2, .8, .2, 1) .1s both; }
 @keyframes inL { from { transform: translateX(-30vw); opacity: 0; } }
 @keyframes inR { from { transform: translateX(30vw); opacity: 0; } }
-.band { position: relative; display: block; margin: 14px 0; height: clamp(170px, 30vh, 330px); text-shadow: none; }
+.band { position: relative; display: block; margin: 14px 0; height: clamp(260px, 52vh, 560px); text-shadow: none; }
 .band .duo { position: absolute; inset: 0; box-shadow: 0 0 0 10px #F8F1E1, 0 18px 40px rgba(74, 35, 18, .3); }
-.band .duo img { object-position: center 35%; }
-.band .logo { position: absolute; z-index: 3; left: 50%; top: 50%; width: clamp(180px, 26vw, 360px); transform: translate(-50%, -50%); filter: drop-shadow(0 4px 18px rgba(46, 23, 11, .55)); }
+.band .duo img { object-position: center 44%; }
+/* Team photo keeps its real colors with only a light, warm paper tint */
+.duo.soft img { filter: sepia(.12) saturate(.95) contrast(1.02); mix-blend-mode: normal; }
+.duo.soft::before { background: #EBDDBF; opacity: .14; }
+.duo.soft::after { opacity: .07; }
 .band .stamp { position: absolute; z-index: 4; right: clamp(8px, 3vw, 40px); top: -40px; width: clamp(96px, 10vw, 130px); aspect-ratio: 5 / 6; transform: rotate(8deg); }
 .stamp .inner { display: grid; grid-template-rows: auto 1fr auto; text-align: center; padding: 8px 6px; border: 2px solid var(--air-red); color: var(--air-red); }
 .stamp .top { font-family: var(--display); font-size: clamp(11px, 1.05vw, 14px); letter-spacing: .04em; }
@@ -50,30 +53,33 @@
 .ticker i { font-style: normal; color: #E07A5F; padding-left: 30px; }
 @keyframes tick { to { transform: translateX(-50%); } }
 
-/* ---------- Lineup ---------- */
-.lineup h2 { color: var(--on-ink); }
-.div-label { display: flex; align-items: center; gap: 16px; margin: 40px 0 16px; font-size: 18px; letter-spacing: .12em; text-transform: uppercase; color: #D8B98C; }
-.div-label::after { content: ""; flex: 1; border-top: 1.5px dashed rgba(216, 185, 140, .55); }
-.names { margin: 0; padding: 0; list-style: none; text-align: center; }
-.names li { display: inline; }
-.names button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; font-family: var(--display); text-transform: uppercase; line-height: 1.18;
-  font-size: clamp(28px, 4.5vw, 64px); text-shadow: .045em .045em 0 rgba(0, 0, 0, .35); transition: color .15s; }
-.names button:hover, .names button:focus-visible { color: #E8C48A; outline: none; }
-.names li + li::before { content: "★"; color: #E07A5F; font-size: clamp(18px, 2.4vw, 34px); margin: 0 .4em; vertical-align: .3em; }
-.lineup-foot { margin-top: 44px; display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; }
-.lineup-foot p { margin: 0; color: #D8B98C; font-size: 15px; }
-.lineup-foot .btn { background: var(--paper-3); color: var(--ink); border-color: var(--paper-3); }
-.lineup-foot .btn:hover { background: var(--air-red); border-color: var(--air-red); color: var(--paper-3); }
-/* The pop-up is a postcard: color photo, typed caption, a little air mail stamp */
-.peek { --tilt: -5deg; position: fixed; z-index: 50; left: 0; top: 0; width: clamp(220px, 23vw, 310px); padding: 10px 10px 12px; background: #F8F1E1; color: var(--ink); pointer-events: none;
-  opacity: 0; transform: translate(-50%, -108%) rotate(var(--tilt)) scale(.9); transition: opacity .18s, transform .25s; box-shadow: 0 24px 60px rgba(0, 0, 0, .45); }
-.peek.show { opacity: 1; transform: translate(-50%, -108%) rotate(var(--tilt)) scale(1); }
-.peek .ph { aspect-ratio: 4 / 3; overflow: hidden; }
-.peek img { width: 100%; height: 100%; object-fit: cover; }
-.peek p { margin: 8px 0 0; font-size: 15px; text-align: left; }
-.peek .mini { position: absolute; right: -10px; top: -14px; width: 48px; transform: rotate(8deg); }
-.peek .mini .inner { border: 1.5px solid var(--air-blue); height: 44px; display: grid; place-items: center; }
-.peek .mini svg { width: 30px; color: var(--air-blue); }
+/* ---------- Teams: lineup coming late November ---------- */
+.soon-grid { display: grid; grid-template-columns: 1.15fr 1fr; gap: clamp(30px, 6vw, 90px); align-items: center; }
+.teams-soon h2 { color: var(--on-ink); margin-bottom: 18px; }
+.soon-big { margin: 0; font-family: var(--display); font-size: clamp(30px, 4.2vw, 58px); line-height: 1.08; }
+.teams-soon .soon-big { color: #E8C48A; text-shadow: .045em .045em 0 rgba(0, 0, 0, .35); }
+.soon-text { margin: 18px 0 28px; max-width: 48ch; font-size: 18px; }
+.teams-soon .soon-text { color: #E2CDAA; }
+.soon-btns { display: flex; gap: 12px; flex-wrap: wrap; }
+.teams-soon .btn-paper:hover { background: var(--air-red); border-color: var(--air-red); color: var(--paper-3); }
+.btn-ghost-light { color: var(--on-ink); border-color: rgba(243, 232, 210, .6); }
+.btn-ghost-light:hover { background: rgba(243, 232, 210, .1); }
+/* A sealed air mail envelope holding the lineup */
+.envelope { position: relative; justify-self: center; width: min(100%, 470px); aspect-ratio: 16 / 10; padding: 12px; transform: rotate(-3deg);
+  background: repeating-linear-gradient(-45deg, var(--air-red) 0 16px, var(--paper-3) 16px 23px, var(--air-blue) 23px 39px, var(--paper-3) 39px 46px);
+  box-shadow: 0 26px 50px rgba(0, 0, 0, .4); color: var(--ink); }
+.envelope .inner { position: relative; height: 100%; background: var(--paper-3); padding: 22px 24px; display: flex; flex-direction: column; justify-content: flex-end; overflow: hidden; }
+.envelope .inner::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 46%; background: #F1E6CD; clip-path: polygon(0 0, 100% 0, 50% 100%); box-shadow: inset 0 -1px 0 rgba(74, 35, 18, .2); }
+.envelope .to { position: relative; font-size: clamp(14px, 1.5vw, 17px); line-height: 1.55; }
+.envelope .to b { font-weight: 400; text-decoration: underline; text-underline-offset: 3px; }
+.envelope .seal { position: absolute; z-index: 2; left: 50%; top: 46%; width: 64px; height: 64px; margin: -32px 0 0 -32px; border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #CF5A44, #9E3322 70%); box-shadow: 0 0 0 4px rgba(158, 51, 34, .35), 0 4px 10px rgba(0, 0, 0, .3);
+  display: grid; place-items: center; font-family: var(--display); color: #F6DCC8; font-size: 15px; }
+.envelope .mini { position: absolute; z-index: 2; right: 16px; top: 16px; width: 54px; transform: rotate(6deg); }
+.envelope .mini .inner { padding: 0; border: 1.5px solid var(--air-red); height: 60px; display: grid; place-items: center; justify-content: center; }
+.envelope .mini svg { width: 34px; color: var(--air-red); }
+.envelope .rubber { position: absolute; z-index: 3; left: 18px; top: 22px; padding: 6px 12px; border: 2.5px solid var(--air-red); color: var(--air-red); transform: rotate(-8deg);
+  font-size: clamp(13px, 1.3vw, 15px); letter-spacing: .12em; text-transform: uppercase; opacity: .85; mix-blend-mode: multiply; }
 
 /* ---------- Applications telegram ---------- */
 .apply-grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: clamp(30px, 6vw, 80px); align-items: start; }
@@ -98,26 +104,6 @@
 .deadlines b { font-weight: 400; text-decoration: underline; text-underline-offset: 4px; }
 .deadlines .left { color: var(--air-red); }
 
-/* ---------- 1903 to 2027 ---------- */
-.then-now h2 { margin-bottom: 10px; }
-.then-now .intro { max-width: 56ch; font-size: 20px; margin: 0 0 40px; }
-.route { position: relative; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: end; }
-.era { position: relative; z-index: 1; }
-.era .yr { display: block; font-family: var(--display); font-size: clamp(90px, 13vw, 190px); line-height: .85; text-shadow: .045em .045em 0 rgba(181, 137, 91, .75); }
-.era h3 { margin: 14px 0 6px; font-size: 20px; font-weight: 400; letter-spacing: .06em; text-transform: uppercase; }
-.era p { margin: 0; max-width: 36ch; color: var(--sepia); }
-.era.now { text-align: right; justify-self: end; }
-.era.now p { margin-left: auto; }
-.era.now .yr { color: var(--air-red); }
-.path-svg { position: absolute; z-index: 0; left: 0; top: -20px; width: 100%; height: calc(100% + 40px); overflow: visible; pointer-events: none; }
-.path-svg .trail { fill: none; stroke: var(--sepia); stroke-width: 2.2; stroke-dasharray: 3 10; stroke-linecap: round; opacity: .7; }
-.path-svg #routePlane path, .path-svg #routePlane line { fill: none; stroke: var(--ink); stroke-width: 2.4; stroke-linecap: round; }
-.facts-1903 { display: grid; grid-template-columns: repeat(3, 1fr); margin-top: 50px; border-top: 4px double var(--ink); }
-.facts-1903 div { padding: 18px 18px 22px 0; border-bottom: 4px double var(--ink); }
-.facts-1903 div + div { padding-left: 18px; border-left: 1.5px dashed rgba(74, 35, 18, .4); }
-.facts-1903 b { display: block; font-family: var(--display); font-weight: 400; text-transform: uppercase; font-size: clamp(28px, 3.2vw, 46px); line-height: 1; }
-.facts-1903 span { color: var(--sepia); font-size: 15px; }
-
 /* ---------- Event summary with an old enamel plate ---------- */
 .event-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 30px; }
 .plate { flex: 0 0 auto; width: clamp(220px, 24vw, 300px); aspect-ratio: 2 / 1; border-radius: 12px; padding: 8px 14px; transform: rotate(4deg); margin-top: 6px;
@@ -137,22 +123,19 @@
 .event-grid dd { margin: 6px 0 0; font-family: var(--display); text-transform: uppercase; font-size: clamp(22px, 2.4vw, 34px); line-height: 1.05; }
 .about { max-width: 58ch; font-size: 20px; margin: 30px 0 0; }
 
-/* ---------- Partners as postage stamps ---------- */
-.stamps { display: flex; flex-wrap: wrap; gap: 26px; }
-.stamps .stamp-frame { width: 190px; height: 150px; }
-.stamps .stamp-frame:nth-child(odd) { transform: rotate(-2deg); }
-.stamps .stamp-frame:nth-child(even) { transform: rotate(1.6deg); }
-.stamps .inner { display: grid; place-items: center; padding: 16px; border: 1.5px solid rgba(74, 35, 18, .5); }
-.stamps img { max-height: 70px; width: auto; object-fit: contain; filter: sepia(.35); mix-blend-mode: multiply; }
+/* ---------- Partners: coming soon ---------- */
+.partners-grid { display: grid; grid-template-columns: 1fr 1.1fr; gap: clamp(30px, 6vw, 80px); align-items: center; }
+.partners-grid .soon-text { color: var(--ink); }
+.stamps { display: flex; flex-wrap: wrap; gap: 22px; justify-content: center; }
+.stamps .stamp-frame { width: 150px; height: 124px; }
+.stamps .stamp-frame:nth-child(odd) { transform: rotate(-3deg); }
+.stamps .stamp-frame:nth-child(even) { transform: rotate(2.5deg); }
+.stamps .inner { display: grid; place-items: center; text-align: center; padding: 10px; border: 1.5px dashed rgba(74, 35, 18, .5); font-size: 14px; color: var(--sepia); }
 
 @media (max-width: 900px) {
   .poster-foot { grid-template-columns: 1fr 1fr; }
   .poster-foot .btns { justify-self: start; grid-column: 1 / -1; }
-  .apply-grid { grid-template-columns: 1fr; }
-  .route { grid-template-columns: 1fr; gap: 70px; }
-  .era.now { justify-self: end; }
-  .facts-1903 { grid-template-columns: 1fr; }
-  .facts-1903 div + div { padding-left: 0; border-left: 0; }
+  .apply-grid, .soon-grid, .partners-grid { grid-template-columns: 1fr; }
   .event-head { flex-direction: column; }
   .event-grid { grid-template-columns: 1fr 1fr; }
   .event-grid div:nth-child(3) { padding-left: 0; border-left: 0; }
@@ -168,14 +151,16 @@
   .event-grid { grid-template-columns: 1fr; }
   .event-grid div + div { padding-left: 0; border-left: 0; }
   .apply-card { flex-direction: column; align-items: flex-start; }
-  .stamps .stamp-frame { width: calc(50% - 13px); height: 130px; }
+  .envelope .rubber { font-size: 10.5px; padding: 4px 8px; left: 12px; top: 12px; letter-spacing: .08em; }
+  .envelope .seal { width: 46px; height: 46px; margin: -23px 0 0 -23px; font-size: 12px; }
+  .envelope .mini { width: 42px; right: 10px; top: 10px; }
+  .envelope .mini .inner { height: 46px; }
 }
 @media (prefers-reduced-motion: reduce) {
   .poster .l1, .poster .l2 { animation: none; }
   .flyer-bg .draw { animation: none; stroke-dashoffset: 0; }
   .ticker-track { animation: none; }
   .strips p.typing::after { animation: none; }
-  .peek { transition: none; }
 }
 </style>
 </head>
@@ -218,8 +203,7 @@
       <h1 class="cond">
         <span class="l1" id="l1">First in</span>
         <span class="band" aria-hidden="true">
-          <span class="duo" style="display:block"><img src="../assets/teams/ucb-azaad.jpg" alt=""></span>
-          <img class="logo" src="../assets/logo-white.png" alt="">
+          <span class="duo soft" style="display:block" role="img" aria-label="The AKD 30.0 board on the steps at UNC"><img src="../assets/akd-team.jpg" alt=""></span>
           <svg class="postmark" id="postmark" viewBox="0 0 300 120"></svg>
           <span class="stamp-frame stamp"><span class="inner" style="display:grid">
             <span class="top">AIR MAIL</span>
@@ -233,33 +217,10 @@
         <div>John H. Gattis–Wendell Tabb Theater<small>Venue</small></div>
         <div>Fusion and Bhangra<small>Divisions</small></div>
         <div><span data-days>125</span> days<small>Until the show</small></div>
-        <div class="btns"><a class="btn btn-red" href="#">Get tickets</a><a class="btn btn-ink" href="#lineup">See the lineup</a></div>
+        <div class="btns"><a class="btn btn-red" href="#apply">Apply now</a><a class="btn btn-ink" href="event.html">Event details</a></div>
       </div>
     </div>
   </section>
-
-  <div class="airmail-edge" aria-hidden="true"></div>
-  <div class="ticker" aria-hidden="true"><div class="ticker-track" id="ticker"></div></div>
-
-  <section class="band-ink lineup" id="lineup">
-    <div class="wrap">
-      <h2 class="cond">Teams</h2>
-      <p class="div-label">Fusion</p>
-      <ul class="names" id="fusion"></ul>
-      <p class="div-label">Bhangra</p>
-      <ul class="names" id="bhangra"></ul>
-      <div class="lineup-foot">
-        <p>Hover or tap a team to see their postcard. Sample lineup from last season.</p>
-        <a class="btn" href="teams.html">View the team board</a>
-      </div>
-    </div>
-    <div class="peek" id="peek" aria-hidden="true">
-      <div class="stamp-frame mini"><div class="inner"><svg viewBox="-40 -16 80 32"><g fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M-20 -8 Q0 -12 20 -8 M-20 8 Q0 4 20 8"/><path d="M-12 -9 V7 M11 -10 V6"/><path d="M22 -2 h11 M22 4 h11 M-22 -5 h-10 v11 h10"/></g></svg></div></div>
-      <div class="ph"><img id="peekImg" alt=""></div>
-      <p id="peekName"></p>
-    </div>
-  </section>
-  <div class="airmail-edge" aria-hidden="true"></div>
 
   <section class="band-plain" id="apply">
     <div class="wrap apply-grid">
@@ -288,37 +249,28 @@
     </div>
   </section>
 
-  <section class="band-light then-now" id="first-in-flight">
-    <div class="wrap">
-      <h2 class="cond">First in flight</h2>
-      <p class="intro">The Wright brothers flew first in North Carolina. AKD 30.0 takes off from the same state.</p>
-      <div class="route" id="route">
-        <svg class="path-svg" id="pathSvg" aria-hidden="true">
-          <path class="trail" id="routePath"/>
-          <g id="routePlane">
-            <path d="M-20 -8 Q0 -12 20 -8 M-20 8 Q0 4 20 8"/>
-            <line x1="-12" y1="-9" x2="-12" y2="7"/><line x1="11" y1="-10" x2="11" y2="6"/>
-            <path d="M22 -2 h11 M22 4 h11 M-22 -5 h-10 v11 h10"/>
-          </g>
-        </svg>
-        <div class="era then">
-          <span class="yr">1903</span>
-          <h3>Kitty Hawk, North Carolina</h3>
-          <p>On December 17, the Wright brothers made the first powered flight. It lasted 12 seconds.</p>
-        </div>
-        <div class="era now">
-          <span class="yr">2027</span>
-          <h3>John H. Gattis–Wendell Tabb Theater</h3>
-          <p>On February 20, the best collegiate Fusion and Bhangra teams take the stage for AKD 30.0.</p>
-        </div>
+  <div class="airmail-edge" aria-hidden="true"></div>
+  <div class="ticker" aria-hidden="true"><div class="ticker-track" id="ticker"></div></div>
+
+  <section class="band-ink teams-soon" id="lineup">
+    <div class="wrap soon-grid">
+      <div>
+        <h2 class="cond">Teams</h2>
+        <p class="soon-big">The lineup lands late November.</p>
+        <p class="soon-text">Applications close November 5. Once the Fusion and Bhangra teams are picked, the full AKD 30.0 lineup goes up here and on Instagram.</p>
+        <div class="soon-btns"><a class="btn btn-paper" href="teams.html">See the team board</a><a class="btn btn-ghost-light" href="https://www.instagram.com/uncakd/">Follow @uncakd</a></div>
       </div>
-      <div class="facts-1903">
-        <div><b>12 seconds</b><span>How long the first flight stayed in the air</span></div>
-        <div><b>120 feet</b><span>How far that first flight went</span></div>
-        <div><b>4 flights</b><span>Flown that day, the longest 852 feet</span></div>
+      <div class="envelope" role="img" aria-label="A sealed air mail envelope marked: do not open until late November">
+        <div class="inner">
+          <span class="stamp-frame mini"><span class="inner"><svg viewBox="-40 -16 80 32"><g fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M-20 -8 Q0 -12 20 -8 M-20 8 Q0 4 20 8"/><path d="M-12 -9 V7 M11 -10 V6"/><path d="M22 -2 h11 M22 4 h11 M-22 -5 h-10 v11 h10"/></g></svg></span></span>
+          <span class="seal">AKD</span>
+          <span class="rubber">Do not open until late November</span>
+          <p class="to"><b>To</b>: Every Fusion and Bhangra fan<br><b>Contents</b>: The AKD 30.0 lineup</p>
+        </div>
       </div>
     </div>
   </section>
+  <div class="airmail-edge" aria-hidden="true"></div>
 
   <section class="band-plain" id="event">
     <div class="wrap">
@@ -344,9 +296,18 @@
   </section>
 
   <section class="band-light" id="partners">
-    <div class="wrap">
-      <h2 class="cond">Partners</h2>
-      <div class="stamps" id="stamps"></div>
+    <div class="wrap partners-grid">
+      <div>
+        <h2 class="cond">Partners</h2>
+        <p class="soon-big">Partners coming soon.</p>
+        <p class="soon-text">Want to support AKD 30.0 and reach hundreds of dancers and fans? Message us on Instagram.</p>
+        <a class="btn btn-ink" href="https://www.instagram.com/uncakd/">Message @uncakd</a>
+      </div>
+      <div class="stamps" aria-hidden="true">
+        <div class="stamp-frame"><div class="inner">Your logo here</div></div>
+        <div class="stamp-frame"><div class="inner">Your logo here</div></div>
+        <div class="stamp-frame"><div class="inner">Your logo here</div></div>
+      </div>
     </div>
   </section>
 </main>
@@ -433,33 +394,6 @@
   const tickerText = "Kitty Hawk, N.C.<i>★</i>December 17, 1903<i>★</i>12 seconds<i>★</i>120 feet<i>★</i>First in flight<i>★</i>AKD 30.0<i>★</i>February 20, 2027<i>★</i>";
   $("#ticker").innerHTML = `<span>${tickerText}</span><span>${tickerText}</span>`;
 
-  // ---------- Lineup: each name pops up a postcard that leans its own way ----------
-  const tilts = [-6, 5, -3, 8, -7, 4, -2, 6, -5, 3, -8, 7, -4];
-  const peek = $("#peek"), peekImg = $("#peekImg"), peekName = $("#peekName");
-  const fill = (id, div) => {
-    $(id).innerHTML = D.teams.filter((t) => t.division === div)
-      .map((t) => `<li><button type="button" data-img="${t.img}" data-name="${t.name}" data-div="${t.division}" data-tilt="${tilts[D.teams.indexOf(t) % tilts.length]}">${t.name}</button></li>`).join("");
-  };
-  fill("#fusion", "Fusion"); fill("#bhangra", "Bhangra");
-  const show = (btn, x, y) => {
-    if (!peek.classList.contains("show") || peekImg.dataset.src !== btn.dataset.img) {
-      peekImg.src = "../assets/teams/" + btn.dataset.img;
-      peekImg.dataset.src = btn.dataset.img;
-      peekName.textContent = `${btn.dataset.name}, ${btn.dataset.div}`;
-      peek.style.setProperty("--tilt", btn.dataset.tilt + "deg");
-    }
-    peek.style.left = x + "px"; peek.style.top = y + "px";
-    peek.classList.add("show");
-  };
-  document.querySelectorAll(".names button").forEach((b) => {
-    b.addEventListener("pointermove", (e) => show(b, e.clientX, e.clientY));
-    b.addEventListener("pointerleave", () => peek.classList.remove("show"));
-    b.addEventListener("focus", () => { const r = b.getBoundingClientRect(); show(b, r.left + r.width / 2, r.top); });
-    b.addEventListener("blur", () => peek.classList.remove("show"));
-    b.addEventListener("click", () => { const r = b.getBoundingClientRect(); show(b, r.left + r.width / 2, r.top); });
-  });
-  addEventListener("scroll", () => peek.classList.remove("show"), { passive: true });
-
   // ---------- Telegram types itself out once it's on screen ----------
   const strips = [...document.querySelectorAll("#strips p")];
   function typeAll() {
@@ -492,32 +426,6 @@
   const dl = () => { $("#dl-regular").textContent = left(D.apply.regular.at); $("#dl-latest").textContent = left(D.apply.latest.at); };
   dl(); setInterval(dl, 60000);
 
-  // ---------- 1903 to 2027: the Flyer follows a dashed route as you scroll ----------
-  const route = $("#route"), svg = $("#pathSvg"), rp = $("#routePath"), plane = $("#routePlane");
-  let total = 0;
-  function drawRoute() {
-    const w = route.clientWidth, h = route.clientHeight + 40;
-    svg.setAttribute("viewBox", `0 0 ${w} ${h}`);
-    const d = w < 700
-      ? `M ${w * .1} ${h * .3} C ${w * .2} ${h * .18}, ${w * .3} ${h * .4}, ${w * .5} ${h * .45} S ${w * .85} ${h * .5}, ${w * .9} ${h * .62}`
-      : `M ${w * .08} ${h * .22} Q ${w * .16} ${h * .02}, ${w * .26} ${h * .2} C ${w * .4} ${h * .45}, ${w * .55} ${-h * .1}, ${w * .9} ${h * .18}`;
-    rp.setAttribute("d", d);
-    total = rp.getTotalLength();
-    place();
-  }
-  function place() {
-    const r = route.getBoundingClientRect();
-    const p = reduce ? 1 : Math.min(1, Math.max(0, (innerHeight - r.top) / (innerHeight * .75 + r.height * .3)));
-    const len = p * total;
-    const a = rp.getPointAtLength(len), b = rp.getPointAtLength(Math.min(total, len + 1));
-    plane.setAttribute("transform", `translate(${a.x} ${a.y}) rotate(${Math.atan2(b.y - a.y, b.x - a.x) * 180 / Math.PI})`);
-  }
-  drawRoute();
-  addEventListener("resize", drawRoute);
-  let routeTick = false;
-  addEventListener("scroll", () => { if (!routeTick) { routeTick = true; requestAnimationFrame(() => { routeTick = false; place(); }); } }, { passive: true });
-
-  $("#stamps").innerHTML = D.partners.map((p) => `<div class="stamp-frame"><div class="inner"><img src="../assets/logos/${p.img}" alt="${p.name}" loading="lazy"></div></div>`).join("");
 })();
 </script>
 </body>

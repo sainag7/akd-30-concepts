@@ -46,7 +46,7 @@
     <div class="wrap">
       <div class="bar"><span>Aaj Ka Dhamaka 30.0</span><span>Official Legends partner competition</span><span>02.20.2027</span></div>
       <h1 class="cond">Teams</h1>
-      <p class="lede">Every team competing at AKD 30.0, in the Fusion and Bhangra divisions.</p>
+      <p class="lede">The AKD 30.0 Fusion and Bhangra lineup is announced in late November. Check back here, or follow @uncakd for the reveal.</p>
     </div>
   </section>
 
@@ -64,7 +64,7 @@
         <div class="board-title"><span>AKD 30.0</span><time id="clock"></time></div>
         <div id="rows"></div>
       </div>
-      <p class="board-note">Sample board using last season's teams. The AKD 30.0 lineup is announced soon.</p>
+      <p class="board-note">Applications close November 5. Teams are announced in late November.</p>
     </div>
   </section>
 </main>
@@ -81,7 +81,6 @@
 
   const COLS = [["Flight", 6], ["Team", 26], ["Division", 7], ["Status", 9]];
   const CHARS = " ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'.-";
-  const statuses = ["BOARDING", "ON TIME", "ON TIME", "BOARDING", "ON TIME"];
   const CELL = "(clamp(12px, 1.5vw, 22px) * .82 + 2px)";
   const rowsEl = $("#rows");
   const head = document.createElement("div");
@@ -89,7 +88,9 @@
   head.innerHTML = COLS.map(([n, len]) => `<span role="columnheader" style="width:calc(${len} * ${CELL} - 2px)">${n}</span>`).join("");
   rowsEl.appendChild(head);
 
-  const rowEls = D.teams.map(() => {
+  // Until the lineup is out, the board shows when each division lands
+  const ROWS = 6;
+  const rowEls = Array.from({ length: ROWS }, () => {
     const row = document.createElement("div");
     row.className = "row"; row.setAttribute("role", "row");
     const groups = COLS.map(([, len], ci) => {
@@ -121,11 +122,15 @@
   }
 
   let division = "all";
+  const flights = [
+    { div: "Fusion", vals: ["AK 301", "Fusion lineup", "Fusion", "Late Nov"] },
+    { div: "Bhangra", vals: ["AK 302", "Bhangra lineup", "Bhangra", "Late Nov"] }
+  ];
+  const notices = [["", "", "", ""], ["", "Applications close Nov 5", "", ""], ["", "Follow @uncakd", "", ""]];
   function fillBoard() {
-    const list = D.teams.filter((t) => division === "all" || t.division === division);
+    const rows = flights.filter((f) => division === "all" || f.div === division).map((f) => f.vals).concat(notices);
     rowEls.forEach((groups, r) => {
-      const t = list[r];
-      const vals = t ? [`AK ${301 + D.teams.indexOf(t)}`, t.name, t.division, statuses[r % statuses.length]] : ["", "", "", ""];
+      const vals = rows[r] || ["", "", "", ""];
       groups.forEach((g, ci) => setText(g, vals[ci], r * 70));
     });
   }
