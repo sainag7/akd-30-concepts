@@ -22,10 +22,10 @@
 .band { position: relative; display: block; margin: 14px 0; height: clamp(260px, 52vh, 560px); text-shadow: none; }
 .band .duo { position: absolute; inset: 0; box-shadow: 0 0 0 10px #F8F1E1, 0 18px 40px rgba(74, 35, 18, .3); }
 .band .duo img { object-position: center 44%; }
-/* Team photo keeps its real colors with only a light, warm paper tint */
-.duo.soft img { filter: sepia(.12) saturate(.95) contrast(1.02); mix-blend-mode: normal; }
-.duo.soft::before { background: #EBDDBF; opacity: .14; }
-.duo.soft::after { opacity: .07; }
+/* Team photo: real colors under a warm, printed-paper tint */
+.duo.soft img { filter: sepia(.42) saturate(.82) contrast(1.05) brightness(.97); mix-blend-mode: normal; }
+.duo.soft::before { background: #E6D2A8; opacity: .3; }
+.duo.soft::after { opacity: .16; }
 .band .stamp { position: absolute; z-index: 4; right: clamp(8px, 3vw, 40px); top: -40px; width: clamp(96px, 10vw, 130px); aspect-ratio: 5 / 6; transform: rotate(8deg); }
 .stamp .inner { display: grid; grid-template-rows: auto 1fr auto; text-align: center; padding: 8px 6px; border: 2px solid var(--air-red); color: var(--air-red); }
 .stamp .top { font-family: var(--display); font-size: clamp(11px, 1.05vw, 14px); letter-spacing: .04em; }
@@ -44,7 +44,7 @@
 .flyer-bg .wire { stroke-width: 1; stroke-dasharray: 3 5; opacity: .6; }
 .flyer-bg .draw { stroke-dasharray: var(--len); stroke-dashoffset: var(--len); animation: draw 2.2s cubic-bezier(.55, .05, .35, 1) forwards; animation-delay: var(--d, .2s); }
 @keyframes draw { to { stroke-dashoffset: 0; } }
-.compass { position: absolute; z-index: 0; left: max(-50px, calc((100vw - 1280px) / 2 - 70px)); bottom: clamp(90px, 14vw, 170px); width: clamp(150px, 18vw, 250px); color: var(--ink); opacity: .55; will-change: transform; }
+.compass { position: absolute; z-index: 0; color: var(--ink); opacity: .55; will-change: transform; }
 
 /* ---------- 1903 ticker, typed like telegraph tape ---------- */
 .ticker { background-color: var(--ink); background-image: var(--grain); color: var(--on-ink); overflow: hidden; padding: 14px 0; }
@@ -124,18 +124,13 @@
 .about { max-width: 58ch; font-size: 20px; margin: 30px 0 0; }
 
 /* ---------- Partners: coming soon ---------- */
-.partners-grid { display: grid; grid-template-columns: 1fr 1.1fr; gap: clamp(30px, 6vw, 80px); align-items: center; }
+.partners-grid { max-width: 760px; }
 .partners-grid .soon-text { color: var(--ink); }
-.stamps { display: flex; flex-wrap: wrap; gap: 22px; justify-content: center; }
-.stamps .stamp-frame { width: 150px; height: 124px; }
-.stamps .stamp-frame:nth-child(odd) { transform: rotate(-3deg); }
-.stamps .stamp-frame:nth-child(even) { transform: rotate(2.5deg); }
-.stamps .inner { display: grid; place-items: center; text-align: center; padding: 10px; border: 1.5px dashed rgba(74, 35, 18, .5); font-size: 14px; color: var(--sepia); }
 
 @media (max-width: 900px) {
   .poster-foot { grid-template-columns: 1fr 1fr; }
   .poster-foot .btns { justify-self: start; grid-column: 1 / -1; }
-  .apply-grid, .soon-grid, .partners-grid { grid-template-columns: 1fr; }
+  .apply-grid, .soon-grid { grid-template-columns: 1fr; }
   .event-head { flex-direction: column; }
   .event-grid { grid-template-columns: 1fr 1fr; }
   .event-grid div:nth-child(3) { padding-left: 0; border-left: 0; }
@@ -147,7 +142,6 @@
   /* Phones: stamp and postmark sit on the photo so they don't cover the headline */
   .band .stamp { top: 14px; right: 12px; width: 74px; }
   .band .postmark { width: 150px; left: 6px; right: auto; top: auto; bottom: 6px; }
-  .compass { width: 120px; left: -40px; bottom: 120px; opacity: .4; }
   .event-grid { grid-template-columns: 1fr; }
   .event-grid div + div { padding-left: 0; border-left: 0; }
   .apply-card { flex-direction: column; align-items: flex-start; }
@@ -303,11 +297,6 @@
         <p class="soon-text">Want to support AKD 30.0 and reach hundreds of dancers and fans? Message us on Instagram.</p>
         <a class="btn btn-ink" href="https://www.instagram.com/uncakd/">Message @uncakd</a>
       </div>
-      <div class="stamps" aria-hidden="true">
-        <div class="stamp-frame"><div class="inner">Your logo here</div></div>
-        <div class="stamp-frame"><div class="inner">Your logo here</div></div>
-        <div class="stamp-frame"><div class="inner">Your logo here</div></div>
-      </div>
     </div>
   </section>
 </main>
@@ -369,8 +358,20 @@
       el.style.fontSize = Math.min(100 * w * (innerWidth < 600 ? 1 : share) / el.scrollWidth, innerHeight * .26).toFixed(1) + "px";
     });
   }
-  document.fonts.ready.then(fit);
-  addEventListener("resize", fit);
+  // The compass sits in the open space to the left of "flight", and hides when there isn't room for it
+  function placeCompass() {
+    const wrap = $(".poster > .wrap"), l2 = $("#l2"), c = $("#compass");
+    const room = wrap.clientWidth - l2.offsetWidth - 20;
+    const size = Math.min(230, room, l2.offsetHeight * 1.25);
+    c.style.display = size < 100 ? "none" : "";
+    if (size < 100) return;
+    c.style.width = size + "px";
+    c.style.left = (wrap.offsetLeft + (room - size) / 2) + "px";
+    c.style.top = (wrap.offsetTop + l2.offsetTop + (l2.offsetHeight - size) / 2) + "px";
+  }
+  const layout = () => { fit(); placeCompass(); };
+  document.fonts.ready.then(layout);
+  addEventListener("resize", layout);
 
   // On scroll the headline drifts apart, the Flyer climbs away and the compass turns
   if (!reduce) {
