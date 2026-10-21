@@ -1,0 +1,524 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AKD 30.0 | Vintage Poster</title>
+<meta name="description" content="Aaj Ka Dhamaka 30.0. First in Flight. February 20, 2027.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rye&family=Special+Elite&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="site.css">
+<style>
+/* ---------- Poster hero ---------- */
+.poster { position: relative; overflow: hidden; padding: 22px 0 clamp(50px, 7vw, 90px); }
+.poster > .wrap { position: relative; z-index: 1; }
+.poster h1 { margin: 0; }
+.poster .l1, .poster .l2 { display: block; width: max-content; font-size: clamp(70px, 15vw, 240px); white-space: nowrap; will-change: transform; }
+.poster .l1 { margin-top: 18px; animation: inL 1s cubic-bezier(.2, .8, .2, 1) both; }
+.poster .l2 { margin-left: auto; animation: inR 1s cubic-bezier(.2, .8, .2, 1) .1s both; }
+@keyframes inL { from { transform: translateX(-30vw); opacity: 0; } }
+@keyframes inR { from { transform: translateX(30vw); opacity: 0; } }
+.band { position: relative; display: block; margin: 14px 0; height: clamp(170px, 30vh, 330px); text-shadow: none; }
+.band .duo { position: absolute; inset: 0; box-shadow: 0 0 0 10px #F8F1E1, 0 18px 40px rgba(74, 35, 18, .3); }
+.band .duo img { object-position: center 35%; }
+.band .logo { position: absolute; z-index: 3; left: 50%; top: 50%; width: clamp(180px, 26vw, 360px); transform: translate(-50%, -50%); filter: drop-shadow(0 4px 18px rgba(46, 23, 11, .55)); }
+.band .stamp { position: absolute; z-index: 4; right: clamp(8px, 3vw, 40px); top: -40px; width: clamp(96px, 10vw, 130px); aspect-ratio: 5 / 6; transform: rotate(8deg); }
+.stamp .inner { display: grid; grid-template-rows: auto 1fr auto; text-align: center; padding: 8px 6px; border: 2px solid var(--air-red); color: var(--air-red); }
+.stamp .top { font-family: var(--display); font-size: clamp(11px, 1.05vw, 14px); letter-spacing: .04em; }
+.stamp svg { width: 86%; margin: auto; }
+.stamp .val { font-family: var(--display); font-size: clamp(20px, 2vw, 26px); line-height: 1; }
+.band .postmark { position: absolute; z-index: 5; right: clamp(70px, 12vw, 170px); top: -26px; width: clamp(190px, 21vw, 270px); color: var(--ink); opacity: .55; transform: rotate(-10deg); mix-blend-mode: multiply; pointer-events: none; }
+.poster-foot { display: grid; grid-template-columns: repeat(3, auto) 1fr; gap: 16px 40px; align-items: center; margin-top: 30px; }
+.poster-foot small { display: block; font-size: 13px; color: var(--sepia); letter-spacing: .06em; text-transform: uppercase; }
+.poster-foot .btns { justify-self: end; display: flex; gap: 10px; flex-wrap: wrap; }
+
+/* Pencil sketch of the 1903 Wright Flyer; it draws in on load and flies off as you scroll */
+.flyer-bg { position: absolute; z-index: 0; right: max(0px, calc((100vw - 1280px) / 2 - 40px)); top: 70px; width: min(860px, 58vw); height: auto; pointer-events: none;
+  color: var(--graphite); opacity: .85; will-change: transform, opacity; }
+.flyer-bg path, .flyer-bg line, .flyer-bg rect, .flyer-bg ellipse, .flyer-bg circle { fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.flyer-bg .thin { stroke-width: 1.2; opacity: .7; }
+.flyer-bg .wire { stroke-width: 1; stroke-dasharray: 3 5; opacity: .6; }
+.flyer-bg .draw { stroke-dasharray: var(--len); stroke-dashoffset: var(--len); animation: draw 2.2s cubic-bezier(.55, .05, .35, 1) forwards; animation-delay: var(--d, .2s); }
+@keyframes draw { to { stroke-dashoffset: 0; } }
+.compass { position: absolute; z-index: 0; left: max(-50px, calc((100vw - 1280px) / 2 - 70px)); bottom: clamp(90px, 14vw, 170px); width: clamp(150px, 18vw, 250px); color: var(--ink); opacity: .55; will-change: transform; }
+
+/* ---------- 1903 ticker, typed like telegraph tape ---------- */
+.ticker { background-color: var(--ink); background-image: var(--grain); color: var(--on-ink); overflow: hidden; padding: 14px 0; }
+.ticker-track { display: flex; width: max-content; animation: tick 46s linear infinite; }
+.ticker span { font-size: clamp(17px, 1.8vw, 22px); letter-spacing: .14em; text-transform: uppercase; white-space: nowrap; padding-right: 30px; }
+.ticker i { font-style: normal; color: #E07A5F; padding-left: 30px; }
+@keyframes tick { to { transform: translateX(-50%); } }
+
+/* ---------- Lineup ---------- */
+.lineup h2 { color: var(--on-ink); }
+.div-label { display: flex; align-items: center; gap: 16px; margin: 40px 0 16px; font-size: 18px; letter-spacing: .12em; text-transform: uppercase; color: #D8B98C; }
+.div-label::after { content: ""; flex: 1; border-top: 1.5px dashed rgba(216, 185, 140, .55); }
+.names { margin: 0; padding: 0; list-style: none; text-align: center; }
+.names li { display: inline; }
+.names button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; font-family: var(--display); text-transform: uppercase; line-height: 1.18;
+  font-size: clamp(28px, 4.5vw, 64px); text-shadow: .045em .045em 0 rgba(0, 0, 0, .35); transition: color .15s; }
+.names button:hover, .names button:focus-visible { color: #E8C48A; outline: none; }
+.names li + li::before { content: "★"; color: #E07A5F; font-size: clamp(18px, 2.4vw, 34px); margin: 0 .4em; vertical-align: .3em; }
+.lineup-foot { margin-top: 44px; display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; }
+.lineup-foot p { margin: 0; color: #D8B98C; font-size: 15px; }
+.lineup-foot .btn { background: var(--paper-3); color: var(--ink); border-color: var(--paper-3); }
+.lineup-foot .btn:hover { background: var(--air-red); border-color: var(--air-red); color: var(--paper-3); }
+/* The pop-up is a postcard: color photo, typed caption, a little air mail stamp */
+.peek { --tilt: -5deg; position: fixed; z-index: 50; left: 0; top: 0; width: clamp(220px, 23vw, 310px); padding: 10px 10px 12px; background: #F8F1E1; color: var(--ink); pointer-events: none;
+  opacity: 0; transform: translate(-50%, -108%) rotate(var(--tilt)) scale(.9); transition: opacity .18s, transform .25s; box-shadow: 0 24px 60px rgba(0, 0, 0, .45); }
+.peek.show { opacity: 1; transform: translate(-50%, -108%) rotate(var(--tilt)) scale(1); }
+.peek .ph { aspect-ratio: 4 / 3; overflow: hidden; }
+.peek img { width: 100%; height: 100%; object-fit: cover; }
+.peek p { margin: 8px 0 0; font-size: 15px; text-align: left; }
+.peek .mini { position: absolute; right: -10px; top: -14px; width: 48px; transform: rotate(8deg); }
+.peek .mini .inner { border: 1.5px solid var(--air-blue); height: 44px; display: grid; place-items: center; }
+.peek .mini svg { width: 30px; color: var(--air-blue); }
+
+/* ---------- Applications telegram ---------- */
+.apply-grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: clamp(30px, 6vw, 80px); align-items: start; }
+.telegram { position: relative; background: var(--paper-2); padding: 26px clamp(18px, 3vw, 34px) 30px; transform: rotate(-1.5deg); box-shadow: 0 18px 40px rgba(74, 35, 18, .2); border-top: 10px solid var(--ink); }
+.telegram::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(90deg, transparent 49.6%, rgba(74, 35, 18, .08) 50%, transparent 50.4%); }
+.tg-top { display: flex; justify-content: space-between; align-items: baseline; border-bottom: 2px solid var(--ink); padding-bottom: 8px; margin-bottom: 14px; }
+.tg-top .brand { font-family: var(--display); font-size: clamp(26px, 2.8vw, 38px); letter-spacing: .04em; }
+.tg-top span:last-child { white-space: nowrap; }
+.tg-meta { font-size: 15px; line-height: 1.5; margin-bottom: 20px; }
+.strips p { display: table; margin: 0 0 10px; padding: 6px 12px; background: var(--paper-3); box-shadow: 0 1px 2px rgba(74, 35, 18, .25); font-size: clamp(15px, 1.6vw, 19px); letter-spacing: .04em; min-height: 2.1em; }
+.strips p:nth-child(odd) { transform: rotate(-.6deg); }
+.strips p:nth-child(even) { transform: rotate(.5deg) translateX(6px); }
+.strips p:empty { visibility: hidden; }
+.strips p.typing::after { content: "▌"; animation: blink .7s steps(1) infinite; }
+@keyframes blink { 50% { opacity: 0; } }
+.apply-cards { display: grid; gap: 16px; margin-bottom: 30px; }
+.apply-card { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 18px 20px; border: 2px solid var(--ink); background: rgba(255, 250, 238, .5); }
+.apply-card b { display: block; font-family: var(--display); font-weight: 400; font-size: 26px; line-height: 1.1; }
+.apply-card span { font-size: 16px; }
+.deadlines { list-style: none; margin: 0; padding: 0; border-top: 1.5px dashed var(--ink); }
+.deadlines li { padding: 14px 0; border-bottom: 1.5px dashed var(--ink); display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+.deadlines b { font-weight: 400; text-decoration: underline; text-underline-offset: 4px; }
+.deadlines .left { color: var(--air-red); }
+
+/* ---------- 1903 to 2027 ---------- */
+.then-now h2 { margin-bottom: 10px; }
+.then-now .intro { max-width: 56ch; font-size: 20px; margin: 0 0 40px; }
+.route { position: relative; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: end; }
+.era { position: relative; z-index: 1; }
+.era .yr { display: block; font-family: var(--display); font-size: clamp(90px, 13vw, 190px); line-height: .85; text-shadow: .045em .045em 0 rgba(181, 137, 91, .75); }
+.era h3 { margin: 14px 0 6px; font-size: 20px; font-weight: 400; letter-spacing: .06em; text-transform: uppercase; }
+.era p { margin: 0; max-width: 36ch; color: var(--sepia); }
+.era.now { text-align: right; justify-self: end; }
+.era.now p { margin-left: auto; }
+.era.now .yr { color: var(--air-red); }
+.path-svg { position: absolute; z-index: 0; left: 0; top: -20px; width: 100%; height: calc(100% + 40px); overflow: visible; pointer-events: none; }
+.path-svg .trail { fill: none; stroke: var(--sepia); stroke-width: 2.2; stroke-dasharray: 3 10; stroke-linecap: round; opacity: .7; }
+.path-svg #routePlane path, .path-svg #routePlane line { fill: none; stroke: var(--ink); stroke-width: 2.4; stroke-linecap: round; }
+.facts-1903 { display: grid; grid-template-columns: repeat(3, 1fr); margin-top: 50px; border-top: 4px double var(--ink); }
+.facts-1903 div { padding: 18px 18px 22px 0; border-bottom: 4px double var(--ink); }
+.facts-1903 div + div { padding-left: 18px; border-left: 1.5px dashed rgba(74, 35, 18, .4); }
+.facts-1903 b { display: block; font-family: var(--display); font-weight: 400; text-transform: uppercase; font-size: clamp(28px, 3.2vw, 46px); line-height: 1; }
+.facts-1903 span { color: var(--sepia); font-size: 15px; }
+
+/* ---------- Event summary with an old enamel plate ---------- */
+.event-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 30px; }
+.plate { flex: 0 0 auto; width: clamp(220px, 24vw, 300px); aspect-ratio: 2 / 1; border-radius: 12px; padding: 8px 14px; transform: rotate(4deg); margin-top: 6px;
+  background: var(--paper-2); border: 3px solid var(--ink); box-shadow: inset 0 0 0 4px var(--paper-2), inset 0 0 0 5.5px rgba(74, 35, 18, .45), 0 16px 36px rgba(74, 35, 18, .25);
+  display: grid; grid-template-rows: auto 1fr auto; text-align: center; position: relative; overflow: hidden; }
+.plate .state { font-size: clamp(12px, 1.2vw, 15px); color: var(--air-red); letter-spacing: .1em; text-transform: uppercase; }
+.plate .num { align-self: center; font-family: var(--display); font-size: clamp(40px, 4.6vw, 60px); line-height: 1; color: var(--ink); }
+.plate .motto { font-size: clamp(12px, 1.2vw, 15px); color: var(--ink); }
+.plate svg { position: absolute; inset: 18% 8% auto; width: 84%; opacity: .12; color: var(--ink); }
+.plate svg path { fill: none; stroke: currentColor; stroke-width: 6; }
+.plate .bolt { position: absolute; top: 9px; width: 9px; height: 9px; border-radius: 50%; background: #C9B48E; box-shadow: inset 0 0 0 1.5px rgba(74, 35, 18, .45); }
+.plate .bolt.l { left: 22%; } .plate .bolt.r { right: 22%; }
+.event-grid { margin: 0; display: grid; grid-template-columns: repeat(4, 1fr); border-top: 4px double var(--ink); }
+.event-grid div { padding: 18px 18px 22px 0; border-bottom: 4px double var(--ink); }
+.event-grid div + div { padding-left: 18px; border-left: 1.5px dashed rgba(74, 35, 18, .4); }
+.event-grid dt { font-size: 13px; letter-spacing: .1em; text-transform: uppercase; color: var(--sepia); }
+.event-grid dd { margin: 6px 0 0; font-family: var(--display); text-transform: uppercase; font-size: clamp(22px, 2.4vw, 34px); line-height: 1.05; }
+.about { max-width: 58ch; font-size: 20px; margin: 30px 0 0; }
+
+/* ---------- Partners as postage stamps ---------- */
+.stamps { display: flex; flex-wrap: wrap; gap: 26px; }
+.stamps .stamp-frame { width: 190px; height: 150px; }
+.stamps .stamp-frame:nth-child(odd) { transform: rotate(-2deg); }
+.stamps .stamp-frame:nth-child(even) { transform: rotate(1.6deg); }
+.stamps .inner { display: grid; place-items: center; padding: 16px; border: 1.5px solid rgba(74, 35, 18, .5); }
+.stamps img { max-height: 70px; width: auto; object-fit: contain; filter: sepia(.35); mix-blend-mode: multiply; }
+
+@media (max-width: 900px) {
+  .poster-foot { grid-template-columns: 1fr 1fr; }
+  .poster-foot .btns { justify-self: start; grid-column: 1 / -1; }
+  .apply-grid { grid-template-columns: 1fr; }
+  .route { grid-template-columns: 1fr; gap: 70px; }
+  .era.now { justify-self: end; }
+  .facts-1903 { grid-template-columns: 1fr; }
+  .facts-1903 div + div { padding-left: 0; border-left: 0; }
+  .event-head { flex-direction: column; }
+  .event-grid { grid-template-columns: 1fr 1fr; }
+  .event-grid div:nth-child(3) { padding-left: 0; border-left: 0; }
+  .flyer-bg { width: 70vw; top: 80px; right: -4vw; }
+}
+@media (max-width: 600px) {
+  .flyer-bg { width: 92vw; top: 60px; right: 4vw; opacity: .9; }
+  .poster .l1 { margin-top: calc(41vw + 14px); }
+  /* Phones: stamp and postmark sit on the photo so they don't cover the headline */
+  .band .stamp { top: 14px; right: 12px; width: 74px; }
+  .band .postmark { width: 150px; left: 6px; right: auto; top: auto; bottom: 6px; }
+  .compass { width: 120px; left: -40px; bottom: 120px; opacity: .4; }
+  .event-grid { grid-template-columns: 1fr; }
+  .event-grid div + div { padding-left: 0; border-left: 0; }
+  .apply-card { flex-direction: column; align-items: flex-start; }
+  .stamps .stamp-frame { width: calc(50% - 13px); height: 130px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .poster .l1, .poster .l2 { animation: none; }
+  .flyer-bg .draw { animation: none; stroke-dashoffset: 0; }
+  .ticker-track { animation: none; }
+  .strips p.typing::after { animation: none; }
+  .peek { transition: none; }
+}
+</style>
+</head>
+<body>
+
+<header class="nav" data-page="home"></header>
+
+<main id="top">
+  <section class="poster">
+    <svg class="flyer-bg" id="flyerBg" viewBox="140 90 870 380" aria-hidden="true">
+      <!-- 1903 Wright Flyer, side view, drawn in pencil -->
+      <path class="draw" d="M300 438 H900"/>
+      <path class="draw" d="M420 142 Q560 112 702 136 Q706 140 700 143 Q560 124 424 149 Q414 146 420 142 Z"/>
+      <path class="draw" style="--d:.3s" d="M420 352 Q560 322 702 346 Q706 350 700 353 Q560 334 424 359 Q414 356 420 352 Z"/>
+      <path class="draw" style="--d:.45s" d="M438 147 V354"/>
+      <path class="draw" style="--d:.5s" d="M498 135 V343"/>
+      <path class="draw" style="--d:.55s" d="M610 126 V334"/>
+      <path class="draw" style="--d:.6s" d="M680 133 V342"/>
+      <line class="wire" x1="438" y1="147" x2="498" y2="343"/>
+      <line class="wire" x1="498" y1="135" x2="438" y2="354"/>
+      <line class="wire" x1="610" y1="126" x2="680" y2="342"/>
+      <line class="wire" x1="680" y1="133" x2="610" y2="334"/>
+      <rect class="draw" style="--d:.7s" x="548" y="300" width="44" height="30" rx="3"/>
+      <path class="thin draw" style="--d:.75s" d="M552 312 L404 214 M552 322 L404 290"/>
+      <path class="draw" style="--d:.8s" d="M600 328 q14 -14 40 -12 l58 2 q8 2 6 8 l-62 4 q-30 2 -42 -2 Z"/>
+      <circle class="draw" style="--d:.85s" cx="712" cy="318" r="8"/>
+      <ellipse class="draw" style="--d:.6s" cx="396" cy="250" rx="9" ry="96"/>
+      <path class="draw" style="--d:.8s" d="M870 214 Q930 200 988 210 Q990 214 986 216 Q930 208 872 220 Z"/>
+      <path class="draw" style="--d:.85s" d="M870 280 Q930 266 988 276 Q990 280 986 282 Q930 274 872 286 Z"/>
+      <path class="draw" style="--d:.9s" d="M905 211 V278 M960 206 V273"/>
+      <path class="draw" style="--d:.95s" d="M700 140 L905 212 M700 350 L905 280"/>
+      <path class="draw" style="--d:1s" d="M424 400 H900 Q960 400 968 360 L965 282"/>
+      <path class="thin draw" style="--d:1.05s" d="M470 356 V400 M560 345 V400 M650 340 V400"/>
+      <path class="draw" style="--d:1.1s" d="M170 196 H218 Q226 196 226 204 V302 Q226 310 218 310 H170 Q162 310 162 302 V204 Q162 196 170 196 Z"/>
+      <path class="draw" style="--d:1.15s" d="M424 146 L222 210 M424 356 L222 296 M396 200 L226 230 M396 300 L226 276"/>
+    </svg>
+    <svg class="compass" id="compass" viewBox="-110 -110 220 220" aria-hidden="true"></svg>
+    <div class="wrap">
+      <div class="bar"><span>Aaj Ka Dhamaka 30.0</span><span>Official Legends partner competition</span><span>02.20.2027</span></div>
+      <h1 class="cond">
+        <span class="l1" id="l1">First in</span>
+        <span class="band" aria-hidden="true">
+          <span class="duo" style="display:block"><img src="../assets/teams/ucb-azaad.jpg" alt=""></span>
+          <img class="logo" src="../assets/logo-white.png" alt="">
+          <svg class="postmark" id="postmark" viewBox="0 0 300 120"></svg>
+          <span class="stamp-frame stamp"><span class="inner" style="display:grid">
+            <span class="top">AIR MAIL</span>
+            <svg viewBox="-40 -16 80 32"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M-20 -8 Q0 -12 20 -8 M-20 8 Q0 4 20 8"/><path d="M-12 -9 V7 M11 -10 V6"/><path d="M22 -2 h11 M22 4 h11 M-22 -5 h-10 v11 h10"/></g></svg>
+            <span class="val">30¢</span>
+          </span></span>
+        </span>
+        <span class="l2" id="l2">flight</span>
+      </h1>
+      <div class="poster-foot">
+        <div>John H. Gattis–Wendell Tabb Theater<small>Venue</small></div>
+        <div>Fusion and Bhangra<small>Divisions</small></div>
+        <div><span data-days>125</span> days<small>Until the show</small></div>
+        <div class="btns"><a class="btn btn-red" href="#">Get tickets</a><a class="btn btn-ink" href="#lineup">See the lineup</a></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="airmail-edge" aria-hidden="true"></div>
+  <div class="ticker" aria-hidden="true"><div class="ticker-track" id="ticker"></div></div>
+
+  <section class="band-ink lineup" id="lineup">
+    <div class="wrap">
+      <h2 class="cond">Teams</h2>
+      <p class="div-label">Fusion</p>
+      <ul class="names" id="fusion"></ul>
+      <p class="div-label">Bhangra</p>
+      <ul class="names" id="bhangra"></ul>
+      <div class="lineup-foot">
+        <p>Hover or tap a team to see their postcard. Sample lineup from last season.</p>
+        <a class="btn" href="teams.html">View the team board</a>
+      </div>
+    </div>
+    <div class="peek" id="peek" aria-hidden="true">
+      <div class="stamp-frame mini"><div class="inner"><svg viewBox="-40 -16 80 32"><g fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M-20 -8 Q0 -12 20 -8 M-20 8 Q0 4 20 8"/><path d="M-12 -9 V7 M11 -10 V6"/><path d="M22 -2 h11 M22 4 h11 M-22 -5 h-10 v11 h10"/></g></svg></div></div>
+      <div class="ph"><img id="peekImg" alt=""></div>
+      <p id="peekName"></p>
+    </div>
+  </section>
+  <div class="airmail-edge" aria-hidden="true"></div>
+
+  <section class="band-plain" id="apply">
+    <div class="wrap apply-grid">
+      <div class="telegram" aria-label="Telegram: Applications are live. Fusion teams apply through OneLegends. Bhangra teams apply through Ekta. Regular deadline 10.30.26 at 11:59 PM EST. Latest deadline 11.5.26 at 11:59 PM EST.">
+        <div class="tg-top"><span class="brand">TELEGRAM</span><span>No. 30</span></div>
+        <div class="tg-meta">From: AKD 30.0, Chapel Hill, N.C.<br>To: Every Fusion and Bhangra team</div>
+        <div class="strips" id="strips" aria-hidden="true">
+          <p data-text="APPLICATIONS ARE LIVE STOP"></p>
+          <p data-text="FUSION APPLY THROUGH ONELEGENDS STOP"></p>
+          <p data-text="BHANGRA APPLY THROUGH EKTA STOP"></p>
+          <p data-text="REGULAR DEADLINE 10.30.26 AT 11:59 PM EST STOP"></p>
+          <p data-text="LATEST DEADLINE 11.5.26 AT 11:59 PM EST STOP"></p>
+        </div>
+      </div>
+      <div>
+        <h2 class="cond">Applications are live</h2>
+        <div class="apply-cards">
+          <div class="apply-card"><div><b>Fusion</b><span>Apply through OneLegends</span></div><a class="btn btn-ink" href="#">Apply</a></div>
+          <div class="apply-card"><div><b>Bhangra</b><span>Apply through Ekta</span></div><a class="btn btn-ink" href="#">Apply</a></div>
+        </div>
+        <ul class="deadlines">
+          <li><span><b>Regular deadline</b>: 10.30.26 at 11:59 PM EST</span><span class="left" id="dl-regular"></span></li>
+          <li><span><b>Latest deadline</b>: 11.5.26 at 11:59 PM EST</span><span class="left" id="dl-latest"></span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="band-light then-now" id="first-in-flight">
+    <div class="wrap">
+      <h2 class="cond">First in flight</h2>
+      <p class="intro">The Wright brothers flew first in North Carolina. AKD 30.0 takes off from the same state.</p>
+      <div class="route" id="route">
+        <svg class="path-svg" id="pathSvg" aria-hidden="true">
+          <path class="trail" id="routePath"/>
+          <g id="routePlane">
+            <path d="M-20 -8 Q0 -12 20 -8 M-20 8 Q0 4 20 8"/>
+            <line x1="-12" y1="-9" x2="-12" y2="7"/><line x1="11" y1="-10" x2="11" y2="6"/>
+            <path d="M22 -2 h11 M22 4 h11 M-22 -5 h-10 v11 h10"/>
+          </g>
+        </svg>
+        <div class="era then">
+          <span class="yr">1903</span>
+          <h3>Kitty Hawk, North Carolina</h3>
+          <p>On December 17, the Wright brothers made the first powered flight. It lasted 12 seconds.</p>
+        </div>
+        <div class="era now">
+          <span class="yr">2027</span>
+          <h3>John H. Gattis–Wendell Tabb Theater</h3>
+          <p>On February 20, the best collegiate Fusion and Bhangra teams take the stage for AKD 30.0.</p>
+        </div>
+      </div>
+      <div class="facts-1903">
+        <div><b>12 seconds</b><span>How long the first flight stayed in the air</span></div>
+        <div><b>120 feet</b><span>How far that first flight went</span></div>
+        <div><b>4 flights</b><span>Flown that day, the longest 852 feet</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band-plain" id="event">
+    <div class="wrap">
+      <div class="event-head">
+        <h2 class="cond">Event details</h2>
+        <div class="plate" role="img" aria-label="Old North Carolina license plate reading AKD 30, First in Flight">
+          <span class="bolt l"></span><span class="bolt r"></span>
+          <svg viewBox="140 100 870 330" aria-hidden="true"><path d="M420 142 Q560 112 702 136 M420 352 Q560 322 702 346 M438 147 V354 M680 133 V342 M700 140 L905 212 M700 350 L905 280 M870 214 Q930 200 988 210 M870 280 Q930 266 988 276 M424 146 L222 210 M424 356 L222 296 M170 196 H226 V310 H162 V196 Z"/></svg>
+          <span class="state">North Carolina</span>
+          <span class="num">AKD-30</span>
+          <span class="motto">First in Flight</span>
+        </div>
+      </div>
+      <dl class="event-grid">
+        <div><dt>Date</dt><dd>Sat, Feb 20, 2027</dd></div>
+        <div><dt>Venue</dt><dd>Gattis–Tabb Theater</dd></div>
+        <div><dt>Divisions</dt><dd>Fusion and Bhangra</dd></div>
+        <div><dt>Showtime</dt><dd>To be announced</dd></div>
+      </dl>
+      <p class="about">AKD 30.0 is an official Legends partner competition, bringing the best collegiate Fusion and Bhangra teams in the country to one stage in North Carolina, the state that was first in flight.</p>
+      <a class="more" href="event.html">More event details</a>
+    </div>
+  </section>
+
+  <section class="band-light" id="partners">
+    <div class="wrap">
+      <h2 class="cond">Partners</h2>
+      <div class="stamps" id="stamps"></div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer"></footer>
+
+<script src="../assets/data.js"></script>
+<script src="site.js"></script>
+<script>
+(() => {
+  const D = window.AKD;
+  const $ = (s) => document.querySelector(s);
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  // Exact lengths so each line of the Flyer draws in fully
+  document.querySelectorAll("#flyerBg .draw").forEach((el) => el.style.setProperty("--len", Math.ceil(el.getTotalLength()) + 1));
+
+  // ---------- Compass rose ----------
+  (() => {
+    let g = '<g fill="none" stroke="currentColor"><circle r="92" stroke-width="2"/><circle r="86" stroke-width=".8"/><circle r="62" stroke-width=".8" stroke-dasharray="2 3"/></g>';
+    for (let a = 0; a < 360; a += 5) {
+      const long = a % 45 === 0, r1 = long ? 74 : (a % 15 === 0 ? 79 : 82), rad = a * Math.PI / 180;
+      g += `<line x1="${Math.sin(rad) * r1}" y1="${-Math.cos(rad) * r1}" x2="${Math.sin(rad) * 86}" y2="${-Math.cos(rad) * 86}" stroke="currentColor" stroke-width="${long ? 1.6 : .8}"/>`;
+    }
+    const point = (a, len, w) => {
+      const rad = a * Math.PI / 180, c = Math.cos(rad), s = Math.sin(rad);
+      const P = (x, y) => `${x * c - y * s},${x * s + y * c}`;
+      return `<polygon points="${P(0, -len)} ${P(-w, -w)} 0,0" fill="currentColor"/><polygon points="${P(0, -len)} ${P(w, -w)} 0,0" fill="#EEE4CF" stroke="currentColor" stroke-width="1.2"/>`;
+    };
+    [45, 135, 225, 315].forEach((a) => { g += point(a, 52, 8); });
+    [0, 90, 180, 270].forEach((a) => { g += point(a, 84, 13); });
+    g += '<circle r="6" fill="#EEE4CF" stroke="currentColor" stroke-width="2"/>';
+    [["N", 0, -97], ["E", 102, 6], ["S", 0, 108], ["W", -102, 6]].forEach(([t, x, y]) => { g += `<text x="${x}" y="${y}" text-anchor="middle" font-family="Rye" font-size="16" fill="currentColor">${t}</text>`; });
+    $("#compass").innerHTML = `<g transform="rotate(14)">${g}</g>`;
+  })();
+
+  // ---------- Postmark with wavy cancellation lines ----------
+  (() => {
+    let g = '<g fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="58" cy="60" r="50"/><circle cx="58" cy="60" r="36" stroke-width="1.2"/></g>';
+    g += '<defs><path id="pmArc" d="M 16 60 A 42 42 0 0 1 100 60"/><path id="pmArc2" d="M 22 68 A 38 38 0 0 0 94 68"/></defs>';
+    g += '<text font-family="Special Elite" font-size="12" fill="currentColor" letter-spacing="1.5"><textPath href="#pmArc" startOffset="50%" text-anchor="middle">CHAPEL HILL, N.C.</textPath></text>';
+    g += '<text font-family="Special Elite" font-size="11" fill="currentColor" letter-spacing="1.5"><textPath href="#pmArc2" startOffset="50%" text-anchor="middle">AKD 30.0</textPath></text>';
+    g += '<text x="58" y="57" text-anchor="middle" font-family="Special Elite" font-size="15" fill="currentColor">FEB 20</text><text x="58" y="74" text-anchor="middle" font-family="Special Elite" font-size="15" fill="currentColor">2027</text>';
+    for (let i = 0; i < 5; i++) {
+      let d = `M 116 ${28 + i * 16}`;
+      for (let x = 116; x < 296; x += 20) d += " q 5 -7 10 0 t 10 0";
+      g += `<path d="${d}" fill="none" stroke="currentColor" stroke-width="2"/>`;
+    }
+    $("#postmark").innerHTML = g;
+  })();
+
+  // Each headline line is sized to span the poster width, capped so the hero still fits on screen
+  function fit() {
+    const w = $(".poster .wrap").clientWidth;
+    // "First in" leaves room on the right for the Flyer sketch; "flight" leaves room on the left for the compass
+    [["#l1", .7], ["#l2", .82]].forEach(([id, share]) => {
+      const el = $(id);
+      el.style.fontSize = "100px";
+      el.style.fontSize = Math.min(100 * w * (innerWidth < 600 ? 1 : share) / el.scrollWidth, innerHeight * .26).toFixed(1) + "px";
+    });
+  }
+  document.fonts.ready.then(fit);
+  addEventListener("resize", fit);
+
+  // On scroll the headline drifts apart, the Flyer climbs away and the compass turns
+  if (!reduce) {
+    const l1 = $("#l1"), l2 = $("#l2"), flyer = $("#flyerBg"), compass = $("#compass");
+    let ticking = false;
+    addEventListener("scroll", () => {
+      if (ticking) return; ticking = true;
+      requestAnimationFrame(() => {
+        ticking = false;
+        const y = Math.min(scrollY, innerHeight), p = y / innerHeight;
+        l1.style.transform = `translateX(${-y * .25}px)`;
+        l2.style.transform = `translateX(${y * .25}px)`;
+        flyer.style.transform = `translate(${p * 40}vw, ${-p * 45}vh) rotate(${-p * 14}deg) scale(${1 - p * .3})`;
+        flyer.style.opacity = Math.max(0, .85 - p * 1.6);
+        compass.style.transform = `rotate(${scrollY * .15}deg)`;
+      });
+    }, { passive: true });
+  }
+
+  // ---------- 1903 ticker ----------
+  const tickerText = "Kitty Hawk, N.C.<i>★</i>December 17, 1903<i>★</i>12 seconds<i>★</i>120 feet<i>★</i>First in flight<i>★</i>AKD 30.0<i>★</i>February 20, 2027<i>★</i>";
+  $("#ticker").innerHTML = `<span>${tickerText}</span><span>${tickerText}</span>`;
+
+  // ---------- Lineup: each name pops up a postcard that leans its own way ----------
+  const tilts = [-6, 5, -3, 8, -7, 4, -2, 6, -5, 3, -8, 7, -4];
+  const peek = $("#peek"), peekImg = $("#peekImg"), peekName = $("#peekName");
+  const fill = (id, div) => {
+    $(id).innerHTML = D.teams.filter((t) => t.division === div)
+      .map((t) => `<li><button type="button" data-img="${t.img}" data-name="${t.name}" data-div="${t.division}" data-tilt="${tilts[D.teams.indexOf(t) % tilts.length]}">${t.name}</button></li>`).join("");
+  };
+  fill("#fusion", "Fusion"); fill("#bhangra", "Bhangra");
+  const show = (btn, x, y) => {
+    if (!peek.classList.contains("show") || peekImg.dataset.src !== btn.dataset.img) {
+      peekImg.src = "../assets/teams/" + btn.dataset.img;
+      peekImg.dataset.src = btn.dataset.img;
+      peekName.textContent = `${btn.dataset.name}, ${btn.dataset.div}`;
+      peek.style.setProperty("--tilt", btn.dataset.tilt + "deg");
+    }
+    peek.style.left = x + "px"; peek.style.top = y + "px";
+    peek.classList.add("show");
+  };
+  document.querySelectorAll(".names button").forEach((b) => {
+    b.addEventListener("pointermove", (e) => show(b, e.clientX, e.clientY));
+    b.addEventListener("pointerleave", () => peek.classList.remove("show"));
+    b.addEventListener("focus", () => { const r = b.getBoundingClientRect(); show(b, r.left + r.width / 2, r.top); });
+    b.addEventListener("blur", () => peek.classList.remove("show"));
+    b.addEventListener("click", () => { const r = b.getBoundingClientRect(); show(b, r.left + r.width / 2, r.top); });
+  });
+  addEventListener("scroll", () => peek.classList.remove("show"), { passive: true });
+
+  // ---------- Telegram types itself out once it's on screen ----------
+  const strips = [...document.querySelectorAll("#strips p")];
+  function typeAll() {
+    if (reduce) { strips.forEach((p) => { p.textContent = p.dataset.text; }); return; }
+    let i = 0;
+    const next = () => {
+      if (i >= strips.length) return;
+      const p = strips[i++], text = p.dataset.text;
+      let n = 0;
+      p.classList.add("typing");
+      const step = () => {
+        p.textContent = text.slice(0, ++n);
+        if (n < text.length) setTimeout(step, 28 + Math.random() * 40);
+        else { p.classList.remove("typing"); setTimeout(next, 220); }
+      };
+      step();
+    };
+    next();
+  }
+  const tio = new IntersectionObserver((es) => { if (es[0].isIntersecting) { typeAll(); tio.disconnect(); } }, { threshold: .35 });
+  tio.observe($("#strips"));
+
+  // ---------- Deadline countdowns ----------
+  function left(iso) {
+    const ms = new Date(iso) - Date.now();
+    if (ms <= 0) return "Closed";
+    const d = Math.floor(ms / 86400000), h = Math.floor(ms / 3600000) % 24;
+    return d > 0 ? `${d} day${d === 1 ? "" : "s"}, ${h} hr left` : `${h} hr left`;
+  }
+  const dl = () => { $("#dl-regular").textContent = left(D.apply.regular.at); $("#dl-latest").textContent = left(D.apply.latest.at); };
+  dl(); setInterval(dl, 60000);
+
+  // ---------- 1903 to 2027: the Flyer follows a dashed route as you scroll ----------
+  const route = $("#route"), svg = $("#pathSvg"), rp = $("#routePath"), plane = $("#routePlane");
+  let total = 0;
+  function drawRoute() {
+    const w = route.clientWidth, h = route.clientHeight + 40;
+    svg.setAttribute("viewBox", `0 0 ${w} ${h}`);
+    const d = w < 700
+      ? `M ${w * .1} ${h * .3} C ${w * .2} ${h * .18}, ${w * .3} ${h * .4}, ${w * .5} ${h * .45} S ${w * .85} ${h * .5}, ${w * .9} ${h * .62}`
+      : `M ${w * .08} ${h * .22} Q ${w * .16} ${h * .02}, ${w * .26} ${h * .2} C ${w * .4} ${h * .45}, ${w * .55} ${-h * .1}, ${w * .9} ${h * .18}`;
+    rp.setAttribute("d", d);
+    total = rp.getTotalLength();
+    place();
+  }
+  function place() {
+    const r = route.getBoundingClientRect();
+    const p = reduce ? 1 : Math.min(1, Math.max(0, (innerHeight - r.top) / (innerHeight * .75 + r.height * .3)));
+    const len = p * total;
+    const a = rp.getPointAtLength(len), b = rp.getPointAtLength(Math.min(total, len + 1));
+    plane.setAttribute("transform", `translate(${a.x} ${a.y}) rotate(${Math.atan2(b.y - a.y, b.x - a.x) * 180 / Math.PI})`);
+  }
+  drawRoute();
+  addEventListener("resize", drawRoute);
+  let routeTick = false;
+  addEventListener("scroll", () => { if (!routeTick) { routeTick = true; requestAnimationFrame(() => { routeTick = false; place(); }); } }, { passive: true });
+
+  $("#stamps").innerHTML = D.partners.map((p) => `<div class="stamp-frame"><div class="inner"><img src="../assets/logos/${p.img}" alt="${p.name}" loading="lazy"></div></div>`).join("");
+})();
+</script>
+</body>
+</html>

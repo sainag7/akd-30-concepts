@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Visitor info | AKD 30.0</title>
+<meta name="description" content="Getting to AKD 30.0, where to stay and where to eat.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rye&family=Special+Elite&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="site.css">
+<style>
+.info { display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px; }
+.info article { background: var(--paper-2); padding: 24px 24px 28px; box-shadow: 0 12px 28px rgba(74, 35, 18, .18); border-top: 8px solid var(--ink); }
+.info article:nth-child(1) { transform: rotate(-1deg); } .info article:nth-child(2) { transform: rotate(.8deg); } .info article:nth-child(3) { transform: rotate(-.6deg); }
+.info h2 { margin: 0 0 12px; font-size: clamp(24px, 2.4vw, 32px); }
+.info p { margin: 0; }
+
+/* Ruled logbook for food spots */
+.logbook { background: var(--paper-3); color: var(--ink); box-shadow: 0 16px 36px rgba(0, 0, 0, .3); padding: clamp(20px, 3vw, 36px);
+  background-image: linear-gradient(90deg, transparent 54px, rgba(181, 66, 47, .5) 54px 56px, transparent 56px), repeating-linear-gradient(transparent 0 39px, rgba(91, 141, 184, .45) 39px 40px); background-position: 0 0, 0 26px; }
+.logbook h2 { font-size: clamp(34px, 4.6vw, 60px); margin: 0 0 18px 66px; text-shadow: .045em .045em 0 rgba(181, 137, 91, .75); }
+.logbook table { width: 100%; border-collapse: collapse; }
+.logbook th { text-align: left; font-weight: 400; font-size: 13px; letter-spacing: .12em; text-transform: uppercase; color: var(--sepia); padding: 0 12px 8px; }
+.logbook td { padding: 9px 12px; height: 40px; vertical-align: top; font-size: 17px; }
+.logbook td:first-child, .logbook th:first-child { width: 66px; text-align: right; color: var(--sepia); }
+.logbook a { text-decoration-color: rgba(74, 35, 18, .4); text-underline-offset: 4px; }
+@media (max-width: 900px) {
+  .info { grid-template-columns: 1fr; }
+}
+@media (max-width: 600px) {
+  .logbook td:nth-child(3), .logbook th:nth-child(3) { display: none; }
+  .logbook h2 { margin-left: 0; }
+}
+</style>
+</head>
+<body>
+
+<header class="nav" data-page="visit"></header>
+
+<main>
+  <section class="page-head">
+    <div class="wrap">
+      <div class="bar"><span>Aaj Ka Dhamaka 30.0</span><span>Official Legends partner competition</span><span>02.20.2027</span></div>
+      <h1 class="cond">Visitor info</h1>
+      <p class="lede">For teams, families and anyone flying in for the show.</p>
+    </div>
+  </section>
+
+  <section class="band-light">
+    <div class="wrap info">
+      <article><h2 class="cond">Getting here</h2><p>Fly into Raleigh–Durham International (RDU). The show is at the John H. Gattis–Wendell Tabb Theater.</p></article>
+      <article><h2 class="cond">Where to stay</h2><p>Hotel block details will be posted here once they're confirmed.</p></article>
+      <article><h2 class="cond">Safety and wellness</h2><p>The SWA committee is on site all day. Find them at the wellness table by check-in.</p></article>
+    </div>
+  </section>
+
+  <div class="airmail-edge" aria-hidden="true"></div>
+  <section class="band-ink">
+    <div class="wrap">
+      <div class="logbook">
+        <h2 class="cond">Food near campus</h2>
+        <table>
+          <thead><tr><th>No.</th><th>Spot</th><th>Notes</th></tr></thead>
+          <tbody id="food"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer"></footer>
+
+<script src="../assets/data.js"></script>
+<script src="site.js"></script>
+<script>
+  document.querySelector("#food").innerHTML = window.AKD.food.map((f, i) => `
+    <tr><td>${String(i + 1).padStart(2, "0")}</td><td><a href="${f.maps}" target="_blank" rel="noopener">${f.name}</a></td><td>${f.note}</td></tr>`).join("");
+</script>
+</body>
+</html>

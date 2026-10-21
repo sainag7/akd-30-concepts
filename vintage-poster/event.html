@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Event details | AKD 30.0</title>
+<meta name="description" content="Date, venue and divisions for AKD 30.0.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rye&family=Special+Elite&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="site.css">
+<style>
+.event-grid { margin: 0; display: grid; grid-template-columns: repeat(4, 1fr); border-top: 4px double var(--ink); }
+.event-grid div { padding: 18px 18px 22px 0; border-bottom: 4px double var(--ink); }
+.event-grid div + div { padding-left: 18px; border-left: 1.5px dashed rgba(74, 35, 18, .4); }
+.event-grid dt { font-size: 13px; letter-spacing: .1em; text-transform: uppercase; color: var(--sepia); }
+.event-grid dd { margin: 6px 0 0; font-family: var(--display); text-transform: uppercase; font-size: clamp(22px, 2.4vw, 34px); line-height: 1.05; }
+
+.show { display: grid; grid-template-columns: 1.4fr 1fr; gap: clamp(30px, 6vw, 90px); align-items: center; margin-top: clamp(50px, 7vw, 90px); }
+.show h3 { margin: 0 0 10px; font-family: var(--display); font-weight: 400; font-size: 28px; }
+.show p { margin: 0 0 22px; max-width: 56ch; font-size: 18px; }
+
+/* Countdown as a red postmark: double ring, typed numbers, wavy cancel lines */
+.mark { position: relative; justify-self: center; width: clamp(270px, 28vw, 340px); }
+.count { position: relative; z-index: 1; aspect-ratio: 1; border-radius: 50%; color: var(--air-red); transform: rotate(-8deg);
+  border: 3px solid var(--air-red); box-shadow: inset 0 0 0 7px var(--paper), inset 0 0 0 9px var(--air-red);
+  display: grid; place-content: center; text-align: center; }
+.count .label { font-size: 13px; letter-spacing: .2em; text-transform: uppercase; }
+.count b { display: block; font-family: var(--display); font-weight: 400; font-size: clamp(84px, 9vw, 116px); line-height: .9; margin: 4px 0; }
+.count > span { font-size: 16px; letter-spacing: .14em; text-transform: uppercase; }
+.clock { display: flex; justify-content: center; gap: 6px; margin-top: 12px; padding-top: 12px; border-top: 2px dashed rgba(181, 66, 47, .55); }
+.clock div { min-width: 2.6ch; }
+.clock strong { display: block; font-family: var(--type); font-weight: 400; font-size: clamp(26px, 2.8vw, 34px); line-height: 1; font-variant-numeric: tabular-nums; }
+.clock small { display: block; font-size: 11px; letter-spacing: .1em; text-transform: uppercase; opacity: .85; }
+.clock i { font-style: normal; font-size: clamp(26px, 2.8vw, 34px); line-height: 1; opacity: .7; }
+.waves { position: absolute; z-index: 0; left: 62%; top: 30%; width: 70%; color: var(--air-red); opacity: .45; }
+
+.venue { display: grid; grid-template-columns: 1.2fr 1fr; gap: clamp(30px, 6vw, 90px); align-items: end; }
+.venue .name { margin: 0; font-size: clamp(42px, 5.6vw, 84px); }
+.venue p { margin: 0 0 16px; font-size: 18px; max-width: 46ch; }
+
+@media (max-width: 900px) {
+  .event-grid { grid-template-columns: 1fr 1fr; }
+  .event-grid div:nth-child(3) { padding-left: 0; border-left: 0; }
+  .show, .venue { grid-template-columns: 1fr; }
+  .waves { display: none; }
+}
+@media (max-width: 600px) {
+  .event-grid { grid-template-columns: 1fr; }
+  .event-grid div + div { padding-left: 0; border-left: 0; }
+}
+</style>
+</head>
+<body>
+
+<header class="nav" data-page="event"></header>
+
+<main>
+  <section class="page-head">
+    <div class="wrap">
+      <div class="bar"><span>Aaj Ka Dhamaka 30.0</span><span>Official Legends partner competition</span><span>02.20.2027</span></div>
+      <h1 class="cond">Event details</h1>
+      <p class="lede">Everything you need to know about the show. Times and ticket links go live as soon as they're confirmed.</p>
+    </div>
+  </section>
+
+  <section class="band-light">
+    <div class="wrap">
+      <dl class="event-grid">
+        <div><dt>Date</dt><dd>Sat, Feb 20, 2027</dd></div>
+        <div><dt>Venue</dt><dd>Gattis–Tabb Theater</dd></div>
+        <div><dt>Divisions</dt><dd>Fusion and Bhangra</dd></div>
+        <div><dt>Showtime</dt><dd>To be announced</dd></div>
+      </dl>
+      <div class="show">
+        <div>
+          <h3>The show</h3>
+          <p>AKD 30.0 is an official Legends partner competition. The best collegiate Fusion and Bhangra teams in the country share one stage for one night in North Carolina, the state that was first in flight.</p>
+          <h3>Schedule</h3>
+          <p>Doors, showtime and awards times will be posted here once they're confirmed.</p>
+          <a class="btn btn-red" href="#">Get tickets</a>
+        </div>
+        <div class="mark">
+          <svg class="waves" viewBox="0 0 200 90" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="3"><path d="M0 12 q8 -10 16 0 t16 0 t16 0 t16 0 t16 0 t16 0 t16 0 t16 0 t16 0 t16 0 t16 0 t16 0 t16 0"/><path d="M0 34 q8 -10 16 0 t16 0 t16 0 t16 0 t16 0 t16 0 t16 0 t16 0 t16 0 t16 0 t16 0 t16 0 t16 0"/><path d="M0 56 q8 -10 16 0 t16 0 t16 0 t16 0 t16 0 t16 0 t16 0 t16 0 t16 0 t16 0 t16 0 t16 0 t16 0"/><path d="M0 78 q8 -10 16 0 t16 0 t16 0 t16 0 t16 0 t16 0 t16 0 t16 0 t16 0 t16 0 t16 0 t16 0 t16 0"/></g></svg>
+          <div class="count" role="timer" aria-label="Time until the show">
+            <span class="label">Departs in</span>
+            <b id="cd-d">125</b><span>days</span>
+            <div class="clock">
+              <div><strong id="cd-h">00</strong><small>hrs</small></div><i>:</i>
+              <div><strong id="cd-m">00</strong><small>min</small></div><i>:</i>
+              <div><strong id="cd-s">00</strong><small>sec</small></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band-plain">
+    <div class="wrap venue">
+      <p class="name cond">John H. Gattis–Wendell Tabb Theater</p>
+      <div>
+        <p>Directions, parking and accessibility details will be posted here once they're confirmed.</p>
+        <a class="btn btn-ink" href="visit.html">Visitor info</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer"></footer>
+
+<script src="../assets/data.js"></script>
+<script src="site.js"></script>
+<script>
+  // Live countdown to show day (midnight Eastern on Feb 20, 2027; showtime is still TBA)
+  (() => {
+    const target = new Date("2027-02-20T00:00:00-05:00").getTime();
+    const pad = (n) => String(n).padStart(2, "0");
+    const el = (id) => document.getElementById(id);
+    function tick() {
+      let t = Math.max(0, Math.floor((target - Date.now()) / 1000));
+      const d = Math.floor(t / 86400); t -= d * 86400;
+      const h = Math.floor(t / 3600); t -= h * 3600;
+      const m = Math.floor(t / 60), s = t - m * 60;
+      el("cd-d").textContent = d; el("cd-h").textContent = pad(h); el("cd-m").textContent = pad(m); el("cd-s").textContent = pad(s);
+    }
+    tick(); setInterval(tick, 1000);
+  })();
+</script>
+</body>
+</html>

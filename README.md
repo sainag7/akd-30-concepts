@@ -4,6 +4,10 @@ Homepage directions for the AKD 30.0 "First in Flight" season.
 
 **View them here: https://sainag7.github.io/akd-30-concepts/**
 
+Round 4:
+
+- **Vintage Poster**: the Lineup Poster layout and pages in the Air Mail style, with sepia photos, Rye wood type, stamps, a postmark countdown and a telegram
+
 Round 3, styled after the "Applications are live" post:
 
 - **Air Mail**: aged paper, wood-type headlines, a sketched biplane, a telegram with application deadlines and sepia team postcards
