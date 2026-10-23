@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Board Names Mockup | AKD 30.0</title>
+<meta name="description" content="Two ways to show board member names on the AKD 30.0 Board page.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rye&family=Special+Elite&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="site.css">
+<style>
+.option-head { display: flex; align-items: baseline; gap: 18px; flex-wrap: wrap; margin-bottom: 10px; }
+.option-head h2 { margin: 0; font-size: clamp(34px, 5vw, 64px); }
+.option-head .pick { font-size: 14px; letter-spacing: .12em; text-transform: uppercase; padding: 4px 10px; border: 2px solid var(--air-red); color: var(--air-red); transform: rotate(-3deg); }
+.option-lede { max-width: 62ch; margin: 0 0 44px; font-size: 18px; }
+.album { display: grid; grid-template-columns: repeat(3, 1fr); gap: 54px 36px; align-items: start; }
+
+/* Shared print look from the Board page */
+.print { position: relative; margin: 0; padding: 10px 10px 0; background: #F8F1E1; box-shadow: 0 10px 24px rgba(74, 35, 18, .22); transform: rotate(var(--tilt)); }
+.print .ph { aspect-ratio: 4 / 3; overflow: hidden; }
+.print img { width: 100%; height: 100%; object-fit: cover; filter: sepia(.35) saturate(.9) contrast(1.03); }
+.print i { position: absolute; width: 30px; height: 30px; background: var(--ink-deep); z-index: 2; }
+.print i:nth-of-type(1) { left: -6px; top: -6px; clip-path: polygon(0 0, 100% 0, 0 100%); }
+.print i:nth-of-type(2) { right: -6px; top: -6px; clip-path: polygon(0 0, 100% 0, 100% 100%); }
+.print i:nth-of-type(3) { left: -6px; bottom: -6px; clip-path: polygon(0 0, 100% 100%, 0 100%); }
+.print i:nth-of-type(4) { right: -6px; bottom: -6px; clip-path: polygon(100% 0, 100% 100%, 0 100%); }
+.committee { padding: 12px 2px 6px; text-align: center; font-family: var(--display); text-transform: uppercase; font-size: clamp(17px, 1.6vw, 21px); }
+
+/* ---------- Option 1: names typed under the print, left to right ---------- */
+.names { padding: 6px 8px 18px; border-top: 1px dashed rgba(74, 35, 18, .35); margin: 0 4px; }
+.names .row-label { display: block; margin: 10px 0 2px; font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--sepia); }
+.names ul { list-style: none; margin: 0; padding: 0; }
+.names li { font-size: 16px; line-height: 1.5; }
+.names li span { color: var(--sepia); }
+
+/* ---------- Option 2: tap the print to flip it over and read the back ---------- */
+.flip { perspective: 1400px; cursor: pointer; display: block; }
+.flip .card { position: relative; display: grid; transform-style: preserve-3d; transition: transform .7s cubic-bezier(.3, .7, .2, 1); transform: rotate(var(--tilt)); }
+.flip[aria-pressed="true"] .card { transform: rotate(var(--tilt)) rotateY(180deg); }
+.flip .side { grid-area: 1 / 1; backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+.flip .print { transform: none; }
+.flip .hint { display: block; padding: 0 2px 14px; text-align: center; font-size: 13px; letter-spacing: .1em; text-transform: uppercase; color: var(--sepia); }
+.flip .back { transform: rotateY(180deg); background: #F8F1E1; box-shadow: 0 10px 24px rgba(74, 35, 18, .22); padding: 22px 22px 18px; display: flex; flex-direction: column;
+  background-image: repeating-linear-gradient(transparent 0 27px, rgba(91, 141, 184, .25) 27px 28px); background-position: 0 62px; }
+.flip .back h3 { margin: 0 0 4px; font-family: var(--display); font-weight: 400; text-transform: uppercase; font-size: 22px; }
+.flip .back .meta { font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--sepia); margin-bottom: 8px; }
+.flip .back .row-label { display: block; margin-top: 4px; font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--sepia); line-height: 28px; }
+.flip .back ul { list-style: none; margin: 0; padding: 0; }
+.flip .back li { font-size: 16px; line-height: 28px; }
+.flip .back li span { color: var(--sepia); }
+.flip .back .stamp { align-self: flex-end; margin-top: auto; padding: 4px 10px; border: 2px solid var(--air-red); color: var(--air-red); font-size: 12px; letter-spacing: .12em; text-transform: uppercase; transform: rotate(-6deg); opacity: .8; }
+
+.notes { max-width: 70ch; }
+.notes h2 { font-size: clamp(30px, 4vw, 48px); margin-bottom: 16px; }
+.notes p, .notes li { font-size: 17px; }
+.notes code { font-family: var(--type); background: rgba(74, 35, 18, .08); padding: 1px 6px; }
+.notes pre { background: var(--paper-3); border: 1px dashed rgba(74, 35, 18, .4); padding: 16px; overflow-x: auto; font-size: 14px; line-height: 1.5; }
+
+@media (max-width: 900px) { .album { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 600px) { .album { grid-template-columns: 1fr; } }
+@media (prefers-reduced-motion: reduce) { .flip .card { transition: none; } }
+</style>
+</head>
+<body>
+
+<header class="nav" data-page="board"></header>
+
+<main>
+  <section class="page-head">
+    <div class="wrap">
+      <div class="bar"><span>Mockup</span><span>Board page, member names</span><span>Placeholder names</span></div>
+      <h1 class="cond">Board names</h1>
+      <p class="lede">Two ways to put names on the Board page, using this year's photos. Names are placeholders. Both list people left to right, the way old photo albums were labeled.</p>
+    </div>
+  </section>
+
+  <section class="band-light">
+    <div class="wrap">
+      <div class="option-head"><h2 class="cond">Option 1: Album captions</h2><span class="pick">Recommended</span></div>
+      <p class="option-lede">Names are typed under each print, left to right, with back and front rows labeled for bigger groups. Everyone's name is visible right away, on any phone, with nothing to tap.</p>
+      <div class="album" id="captions"></div>
+    </div>
+  </section>
+
+  <section class="band-plain">
+    <div class="wrap">
+      <div class="option-head"><h2 class="cond">Option 2: Back of the photo</h2></div>
+      <p class="option-lede">Tap a print to flip it over and read the names written on the back. It's more playful, but people have to tap each committee to see who's in it.</p>
+      <div class="album" id="flips"></div>
+    </div>
+  </section>
+
+  <section class="band-light">
+    <div class="wrap notes">
+      <h2 class="cond">How it would work</h2>
+      <p>Each committee in <code>assets/data.js</code> gets a <code>members</code> list in left-to-right order. Roles are optional. Groups shot in two rows list each row separately.</p>
+<pre>{ committee: "Directors", img: "directors.jpg",
+  members: [["First Last", "Co-Director"], ["First Last", "Co-Director"], ["First Last", "Co-Director"]] },
+{ committee: "Hospitality", img: "hospitality.jpg",
+  rows: { "Back row": ["First Last", "First Last", "First Last", "First Last"],
+          "Front row": ["First Last", "First Last"] } }</pre>
+      <p>Send me a list like your committee spreadsheet, with names in left-to-right order for each photo, and I'll add them to whichever option you pick.</p>
+    </div>
+  </section>
+</main>
+
+<footer class="footer"></footer>
+
+<script src="../assets/data.js"></script>
+<script src="site.js"></script>
+<script>
+  // Placeholder names, in left-to-right order as they stand in each photo
+  const committees = [
+    { committee: "Directors", img: "directors.jpg", tilt: -2,
+      rows: { "": [["First Last", "Co-Director"], ["First Last", "Co-Director"], ["First Last", "Co-Director"]] } },
+    { committee: "Hospitality", img: "hospitality.jpg", tilt: 1.5,
+      rows: { "Back row": [["First Last"], ["First Last"], ["First Last"], ["First Last"]], "Front row": [["First Last"], ["First Last"]] } },
+    { committee: "Tech", img: "tech.jpg", tilt: -1,
+      rows: { "": [["First Last"], ["First Last"]] } }
+  ];
+  const corners = "<i></i><i></i><i></i><i></i>";
+  const nameList = (rows, labelClass) => Object.entries(rows).map(([label, people]) => `
+      ${label ? `<span class="${labelClass}">${label}</span>` : `<span class="${labelClass}">Left to right</span>`}
+      <ul>${people.map(([n, role]) => `<li>${n}${role ? `<span>, ${role}</span>` : ""}</li>`).join("")}</ul>`).join("");
+  const img = (c) => `<div class="ph"><img src="../assets/board27/${c.img}" alt="The ${c.committee} committee" loading="lazy"></div>`;
+
+  document.getElementById("captions").innerHTML = committees.map((c) => `
+    <figure class="print" style="--tilt:${c.tilt}deg">
+      ${corners}${img(c)}
+      <figcaption>
+        <div class="committee">${c.committee}</div>
+        <div class="names">${nameList(c.rows, "row-label")}</div>
+      </figcaption>
+    </figure>`).join("");
+
+  document.getElementById("flips").innerHTML = committees.map((c) => `
+    <div class="flip" role="button" tabindex="0" aria-pressed="false" aria-label="${c.committee}: show names" style="--tilt:${c.tilt}deg">
+      <span class="card">
+        <span class="side front"><figure class="print">${corners}${img(c)}<div class="committee">${c.committee}</div><span class="hint">Tap to see who's who</span></figure></span>
+        <span class="side back"><h3>${c.committee}</h3><span class="meta">AKD 30.0 board</span>${nameList(c.rows, "row-label")}<span class="stamp">Chapel Hill, N.C.</span></span>
+      </span>
+    </div>`).join("");
+  const toggle = (b) => {
+    const on = b.getAttribute("aria-pressed") !== "true";
+    b.setAttribute("aria-pressed", on);
+    b.setAttribute("aria-label", `${b.querySelector("h3").textContent}: ${on ? "show photo" : "show names"}`);
+  };
+  document.querySelectorAll(".flip").forEach((b) => {
+    b.addEventListener("click", () => toggle(b));
+    b.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); toggle(b); } });
+  });
+</script>
+</body>
+</html>
